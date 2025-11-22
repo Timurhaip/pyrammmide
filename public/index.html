@@ -1,0 +1,1994 @@
+<!doctype html>
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+body {
+  background-color: black;
+overflow: hidden;
+}
+button {
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+        .but {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    height: 50px;
+    width: 50px;
+    border-radius: 100%; /* Радиус скругления */
+     border: none
+        }
+        #main{
+            margin-left:500px;
+            color:blueviolet;
+            font-family: Impact, fantasy;
+            font-weight: bold;
+            position:absolute;
+            left:-100%;
+            top:0%;
+        }
+        .tes {
+            position: absolute;
+            left:36%;
+            top: 30%;
+            height: 30%;
+            width: 30%;
+        }
+        #btnn {
+            position: absolute;
+            top: 90%;
+            left: 36%;
+            width: 30%; 
+            height: 5%; /* Размеры кнопки */
+            background-color: blueviolet; /* Цвет фона */
+            border-radius: 10%; /* Радиус скругления */
+            border: none; /* Убираем рамку вокруг кнопки */ 
+        }
+        .popup {
+  position: absolute;
+  top: 50%;
+  left: 52%;
+  transform: translate(-50%, -50%); 
+  width: 50%;
+  height: 50%;
+  background-color: blueviolet;
+  z-index: 9999;
+  border-radius: 17%;
+}
+.popup2 {
+  position: absolute;
+  top: 50%;
+  left: 52%;
+  transform: translate(-50%, -50%); 
+  width: 50%;
+  height: 50%;
+  background-color: blueviolet;
+  z-index: 9998;
+  border-radius: 17%;
+}
+.popup3 {
+  position: absolute;
+  top: 50%;
+  left: 52%;
+  transform: translate(-50%, -50%); 
+  width: 70%;
+  height: 70%;
+  background-color: white;
+  z-index: 9999;
+  border-radius: 10%;
+}
+.wallet {
+   width: 35%;
+   height: 5%;
+   position: absolute;
+   left: 0%;
+   top: 0%; 
+   background-color: white;
+   border: 0px;
+   border-radius: 10%;
+}
+.walletimg {
+    width: 20%;
+   height: 100%;
+   position: absolute;
+   left: 0%;
+   top: 0%;
+}
+.bal{
+    position: absolute;
+    left: 25%;
+    top: 5%;
+    font-family: Impact, fantasy;
+    font-size: 150%;
+    font-weight: bold;
+}
+.back_button{
+    position: absolute;
+    left:79%;
+    top:0%;
+    width: 11%;
+    height:7%;
+    border: 100%;
+    border-radius: 40%;
+    background-color: transparent;
+}
+.backimg{
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    height: 100%;
+    width:100%;
+}
+.getbutton{
+    position: absolute;
+    top: 30%;
+    left: 5%;
+    height: 10%;
+    width: 17%;
+    border-radius: 100%; /* Радиус скругления */
+     border: none
+
+}
+.getimg {
+    height: 60%;
+    width: 60%;
+}
+.copybutton {
+    position: absolute;
+    top: 20%;
+    outline: none; /* Для синий ободки */
+  border: 0;
+  background: transparent;
+  width: 50%;
+  height: 50%;
+}
+.copyimg {
+    height: 20px;
+    width: 20px;
+}
+.sendbutton{
+    position: absolute;
+    top: 30%;
+    left: 80%;
+    height: 10%;
+    width: 17%;
+    border-radius: 100%; /* Радиус скругления */
+     border: none
+
+}
+.sendimg {
+    height: 60%;
+    width: 60%;
+}
+.address {
+    position: absolute;
+    top: 25%;
+    border-radius: 10%; /* Радиус скругления */
+}
+.adtext {
+    position: absolute;
+    top: 17%;
+    font-family: Impact, fantasy;
+    font-weight: bold;
+}
+.toggle-button {
+            position: absolute;
+            left: 7.5%;
+            width: 20%;
+            height: 10%;
+            border-radius: 50%;
+            background-color: lightgray;
+            border: none;
+            cursor: pointer;
+            font-size: 100%;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+.toggle-button.active {
+            background-color: green;
+        }
+.faucet {
+         position: absolute;
+    top: 25%;
+    left: 40%;
+    height: 10%;
+    width: 20%;
+    border-radius: 100%; /* Радиус скругления */
+    border: none 
+    }
+.testtext {
+    position: absolute;
+    top: -4%;
+    left: 31%;
+    font-family: Impact, fantasy;
+    font-size: 100%;
+    font-weight: bold;
+
+}
+.back_button1 {
+    position: absolute;
+    top: 0%;
+    left: 81%;
+    width: 11%;
+    height:7%;
+    border: 100%;
+    border-radius: 40%;
+    background-color: transparent;
+
+}
+.number {
+    position: absolute;
+    top: 50%;
+    left: 0%;
+    width: -100%;
+    height: 0%
+}
+.investleague{
+    position: absolute;
+    top: 49.5%;
+    left: 40%;
+    background-color: rgb(0, 0, 168);
+    height: 7%;
+    width: 25%;
+    border-radius: 10px;
+}
+.status_bar{
+    position: absolute;
+    top: 16%;
+    left: 5%;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 100%;
+    font-weight: bold;
+}
+.timer{
+    position: absolute;
+    top: 40%;
+    left: 42%;
+    font-family: Impact, fantasy;
+    font-size: 125%;
+    font-weight: bold;
+}
+.inf {
+   position: absolute;
+    top: 5%;
+    left: 77%;
+    width: 15%;
+    height: 10%;  
+    background-color: transparent;
+    border-color: transparent;
+    border-radius: 100%;
+}
+.infimg {
+    position: absolute;
+    top: 5%;
+    left: 0%;
+    width: 100%;
+    height: 100%;  
+}
+.back_button2{
+    position: absolute;
+    left:87%;
+    top:0%;
+    width: 11%;
+    height:7%;
+    border: 100%;
+    border-radius: 30%;
+    background-color: transparent;
+
+}
+.tutorial{
+    position: absolute;
+    left: -15%;
+    top: 6%;
+    width: 150%;
+    height: 100%;
+}
+.textinvst{
+    position: absolute;
+    top: -40%;
+    left: 24%;
+    font-size: 120%;
+    font-weight: bold;
+}
+.status_bar2{
+    font-size: 125%;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bold;
+
+}
+.inftext{
+    position: absolute;
+    top: 5%;
+   font-size: 75%;
+   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bold;
+}
+.inftext2{
+position: absolute;
+top: 50%;
+left: 2.5%;
+font-size: 75%;
+font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+font-weight: bold;
+}
+.bal_vis{
+    position: absolute;
+    left: 25%;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 120%;
+    z-index: 9999;
+    top: -30%;
+    font-weight: bold;
+}
+.tes_coin{
+position: absolute;
+top: 80%;
+left: 43%;
+    display: none;
+    width:20%;
+    height:10%;
+    z-index: 9999;
+    transition: transform 3s ease;
+}
+.yourleague{
+    position: absolute;
+    top:-5%;
+    left: 5%;
+    font-size: 120%;
+   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bold;
+
+}
+.sended{
+    position: absolute;
+    top: 85%;
+    left: 42%;
+    font-family: Impact, fantasy;
+    font-size: 125%;
+    font-weight: bold;
+}
+.bal_mon{
+    position: absolute;
+    width: 5%;
+    height: 3%;
+    top: 0.7%;
+    left: 17%;
+}
+.ton {
+    position: absolute;
+    width: 30%;
+    height: 15%;
+    left:40%;
+    top: 9%;
+}
+    </style>
+  <body>
+    <img class="tes" src="Tesseract.gif" alt="Tesseract gif">
+    <img id="box" class="tes_coin" src="tsccoin.png" alt="coin">
+    <button id="wallet" type="button" onclick="log()" class="wallet"><img class="walletimg" src="wallet4.png" alt="WALLET">
+    <p class="bal_vis" id="bal1">undefined</p></button>
+    <img class="bal_mon" src="tsccoin.png">
+    <button id="btnn" type="button" style="font-family:Impact, fantasy;" onclick="openPopup(false)" class="btnn"><p class="textinvst">INVEST</p></button>
+    <div class="popup3">
+        <img src="infomap.png" alt="tutorial" class="tutorial">
+        <p class="inftext"> sum1 = S league debt*; tax = ((sum1 * 10) / 100) * 2; sum2 = sum1 + tax + G league debt; sum3 = any number; sum4 = sum2 + sum3 + tax; sum5 = any number; sum6 = B league debt + tax + sum4 + sum5</p>
+        <button onclick="closePopup2()" class="back_button2" id="back_button2"><img src="delete_13906047-Photoroom.png" alt="back" class="backimg"></button>
+        <p class="inftext2">league debt - each cycle at the end of the G league ends up in the minus, after redistribution by leagues the sum of the debt of all users in one league is the league debt; tax distribution - 50% of the tax goes to the user's income, and the other 50% to the creators</p>
+        </div>
+    <div class="popup">
+        <p class="yourleague" id="your">Loading...</p>
+        <p id="status_bar" class="status_bar">Loading...</p>
+        <p id="status_bar2" class="status_bar2">Loading...</p>
+        <input type="number" id="number" class="number" style="font-size: 100%; font-family:Impact, fantasy; border: 1px solid #ccc; border-radius: 10px; padding: 8px; width: 100px; box-sizing: border-box;" placeholder="0">
+        <button onclick="start()" class="investleague" id="investleague" style="font-family:Impact, fantasy; position:absolute;;">PAY</button>
+        <div id="timer" class="timer">Loading...</div>
+        <button onclick="closePopup(false)" class="back_button1" id="back_button1"><img src="delete_13906047-Photoroom.png" alt="back" class="backimg"></button>
+        <p class="sended" id="sended">Loading...</p>
+    </div>
+        <div class="popup2" id="popup2">
+            <p class="testtext">:Test Mode</p>
+            <button class="toggle-button" id="toggleButton">OFF</button>
+            <p id="bal" class="bal" >NONE</p>
+            <img class="ton" id="ton" src="ton-no-bg-preview (carve.photos).png">
+<button onclick="copyText()" id="copy" class="copybutton"><img src="copy-Photoroom.png" alt="Copy" class="copyimg"></button>
+            <button onclick="get(true)" class="getbutton" id="getbutton"><img src="get.png" alt="get" class="getimg"></button>
+            <button onclick="send(true)" class="sendbutton" id="sendbutton"><img src="send.png" alt="send" class="sendimg"></button>
+            <button onclick="closePopup(true)" class="back_button" id="back_button"><img src="delete_13906047-Photoroom.png" alt="back" class="backimg"></button>
+           <button onclick="openPopup2()" class="inf" id="inf"><img src="inf-Photoroom.png" alt="information" class="infimg"></button>
+        </div>
+            
+  </body>
+<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+<script>
+let isActive = false;
+const web3 = new Web3('https://mainnet.infura.io/v3/6f6b79491b0b4cdd990d2368c20d7d52');
+document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))}`
+function formatTime(seconds) {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+  }
+async function updateTimer() {
+      const response2 = await fetch('/time');
+      const data2 = await response2.json();
+      let remainingSeconds = Math.ceil(data2.remaining / 1000);
+      return new Promise((resolve) => {
+    const intervalId = setInterval(() => {
+      if (remainingSeconds <= 0) {
+        document.getElementById('timer').textContent = "0:00";
+        clearInterval(intervalId);
+        resolve(); // Таймер завершился, разрешаем промис
+      } else {
+        document.getElementById('timer').textContent = formatTime(remainingSeconds);
+        remainingSeconds--;
+      }
+    }, 1000);
+  });
+}
+  // Запускаем обновление таймера при загрузке страницы
+function closePopup(wallet) {
+        if (!wallet){
+      var popup1 = document.querySelector('.popup');;
+      popup1.style.display = 'none';
+    }else{
+        var popup = document.querySelector('.popup2');
+      popup.style.display = 'none'
+      if(isActive){
+      isActive = false
+      document.getElementById("ton").style.display = "block"
+      let faucet = document.querySelector(".faucet")
+      faucet.style.display = "none"
+      let account = JSON.parse(localStorage.getItem("WALLET"))
+      web3.eth.getBalance(account[0].address)
+      .then(balance => {
+        document.getElementById("bal").innerHTML = `${balance}`
+        const button = document.getElementById('toggleButton');
+        button.display = "block"
+      })}
+    }
+    
+    }
+function openPopup(wallet) {
+        if (!wallet){
+      var popup = document.querySelector('.popup');
+      popup.style.display = 'block';
+      const openBtn = document.querySelector(".btnn");
+document.addEventListener('click', function (e) {
+  // проверяем, что клик не по popup и не по кнопке открытия
+  if (!popup.contains(e.target) && !openBtn.contains(e.target)) {
+    closePopup();
+  }
+});
+ document.removeEventListener('click', function (e) {
+  // проверяем, что клик не по popup и не по кнопке открытия
+  if (!popup.contains(e.target) && !openBtn.contains(e.target)) {
+    closePopup();
+  }})
+    }
+        else {
+        var popup = document.querySelector('.popup2');
+      popup.style.display = 'block';
+      let account = JSON.parse(localStorage.getItem("WALLET"))
+      console.log(account)
+      web3.eth.getBalance(account[0].address)
+      .then(balance => {
+        document.getElementById("bal").innerHTML = `${balance}`
+        const button = document.getElementById('toggleButton');
+        button.display = "block"
+      });
+    let elem =  document.getElementById("copy")
+    elem.style.display = "none"
+    let getb =  document.getElementById("getbutton")
+    getb.style.display = "block"
+    let sendb =  document.getElementById("sendbutton")
+    sendb.style.display = "block"
+    let addresss =  document.querySelector('.address')
+    if(addresss){
+    addresss.style.display = "none"
+    let address2 =  document.getElementsByClassName("adtext")
+    address2.style.display = "none"
+          }
+    const openBtn = document.querySelector(".wallet");
+document.addEventListener('click', function (e) {
+  // проверяем, что клик не по popup и не по кнопке открытия
+  if (!popup.contains(e.target) && !openBtn.contains(e.target)) {
+    closePopup(true);
+  }
+})
+    }
+        } 
+closePopup()
+function closePopup2() {
+        
+      var popup1 = document.querySelector('.popup3');;
+      popup1.style.display = 'none';
+    
+    }
+function openPopup2() {
+      var popup = document.querySelector('.popup3');
+      popup.style.display = 'block';
+      const openBtn = document.querySelector(".inf");
+document.addEventListener('click', function (e) {
+  // проверяем, что клик не по popup и не по кнопке открытия
+  if (!popup.contains(e.target) && !openBtn.contains(e.target)) {
+    closePopup2();
+  }
+});
+    
+    } 
+
+closePopup2()
+closePopup(true)
+        //localStorage.setItem("LOGIN", JSON.stringify(false))
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+function log() {
+            let login = JSON.parse(localStorage.getItem("LOGIN"))
+            if (!login){
+                let account = web3.eth.accounts.wallet.create(1);
+                console.log(account)
+                localStorage.setItem("WALLET", JSON.stringify(account))
+                localStorage.setItem("LOGIN", JSON.stringify(true))
+                openPopup(true);
+                return
+            }else{
+                document.getElementById('back_button').onclick = function() {
+                    closePopup(true);
+                };
+                const bal = document.getElementById("bal")
+                bal.style.fontsize = "150%";
+                bal.style.left = "35%"
+                openPopup(true);
+                return
+            }
+        }
+function get(bool) {
+    return
+            if (bool){
+                document.getElementById('toggleButton').display = "none"
+                document.getElementById('back_button').onclick = function() {
+                    get(false);
+                };
+                let sendb =  document.getElementById("sendbutton")
+                sendb.style.display = "none"
+                let account = JSON.parse(localStorage.getItem("WALLET"))
+                document.getElementById("bal").innerHTML = `${account[0].address}`
+                const bal = document.getElementById("bal")
+                bal.style.fontsize = "2%";
+                bal.style.left = "0%"
+                let elem =  document.getElementById("copy")
+                elem.style.display = "block"
+                let getb =  document.getElementById("getbutton")
+                getb.style.display = "none"
+    
+            }else{
+                const button = document.getElementById('toggleButton');
+                button.display = "block"
+                let getb =  document.getElementById("getbutton")
+                getb.style.display = "block"
+                let sendb =  document.getElementById("sendbutton")
+                sendb.style.display = "block"
+                let account = JSON.parse(localStorage.getItem("WALLET"))
+                const bal = document.getElementById("bal")
+                bal.style.fontsize = "150%";
+                bal.style.left = "35%"
+                document.getElementById('back_button').onclick = function() {
+                    closePopup(true);
+                };
+        web3.eth.getBalance(account[0].address)
+        .then(balance => {
+            document.getElementById("bal").innerHTML = `${balance}`
+      })
+      let elem =  document.getElementById("copy")
+     elem.style.display = "none"
+            }
+    
+            }
+function copyText() {
+            const textElement = document.getElementById("bal");
+            const textarea = document.createElement("textarea");
+            textarea.value = textElement.innerText; // Сохраняем текст из p
+            document.body.appendChild(textarea);
+            textarea.select();
+            textarea.setSelectionRange(0, 99999); // Для мобильных устройств
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            alert("Address copied")
+        }
+function send(bool){
+        alert("Sorry, currently unavailable")
+        return 0;
+       if(bool){
+        const button = document.getElementById('toggleButton');
+        button.display = "none"
+        let sendb =  document.getElementById("sendbutton")
+        sendb.style.display = "none"
+        let getb =  document.getElementById("getbutton")
+        getb.style.display = "none"
+        document.getElementById('back_button').onclick = function() {
+                    send(false);
+                };
+        let input = document.createElement('input');
+        let p = document.createElement('p')
+        input.className = "address"
+        const container = document.getElementById('popup2')
+        container.appendChild(input)
+        p.innerHTML = "Enter address:"
+        p.className = "adtext"
+        container.appendChild(p)
+       }else{
+        const button = document.getElementById('toggleButton');
+        button.display = "block"
+        let sendb =  document.getElementById("sendbutton")
+        sendb.style.display = "block"
+        let addresss = document.querySelector('.address');
+        addresss.style.display = "none"
+        let address2 =  document.querySelector('.adtext')
+        address2.style.display = "none"
+        let getb =  document.getElementById("getbutton")
+        getb.style.display = "block"
+        document.getElementById('back_button').onclick = function() {
+            closePopup(true);
+       } }
+    //ПОТОМ ДОДЕЛАТЬ ФУНКЦИЮ send() И РЕАЛИЗОВАТЬ ВЫВОД ЭФИРОВ
+    }
+const button = document.getElementById('toggleButton');
+let id = -1    
+button.addEventListener('click', () => {
+            isActive = !isActive; // Меняем состояние
+            button.classList.toggle('active', isActive); // Изменяем класс для стиля
+            button.textContent = isActive ? 'ON' : 'OFF'; // Обновляем текст кнопки
+            if(isActive){
+                let getb =  document.getElementById("getbutton")
+                getb.style.display = "none"
+                let sendb =  document.getElementById("sendbutton")
+                document.getElementById("ton").style.display = "none"
+                sendb.style.display = "none"
+                if(!localStorage.getItem("TESTBAL")){
+                    localStorage.setItem("TESTBAL", JSON.stringify(0))
+                }else{
+                document.getElementById("bal").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
+                document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))}`
+                if(!document.querySelector(".faucet")){
+                    let but = document.createElement('button')
+                    const container = document.getElementById('popup2')
+                    but.className = "faucet"
+                    but.innerHTML = '<img src="faucet.webp" alt="faucet" width="50%" height="50%">'
+                    but.onclick = function() {
+                    let balance = JSON.parse(localStorage.getItem("TESTBAL"))
+                    balance += 1
+                    localStorage.setItem("TESTBAL", JSON.stringify(balance))
+                    document.getElementById("bal").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
+                    document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))}`
+                };
+                    container.appendChild(but)
+                     console.log("work1")
+                }else{
+                    faucet = document.querySelector(".faucet")
+                    faucet.style.display = "block"
+                }
+                }
+            }else{
+     document.getElementById("ton").style.display = "block"
+      let faucet = document.querySelector(".faucet")
+      faucet.style.display = "none"
+      let account = JSON.parse(localStorage.getItem("WALLET"))
+      web3.eth.getBalance(account[0].address)
+      .then(balance => {
+        document.getElementById("bal").innerHTML = `${balance}`
+        const button = document.getElementById('toggleButton');
+        button.display = "block"
+      });
+      let getb =  document.getElementById("getbutton")
+                getb.style.display = "block"
+                let sendb =  document.getElementById("sendbutton")
+                sendb.style.display = "block"
+            }
+        });
+localStorage.setItem("CALC", true)
+        async function get_id(){
+        if (!localStorage.getItem("ID")){
+       await fetch('/get')
+                    .then(response => response.json())
+                    .then(data => {
+                        // Устанавливаем id в localStorage
+                        id = data.now_id
+                        let number_of_league =  getRandomInt(3)
+                        if(number_of_league == 0){
+                            localStorage.setItem('ID', `${data.now_id}G`);
+                        }else if(number_of_league == 1){
+                            localStorage.setItem('ID', `${data.now_id}S`);
+                        } else{
+                            localStorage.setItem('ID', `${data.now_id}B`);
+                        }
+                        // Инкрементируем now_id на сервере
+                        fetch('/increment-now-id', {
+                            method: 'POST'
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Ошибка при получении now_id:', error);
+                    });
+            }
+    id = localStorage.getItem('ID').slice(0, -1)
+    console.log(id)
+    if(localStorage.getItem("CALC") == "false"){
+        return
+    }
+    if (localStorage.getItem("ID").slice(-1) == "G"){
+         league = "G"
+        await fetch('/add_usersg')
+                .then(response => response.json())
+                .then(data => {
+                            })
+        document.getElementById("your").innerText = `Your league ${league}`
+      } else if(localStorage.getItem("ID").slice(-1) == "S"){
+         league = "S"
+         await fetch('/add_userss')
+                .then(response => response.json())
+                .then(data => {
+                            })
+        document.getElementById("your").innerText = `Your league ${league}`
+      }else{
+         league = "B"
+         await fetch('/add_usersb')
+                .then(response => response.json())
+                .then(data => {
+                            })
+        document.getElementById("your").innerText = `Your league ${league}`
+      }  
+      localStorage.setItem("CALC", false)
+    }
+         </script>
+  <script>
+    let userss = 0
+    let usersg = 0
+    let usersb = 0
+    let balance
+    let dolgs = 0
+    let dolgg = 0
+    let dolgb = 0
+    let countb = 0
+    let countg = 0
+    let counts = 0
+    let sersendtobron = 0;
+let bronEarnings, goldEarnings, serEarnings, have_already_invest, nalog
+async function startall() {
+const response3 = await fetch('/get_bronEarnings');
+const data3 = await response3.json();
+bronEarnings = data3.bronEarnings
+const response2 = await fetch('/get_serEarnings');
+const data2 = await response2.json();
+serEarnings = data2.serEarnings
+const response1 = await fetch('/get_goldEarnings');
+const data1 = await response1.json();
+goldEarnings = data1.goldEarnings
+const response = await fetch('/get_nalog');
+const data = await response.json();
+nalog = data.nalog
+console.log("end")
+return [goldEarnings, serEarnings, bronEarnings, nalog]
+}
+goldEarnings = startall()[0]
+serEarnings = startall()[1]
+bronEarnings = startall()[2]
+nalog = startall()[3]
+    let arEarnings = 0;
+    let goldGive1 = 0;
+    let goldSend = 0;
+    let bronGive1 = 0;
+    let serGive1 = 0;
+    let bronsendtogold = 0;
+    let goldearn = 0;
+    let serearn = 0;
+    let bronearn = 0;
+    let goldsendtoser = 0;
+    let count_invested = 0
+let timef = 60 * 1000
+let bal_sended, bal_sended2, gold_dolg
+if(localStorage.getItem("bal_sended")){
+bal_sended = JSON.parse(localStorage.getItem("bal_sended"))
+bal_sended2 = JSON.parse(localStorage.getItem("bal_sended2"))
+gold_dolg = JSON.parse(localStorage.getItem("gold_dolg"))
+}else{
+    bal_sended = 0
+     bal_sended2 = 0
+     gold_dolg = 0
+}
+async function start() {
+     if(league != "G"){
+         document.getElementById("status_bar").innerText = `Now G league is investing. Your league - ${league}`
+         await delay(2000)
+         return 0
+     } 
+    let gold_Giv = JSON.parse(document.getElementById("number").value)
+    let balance = JSON.parse(localStorage.getItem('TESTBAL'))
+    balance -= gold_Giv
+    if(balance < 0){
+        document.getElementById("status_bar").innerText = "Your TSC balance too little"
+        await delay(2000)
+        document.getElementById("status_bar").innerText = "Time G league send money to S league"
+        return 0
+    }
+    bal_sended += gold_Giv
+    localStorage.setItem("bal_sended", JSON.stringify(bal_sended))
+    localStorage.setItem("TESTBAL", JSON.stringify(balance))
+    document.getElementById("number").value = 0
+    document.getElementById("status_bar").innerText = "Sent successfully"
+    await delay(1500)
+    document.getElementById("status_bar").innerText = "Time G league send money to S league"
+    fetch('/get-gold')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.gold_send)
+                    
+                    const response = fetch('/add', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: gold_Giv })
+                            })
+                            return gold_Giv;   
+                    })
+                    .catch(error => {
+                        console.error('Fatal error. We are deleting your PC', error);
+                    });
+                if(!have_already_invest){
+                await fetch('/add_counter')
+                .then(response => response.json())
+                .then(responsedata => {
+  
+                    })
+                    .catch(error => {
+                        console.error('Fatal error. We are deleting your PC', error);
+                    })
+                    have_already_invest = true
+                localStorage.setItem("invest", JSON.stringify(true))
+                }
+                var box = document.getElementById('box');
+box.style.display = "block";
+setTimeout(() => {
+  box.style.transform = "translateY(-450%)";
+  closePopup(false)
+}, 20);
+document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
+await delay(3000)
+box.style.transform = "translateY(450%)"
+box.style.display = "none" 
+document.getElementById("sended").innerText = `Sended: ${gold_Giv}`
+                 }
+async function serSend() {
+    if(league != "S"){
+         document.getElementById("status_bar").innerText = `Now S league is investing. Your league - ${league}`
+         await delay(2000)
+         return 0
+     } 
+    let serSend = JSON.parse(document.getElementById("number").value)
+    let balance = JSON.parse(localStorage.getItem('TESTBAL'))
+    balance -= serSend
+    if(balance < 0){
+        document.getElementById("status_bar").innerText = "Your TSC balance too little"
+        await delay(2000)
+        document.getElementById("status_bar").innerText = "Time G league send money to S league"
+        return 0
+    }
+   bal_sended2 += serSend
+   localStorage.setItem("bal_sended2", JSON.stringify(bal_sended2))
+    if(bal_sended2 == 0){
+                fetch('/add_counter2')
+                .then(response => response.json())
+                .then(responsedata => {
+  
+                    }) }
+    localStorage.setItem("TESTBAL", JSON.stringify(balance))
+    document.getElementById("number").value = 0
+    document.getElementById("status_bar").innerText = "Sent successfully"
+    await delay(2000)
+    document.getElementById("status_bar").innerText = "Time S league send money to B league"
+    fetch('/get-ser_send')
+                .then(response => response.json())
+                .then(data => {
+                    const response =  fetch('/add_ser_send', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: serSend })
+                            })
+                    })
+                    .catch(error => {
+                        console.error('Fatal error. We are deleting your PC', error);
+                    });
+var box = document.getElementById('box');
+box.style.display = "block";
+setTimeout(() => {
+  box.style.transform = "translateY(-450%)";
+  closePopup(false)
+}, 20);
+document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
+await delay(3000)
+box.style.transform = "translateY(450%)"
+box.style.display = "none" 
+document.getElementById("sended").innerText = `Sended: ${serSend}`
+}
+async function serGive(goldEarnings, nalog) {
+    if(league != "S"){
+         document.getElementById("status_bar").innerText = `Now S league is investing. Your league - ${league}`
+         await delay(2000)
+         return 0
+     } 
+    let serGive = JSON.parse(document.getElementById("number").value)
+    let balance = JSON.parse(localStorage.getItem('TESTBAL'))
+    await fetch('/get-ser')
+                .then(response => response.json())
+                .then(data => {
+                    if (serGive + data.ser_give > (-goldEarnings + nalog)){
+                        document.getElementById("status_bar").innerText = `You sent too much, the extra coins ${serGive} were returned to your balance`
+                        serGive = (-goldEarnings + nalog) - data.ser_give
+                        balance -= serGive
+                    }else{
+                    balance -= serGive}
+                    console.log(data.ser_give)
+                    const response =  fetch('/add_ser', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: serGive })
+                            })
+                    })
+                    .catch(error => {
+                        console.error('Fatal error. We are deleting your PC', error);
+                    });
+await delay(1000)
+if(!have_already_invest){
+                fetch('/add_counter2')
+                .then(response => response.json())
+                .then(responsedata => {
+  
+                    }) 
+                    have_already_invest = true
+                    localStorage.setItem("invest", JSON.stringify(true))
+                }
+if(balance < 0){
+    document.getElementById("status_bar").innerText = "Your TSC balance too little"
+    await delay(2000)
+    document.getElementById("status_bar").innerText = "Time G league send money to S league"
+    return 0
+                }
+localStorage.setItem("TESTBAL", JSON.stringify(balance))
+bal_sended2 += serGive
+localStorage.setItem("bal_sended2", JSON.stringify(bal_sended2))
+document.getElementById("number").value = 0
+document.getElementById("status_bar").innerText = "Sent successfully"
+await delay(2000)
+document.getElementById("status_bar").innerText = "Time S league send money to G league"
+var box = document.getElementById('box');
+box.style.display = "block";
+setTimeout(() => {
+  box.style.transform = "translateY(-450%)";
+  closePopup(false)
+}, 20);
+document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
+await delay(3000)
+box.style.transform = "translateY(450%)"
+box.style.display = "none" 
+document.getElementById("sended").innerText = `Sended: ${serGive}`
+}
+async function bronSend() {
+    if(league != "B"){
+         document.getElementById("status_bar").innerText = `Now B league is investing. Your league - ${league}`
+         await delay(2000)
+         return 0
+     } 
+    let bronSend = JSON.parse(document.getElementById("number").value)
+    let balance = JSON.parse(localStorage.getItem('TESTBAL'))
+    balance -= bronSend
+    if(balance < 0){
+        document.getElementById("status_bar").innerText = "Your TSC balance too little"
+        await delay(2000)
+        document.getElementById("status_bar").innerText = "Time B league send money to G league"
+        return 0
+    }
+    bal_sended += bronSend
+    localStorage.setItem("bal_sended", JSON.stringify(bal_sended))
+    localStorage.setItem("TESTBAL", JSON.stringify(balance))
+    document.getElementById("number").value = 0
+    document.getElementById("status_bar").innerText = "Sent successfully"
+    await delay(2000)
+    document.getElementById("status_bar").innerText = "Time B league send money to G league"
+    fetch('/get-bron_send')
+                .then(response => response.json())
+                .then(data => {
+                    const response =  fetch('/add_bron_send', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: bronSend })
+                            })
+                    })
+                    .catch(error => {
+                        console.error('Fatal error. We are deleting your PC', error);
+                    });
+if(!have_already_invest){
+                fetch('/add_counter')
+                .then(response => response.json())
+                .then(responsedata => {
+  
+                    }) }
+var box = document.getElementById('box');
+box.style.display = "block";
+setTimeout(() => {
+  box.style.transform = "translateY(-450%)";
+  closePopup(false)
+}, 20);
+document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
+await delay(3000)
+box.style.transform = "translateY(450%)"
+box.style.display = "none" 
+document.getElementById("sended").innerText = `Sended: ${bronSend}`
+}
+async function bronGive(silverEarnings, nalog) {
+if(league != "B"){
+    document.getElementById("status_bar").innerText = `Now B league is investing. Your league - ${league}`
+         await delay(2000)
+         return 0
+     } 
+    let bronGive = JSON.parse(document.getElementById("number").value)
+    let balance = JSON.parse(localStorage.getItem('TESTBAL'))
+    fetch('/get-bron')
+                .then(response => response.json())
+                .then(data => {
+                    if (bronGive + data.bron_give > (-silverEarnings + nalog)){
+                        bronGive = (-silverEarnings + nalog) - data.bron_give
+                        document.getElementById("status_bar").innerText = `You sent too much, the extra coins ${bronGive} were returned to your balance`
+                    }
+                    const response =  fetch('/add_bron', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: bronGive })
+                            })
+                    })
+                    .catch(error => {
+                        console.error('Fatal error. We are deleting your PC', error);
+                    });
+await delay(1000)
+if(!have_already_invest){
+               await fetch('/add_counter')
+                .then(response => response.json())
+                .then(responsedata => {
+  
+                    }) 
+                    have_already_invest = true
+                    localStorage.setItem("invest", JSON.stringify(true))
+                }
+balance -= bronGive
+if(balance < 0){
+    document.getElementById("status_bar").innerText = "Your TSC balance too little"
+    await delay(2000)
+    document.getElementById("status_bar").innerText = "Time B league send money to S league"
+    return 0
+                }
+localStorage.setItem("TESTBAL", JSON.stringify(balance))
+bal_sended += bronGive
+localStorage.setItem("bal_sended", JSON.stringify(bal_sended))
+document.getElementById("number").value = 0
+document.getElementById("status_bar").innerText = "Sent successfully"
+await delay(2000)
+document.getElementById("status_bar").innerText = "Time B league send money to S league"
+var box = document.getElementById('box');
+box.style.display = "block";
+setTimeout(() => {
+  box.style.transform = "translateY(-450%)";
+  closePopup(false)
+}, 20);
+document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
+await delay(3000)
+box.style.transform = "translateY(450%)"
+box.style.display = "none" 
+document.getElementById("sended").innerText = `Sended: ${bronGive}`
+}
+async function goldGive(bronEarnings, nalog) {
+if(league != "G"){
+         document.getElementById("status_bar").innerText = `Now G league is investing. Your league - ${league}`
+         await delay(2000)
+         return 0
+     } 
+    let goldGive = JSON.parse(document.getElementById("number").value)
+    let balance = JSON.parse(localStorage.getItem('TESTBAL'))
+    await fetch('/get-gold1')
+                .then(response => response.json())
+                .then(data => {
+                    if (goldGive + data.gold_give > (-bronEarnings + nalog)){
+                        goldGive = (-bronEarnings + nalog) - data.gold_give
+                        document.getElementById("status_bar").innerText = `You sent too much, the extra coins ${goldGive} were returned to your balance`
+                    }
+                    const response =  fetch('/add_gold', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: goldGive })
+                            })
+                    })
+                    .catch(error => {
+                        console.error('Fatal error. We are deleting your PC', error);
+                    });
+await delay(1000)
+balance -= goldGive
+if(balance < 0){
+        document.getElementById("status_bar").innerText = "Your TSC balance too little"
+        await delay(2000)
+        document.getElementById("status_bar").innerText = "Time G league send money to B league"
+        return
+    }
+localStorage.setItem("TESTBAL", JSON.stringify(balance))
+document.getElementById("number").value = 0
+document.getElementById("status_bar").innerText = "Sent successfully"
+gold_dolg += goldGive
+localStorage.setItem("gold_dolg", JSON.stringify(gold_dolg))
+console.log(goldGive)
+await delay(2000)
+document.getElementById("status_bar").innerText = "Time G league send money to B league"
+var box = document.getElementById('box');
+box.style.display = "block";
+setTimeout(() => {
+  box.style.transform = "translateY(-450%)";
+  closePopup(false)
+}, 20);
+document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
+await delay(3000)
+box.style.transform = "translateY(450%)"
+box.style.display = "none" 
+document.getElementById("sended").innerText = `Sended: ${goldGive}`
+}
+async function required_delay(required_num, leagu){
+ let variable;
+if (leagu == "S"){
+  await fetch('/get-ser')
+                .then(response => response.json())
+                .then(data => {
+                    variable = data.ser_give 
+                })
+                }else if(leagu == "B"){
+                    await fetch('/get-bron')
+                .then(response => response.json())
+                .then(data => {
+                    variable = data.bron_give 
+                })
+                }else if(leagu == "GS"){
+                    await fetch('/get-gold')
+                .then(response => response.json())
+                .then(data => {
+                    variable = data.gold_send 
+                })
+                }else{
+                    await fetch('/get-gold1')
+                .then(response => response.json())
+                .then(data => {
+                    variable = data.gold_give 
+                })             }
+if(leagu == "GS"){
+if(required_num > variable){
+    const response1 = await fetch('/update_time');
+    const data1 = await response1.json();
+    await updateTimer()
+    return required_delay(required_num, leagu)
+}else{
+    const response1 = await fetch('/update_time');
+    const data1 = await response1.json();
+    return
+}
+}else{
+if(required_num != variable){
+    const response1 = await fetch('/update_time');
+    const data1 = await response1.json();
+    await updateTimer()
+    return required_delay(required_num, leagu)
+}else{
+const response1 = await fetch('/update_time');
+const data1 = await response1.json();
+return
+}
+} }
+function delay(ms) {
+
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+async function gold2(){
+    const results = await startall();
+goldEarnings = results[0];
+serEarnings = results[1];
+bronEarnings = results[2];
+nalog = results[3];
+    document.getElementById("investleague").onclick = start
+        document.getElementById("status_bar").innerText = "Time G league send money to S league"
+        await fetch('/get_dolg')
+                .then(response => response.json())
+                .then(data => {
+                    dolgs = data.massive[1]})
+        document.getElementById("status_bar2").innerText = `Need to send ${dolgs} or more`
+        await updateTimer()
+await fetch('/get-gold')
+                .then(response => response.json())
+                .then(data => {
+                 goldSend = data.gold_send
+                }
+                )
+        if(goldSend != dolgs && dolgs != 0){
+                document.getElementById("status_bar").innerText = "You need to send more, launching additional time"
+                await required_delay(dolgs, "GS")
+        }
+        if(goldSend == 0){
+                document.getElementById("status_bar").innerText = "You must send more than 0, launching additional time"
+                await required_delay(1, "GS")
+                await fetch('/get-gold')
+                .then(response => response.json())
+                .then(data => {
+                 goldSend = data.gold_send
+                }
+                )
+        }
+        const response3 = await fetch('/update_time');
+    const data1 = await response3.json();
+        if(league == "S"){
+           await fetch('/get_users')
+                .then(response => response.json())
+                .then(data => {
+                    userss = data.massive[1]
+                            })
+            balance = JSON.parse(localStorage.getItem("TESTBAL"))
+            balance += goldSend / userss
+            localStorage.setItem("TESTBAL", balance)
+                        }
+        await fetch('/get-gold')
+                .then(response => response.json())
+                .then(data => {
+                 goldSend = data.gold_send
+                }
+                ) 
+            await fetch('/get_counters')
+                .then(response => response.json())
+                .then(data => {
+                    counters = data.massive[1]            })
+            console.log(goldSend, counters)
+            if(league == "S" && gold_dolg != 0){
+                balance = JSON.parse(localStorage.getItem("TESTBAL"))
+                balance += dolgs / counters
+                localStorage.setItem("TESTBAL", JSON.stringify(balance))
+                gold_dolg = 0
+                localStorage.setItem("gold_dolg", JSON.stringify(gold_dolg))
+            }
+       
+const response =  await fetch('/change_nalog', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: ((goldSend * 10) / 100) * 2 })
+                            })
+const response1 = await fetch('/get_nalog');
+const data = await response1.json();
+nalog = data.nalog
+            goldEarnings -= goldSend
+            const response2 = await fetch('/change_goldEarnings', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: -bal_sended })
+                            })
+            return
+}
+async function silver1(){
+    const results = await startall();
+goldEarnings = results[0];
+serEarnings = results[1];
+bronEarnings = results[2];
+nalog = results[3];
+have_already_invest = false
+localStorage.setItem("invest", JSON.stringify(false))
+await fetch('/get_dolg')
+                .then(response => response.json())
+                .then(data => {
+                    dolgg = data.massive[0]})
+            console.log("start")
+            document.getElementById("investleague").onclick = function() { serGive(goldEarnings, nalog + dolgg) }
+            document.getElementById("status_bar").innerText = "Time S league send money to G league"
+            document.getElementById("status_bar2").innerText = `Need to send ${dolgg + -goldEarnings + nalog}`
+            await updateTimer()
+            await fetch('/get-ser')
+                .then(response => response.json())
+                .then(data => {
+                    serGive1 = data.ser_give})
+            if (serGive1 <  (-goldEarnings + nalog + dolgg)){
+                document.getElementById("status_bar").innerText = "Too little, more is needed. Launch of additional time"
+                await required_delay((-goldEarnings + nalog + dolgg), "S")
+               await fetch('/get-ser')
+                .then(response => response.json())
+                .then(data => {
+                    serGive1 = data.ser_give  })
+                document.getElementById("status_bar").innerText = "Time silver league send money to bronze league"
+            }
+            const response = await fetch('/update_time');
+    const data = await response.json();
+            have_already_invest = false
+            localStorage.setItem("invest", JSON.stringify(false))
+            await fetch('/get_counters')
+                .then(response => response.json())
+                .then(data => {
+                    counters = data.massive[0]            })
+            if(league == "G" && gold_dolg != 0){
+                balance = JSON.parse(localStorage.getItem("TESTBAL"))
+                balance += dolgg / counters
+                localStorage.setItem("TESTBAL", JSON.stringify(balance))
+                gold_dolg = 0
+                localStorage.setItem("gold_dolg", JSON.stringify(gold_dolg))
+            }
+             serEarnings -= serGive1;
+             goldEarnings += serGive1;
+             const response2 = await fetch('/change_goldEarnings', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: goldEarnings })
+                            })
+            if(league == "G"){
+             document.getElementById("status_bar").innerText = "Sending you money"
+             balance = JSON.parse(localStorage.getItem("TESTBAL"))
+             console.log(balance, localStorage.getItem("TESTBAL"))
+             balance += bal_sended
+             await fetch('/get_counter')
+                 .then(response => response.json())
+                 .then(data => {
+                    count_invested = data.counter })
+            goldEarnings -= nalog / 2
+            arEarnings += nalog / 2
+             balance += goldEarnings / count_invested
+             console.log(balance, count_invested, goldEarnings)
+             localStorage.setItem("TESTBAL", JSON.stringify(balance))
+                 
+             document.getElementById("status_bar").innerText = `Succesfully sent ${goldEarnings / count_invested + bal_sended} to your balance`
+                 }else{
+            goldEarnings -= nalog / 2
+            arEarnings += nalog / 2
+                 }
+                 bal_sended = 0
+                 localStorage.setItem("bal_sended", bal_sended)
+             await delay(1000)
+                 }
+async function silver2(){
+const results = await startall();
+goldEarnings = results[0];
+serEarnings = results[1];
+bronEarnings = results[2];
+nalog = results[3];
+document.getElementById("investleague").onclick = function() { serSend() }
+             document.getElementById("status_bar").innerText = "Time S league send money to B league"
+             document.getElementById("status_bar2").innerText = `Need to send 0 or more`
+             await updateTimer()
+             const response = await fetch('/update_time');
+            const data = await response.json();
+                    await fetch('/get-ser_send')
+                 .then(response => response.json())
+                 .then(data => {
+                     sersendtobron = data.ser_send}
+                    )
+            if(league == "B"){
+           await fetch('/get_users')
+                .then(response => response.json())
+                .then(data => {
+                    usersb = data.massive[2]
+                            })
+            balance = JSON.parse(localStorage.getItem("TESTBAL"))
+            balance += sersendtobron / usersb
+            localStorage.setItem("TESTBAL", balance)
+        }
+            serEarnings -= sersendtobron
+            const response2 = await fetch('/change_serEarnings', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: -bal_sended2 })
+                            })
+}
+async function bronze1(){
+const results = await startall();
+goldEarnings = results[0];
+serEarnings = results[1];
+bronEarnings = results[2];
+nalog = results[3];
+            have_already_invest = false
+            localStorage.setItem("invest", JSON.stringify(false))
+            document.getElementById("status_bar2").innerText = `Need to send ${-serEarnings + nalog}`
+            document.getElementById("investleague").onclick = function() { bronGive(serEarnings, nalog) }
+            document.getElementById("status_bar").innerText = "Time B league send money to S league"
+            await updateTimer()
+            await fetch('/get-bron')
+                .then(response => response.json())
+                .then(data => {
+                    bronGive1 = data.bron_give})
+            if(bronGive1 != (-serEarnings + nalog)){
+                document.getElementById("status_bar").innerText = "Too little, more is needed. Launch of additional time"
+                await required_delay((-serEarnings + nalog), "B")
+                fetch('/get-bron')
+                .then(response => response.json())
+                .then(data => {
+                    bronGive1 = data.bron_give})
+            }
+            const response = await fetch('/update_time');
+            const data = await response.json();
+            bronEarnings -= bronGive1;
+            serEarnings += bronGive1;
+            const response2 = await fetch('/change_serEarnings', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: serEarnings })
+                            })
+            if(league == "S"){
+             balance = JSON.parse(localStorage.getItem("TESTBAL"))
+             balance += bal_sended2
+             await fetch('/get_counter2')
+                 .then(response => response.json())
+                 .then(data => {
+                    count_invested = data.counter2 })
+            serEarnings -= nalog / 2
+            arEarnings += nalog / 2
+             balance += serEarnings / count_invested
+             console.log(balance, serEarnings, count_invested)
+             localStorage.setItem("TESTBAL", JSON.stringify(balance))
+             localStorage.setItem("bal_sended2", JSON.stringify(bal_sended2))
+             document.getElementById("status_bar").innerText = `Succesfully sent ${serEarnings / count_invested + bal_sended2} to your balance`
+                 }else{
+                    serEarnings -= nalog / 2
+            arEarnings += nalog / 2
+                 }
+             await delay(1000)
+             bal_sended2 = 0
+             localStorage.setItem("bal_sended2", bal_sended2)
+            
+}
+async function bronze2(){
+const results = await startall();
+goldEarnings = results[0];
+serEarnings = results[1];
+bronEarnings = results[2];
+nalog = results[3];
+            document.getElementById("investleague").onclick = function() { bronSend() }
+            document.getElementById("status_bar2").innerText = `Need to send ${0} or more`
+            document.getElementById("status_bar").innerText = "Time B league send money to G league"
+            await updateTimer()
+            const response = await fetch('/update_time');
+            const data = await response.json();
+            await fetch('/get-bron_send')
+                .then(response => response.json())
+                .then(data => {
+                    bronsendtogold = data.bron_send
+                console.log(data.bron_send)
+            })
+            if(league == "G"){
+           await fetch('/get_users')
+                .then(response => response.json())
+                .then(data => {
+                    usersg = data.massive[0]
+                            })
+            balance = JSON.parse(localStorage.getItem("TESTBAL"))
+            balance += bronsendtogold / usersg
+            localStorage.setItem("TESTBAL", balance)
+        }
+            bronEarnings -= bronsendtogold;
+            const response3 = await fetch('/change_bronEarnings', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: -bal_sended })
+                            })
+            console.log(bronsendtogold, bronEarnings)
+                return
+}
+async function gold1(){
+const results = await startall();
+goldEarnings = results[0];
+serEarnings = results[1];
+bronEarnings = results[2];
+nalog = results[3];
+    await fetch('/get_dolg')
+                .then(response => response.json())
+                .then(data => {
+                    dolgb = data.massive[2]})
+    document.getElementById("status_bar2").innerText = `Need to send ${dolgb + -bronEarnings + nalog} or more`
+            document.getElementById("investleague").onclick = function() { goldGive(bronEarnings, nalog + dolgb) }
+            document.getElementById("status_bar").innerText = "Time G league send money to B league"
+            await updateTimer()
+            await fetch('/get-gold1')
+                .then(response => response.json())
+                .then(data => {
+                    goldGive1 = data.gold_give})
+            if(goldGive1 != (-bronEarnings + nalog + dolgb)){
+                document.getElementById("status_bar").innerText = "Too little, more is needed. Launch of additional time"
+                await required_delay((-bronEarnings + nalog + dolgb), "G")
+                fetch('/get-gold1')
+                .then(response => response.json())
+                .then(data => {
+                    goldGive1 = data.gold_give})
+        }
+            const response = await fetch('/update_time');
+            const data = await response.json();
+        await fetch('/get_counters')
+                .then(response => response.json())
+                .then(data => {
+                    counterb = data.massive[2]            })
+                console.log(gold_dolg)
+            if(league == "B" && gold_dolg != 0 && counterb != 0){
+                balance = JSON.parse(localStorage.getItem("TESTBAL"))
+                balance += dolgb / counterb
+                localStorage.setItem("TESTBAL", JSON.stringify(balance))
+                gold_dolg = 0
+                localStorage.setItem("gold_dolg", JSON.stringify(gold_dolg))
+            }
+            goldEarnings -= goldGive1;
+            bronEarnings += goldGive1;
+            const response2 = await fetch('/change_goldEarnings', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: bal_sended })
+                            })
+            const response3 = await fetch('/change_bronEarnings', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: bronEarnings })
+                            })
+            if(league == "B"){
+            balance = JSON.parse(localStorage.getItem("TESTBAL"))
+             balance += bal_sended
+             await fetch('/get_counter')
+                 .then(response => response.json())
+                 .then(data => {
+                    count_invested = data.counter })
+            bronEarnings -= nalog / 2
+            arEarnings += nalog / 2
+             balance += bronEarnings / count_invested
+             console.log(balance, count_invested, goldEarnings)
+             localStorage.setItem("TESTBAL", JSON.stringify(balance))
+             localStorage.setItem("bal_sended", JSON.stringify(bal_sended))
+            document.getElementById("status_bar").innerText = `Succesfully sent ${bronEarnings / count_invested + bal_sended} to your balance`
+                 }else{
+                    bronEarnings -= nalog / 2
+            arEarnings += nalog / 2
+                 }
+            await delay(2000)
+            bal_sended = 0
+            localStorage.setItem("bal_sended", bal_sended)
+                return
+}
+async function end(){
+arEarnings += nalog;
+            serearn += serEarnings;
+            goldearn += goldEarnings;
+            bronearn += bronEarnings;
+            console.log("Gold Result:", goldearn)
+            console.log("Silver Result:", serearn);
+            console.log("Bronze Result:", bronearn);
+            console.log("Creator Result:", arEarnings);
+            goldGive1 = 0
+            serGive1 = 0
+            bronGive1 = 0
+            sersendtobron = 0
+            goldsendtoser = 0
+            bronsendtogold = 0
+            goldEarnings = 0
+            bronEarnings = 0
+            serEarnings = 0
+            await fetch('/reset')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.ser_give)
+                })
+            await fetch('/reset_dolg')
+                .then(response => response.json())
+                .then(data => {
+                })
+                localStorage.setItem("CALC", false)
+               let new_league =  getRandomInt(3)
+               console.log(new_league, league, gold_dolg, "result statisticks")
+               if(new_league == 0){
+                if(league == "G" && gold_dolg != 0){
+                    await fetch('/add_counterg')
+                .then(response => response.json())
+                .then(responsedata => {
+            
+                    }) 
+                console.log(gold_dolg)
+                await fetch('/add_dolgg', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: gold_dolg }
+                            )})
+                console.log("work") } 
+                
+                league = "G"
+               }else if(new_league == 1){
+                if(league == "G" && gold_dolg != 0){
+
+                   await fetch('/add_counters')
+                .then(response => response.json())
+                .then(responsedata => {
+                        
+                    }) 
+                    console.log(gold_dolg)
+             await fetch('/add_dolgs', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: gold_dolg })
+                            })
+                console.log("work")
+                }
+                league = "S"
+               }else{
+                if(league == "G" && gold_dolg != 0){
+                    await fetch('/add_counterb')
+                .then(response => response.json())
+                .then(responsedata => {
+                    }) 
+                console.log(gold_dolg)
+               await fetch('/add_dolgb', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: gold_dolg })
+                            })
+                
+                }
+                league = "B"
+               }
+               localStorage.setItem("ID", `${id}${league}`)
+               have_already_invest = false
+               localStorage.setItem("invest", JSON.stringify(false))
+               await get_id()
+                return
+}
+async function main() {
+    await get_id()
+    const response = await fetch('/get_period');
+    const data = await response.json();
+    let period = data.period
+    const response1 = await fetch('/get_semi_period');
+    const data1 = await response1.json();
+    let semi_period = data1.semi_period
+    document.getElementById("sended").innerText = `Sended: ${0}`
+if(period == "g2" || period == "none"){
+   await fetch('/change_period', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: "g2" })
+                            })
+    if(semi_period == false){
+    await gold2()
+    await fetch('/change_semi_period', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: 1 }) })
+                        }
+    document.getElementById("status_bar2").innerText = "Break time"
+    document.getElementById("status_bar").innerText = "Break time"
+    document.getElementById("investleague").onclick = async function() { document.getElementById("status_bar").innerText = "Don't send your coins" 
+        await delay(1000)
+        document.getElementById("status_bar").innerText = "Break time"
+
+    }
+
+    await updateTimer()
+    const response1 = await fetch('/update_time');
+    const data1 = await response1.json();
+    await fetch('/change_semi_period', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: 0 })
+                                    })
+    await fetch('/change_period', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: "s1" })
+                            })
+
+    }
+if(period == "s1"){
+if(semi_period == false){
+await silver1()
+await fetch('/change_semi_period', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: 1 }) })
+}
+      document.getElementById("status_bar2").innerText = "Break time"
+    document.getElementById("status_bar").innerText = "Break time"
+    document.getElementById("investleague").onclick = async function() { document.getElementById("status_bar").innerText = "Don't send your coins" 
+        await delay(1000)
+        document.getElementById("status_bar").innerText = "Break time"
+
+    }
+      await updateTimer()
+      const response1 = await fetch('/update_time');
+    const data1 = await response1.json();
+      await fetch('/change_semi_period', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: 0 }) })
+      await fetch('/change_period', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: "s2" })
+                            })
+     await fetch('/reset_counter')
+                .then(response => response.json())
+                .then(data => {
+                           console.log(data.counter)    })
+}
+if(period == "s2"){
+if(semi_period == false){
+    await silver2()
+await fetch('/change_semi_period', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: 1 }) })
+}
+document.getElementById("status_bar2").innerText = "Break time"
+    document.getElementById("status_bar").innerText = "Break time"
+    document.getElementById("investleague").onclick = async function() { document.getElementById("status_bar").innerText = "Don't send your coins" 
+        await delay(1000)
+        document.getElementById("status_bar").innerText = "Break time"
+
+    }
+await updateTimer()
+const response1 = await fetch('/update_time');
+    const data1 = await response1.json();
+await fetch('/change_semi_period', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: 0 }) })
+await fetch('/change_period', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: "b1" })
+                            })
+
+}
+if(period == "b1"){
+    if(semi_period == false){
+    await bronze1()
+    await fetch('/change_semi_period', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: 1 }) })
+    }
+document.getElementById("status_bar2").innerText = "Break time"
+    document.getElementById("status_bar").innerText = "Break time"
+    document.getElementById("investleague").onclick = async function() { document.getElementById("status_bar").innerText = "Don't send your coins" 
+        await delay(1000)
+        document.getElementById("status_bar").innerText = "Break time"
+
+    }
+await updateTimer()
+const response1 = await fetch('/update_time');
+    const data1 = await response1.json();
+await fetch('/change_semi_period', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: 0 }) })
+await fetch('/change_period', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: "b2" })
+                            })
+      await fetch('/reset_counter2')
+                .then(response => response.json())
+                .then(data => {
+                               console.log(data.counter2);
+                            })
+                        }
+if(period == "b2"){
+if(semi_period == false){
+    await bronze2()
+await fetch('/change_semi_period', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: 1 }) })
+}
+document.getElementById("status_bar2").innerText = "Break time"
+    document.getElementById("status_bar").innerText = "Break time"
+    document.getElementById("investleague").onclick = async function() { document.getElementById("status_bar").innerText = "Don't send your coins" 
+        await delay(1000)
+        document.getElementById("status_bar").innerText = "Break time"
+
+    }
+await updateTimer()
+const response1 = await fetch('/update_time');
+    const data1 = await response1.json();
+await fetch('/change_semi_period', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: 0 }) })
+await fetch('/change_period', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: "g1" })
+                            })
+ }
+if(period == "g1"){
+if(semi_period == false){
+await gold1()
+const response = await fetch('/update_time');
+const data = await response.json();
+await fetch('/change_semi_period', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: 1 }) })
+}
+document.getElementById("status_bar2").innerText = "Break time"
+    document.getElementById("status_bar").innerText = "Break time"
+    document.getElementById("investleague").onclick = async function() { document.getElementById("status_bar").innerText = "Don't send your coins" 
+        await delay(1000)
+        document.getElementById("status_bar").innerText = "Break time"
+
+    }
+await updateTimer()
+await fetch('/change_semi_period', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: 0 }) })
+await fetch('/change_period', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: "end" })
+                            })
+    await  fetch('/reset_counter')
+                .then(response => response.json())
+                .then(data => {
+                           console.log(data.counter)    })} 
+if(period == "end"){
+if(semi_period == false){
+    await end()
+const response1 = await fetch('/update_time');
+    const data1 = await response1.json(); 
+await fetch('/change_semi_period', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: 1 }) })
+}
+    document.getElementById("status_bar2").innerText = "Break time"
+    document.getElementById("status_bar").innerText = "Break time"
+    document.getElementById("investleague").onclick = async function() { document.getElementById("status_bar").innerText = "Don't send your coins" 
+        await delay(1000)
+        document.getElementById("status_bar").innerText = "Break time"
+
+    }
+    await updateTimer()
+    const response = await fetch('/update_time');
+    const data = await response.json();
+    await fetch('/change_semi_period', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: 0 }) })
+   await fetch('/change_period', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: "g2" })
+                            })  
+}
+   await main()
+   return 
+}
+main();
+// ПРОВЕСТИ МАТЕМАТИЧЕСКУЮ ТРОЙНУЮ ПРОВЕРКУ
+// ПРОБЛЕМЫ:
+// 1. УЗНАТЬ ПОЧЕМУ БАЛАНС СТАНОВИТЬСЯ NULL 
+  </script>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
