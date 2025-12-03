@@ -99,8 +99,8 @@ button {
     position: absolute;
     left: 25%;
     top: 5%;
-    font-family: Impact, fantasy;
-    font-size: 150%;
+    font-family: arial black;
+    font-size: 125%;
     font-weight: bold;
 }
 .back_button{
@@ -169,7 +169,7 @@ button {
 .adtext {
     position: absolute;
     top: 17%;
-    font-family: Impact, fantasy;
+    font-family: arial black;
     font-weight: bold;
 }
 .toggle-button {
@@ -201,7 +201,7 @@ button {
     position: absolute;
     top: -4%;
     left: 31%;
-    font-family: Impact, fantasy;
+    font-family: arial black;
     font-size: 100%;
     font-weight: bold;
 
@@ -237,15 +237,15 @@ button {
     position: absolute;
     top: 16%;
     left: 5%;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 100%;
+    font-family: arial black;
+    font-size: 75%;
     font-weight: bold;
 }
 .timer{
     position: absolute;
     top: 40%;
     left: 42%;
-    font-family: Impact, fantasy;
+    font-family: arial black;
     font-size: 125%;
     font-weight: bold;
 }
@@ -280,7 +280,7 @@ button {
 .tutorial{
     position: absolute;
     left: -15%;
-    top: 6%;
+    top: 10%;
     width: 150%;
     height: 100%;
 }
@@ -288,12 +288,12 @@ button {
     position: absolute;
     top: -40%;
     left: 24%;
-    font-size: 120%;
+    font-size: 100%;
     font-weight: bold;
 }
 .status_bar2{
-    font-size: 125%;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 100%;
+    font-family: arial black;
     font-weight: bold;
 
 }
@@ -301,22 +301,22 @@ button {
     position: absolute;
     top: 5%;
    font-size: 75%;
-   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+   font-family: arial black;
     font-weight: bold;
 }
 .inftext2{
 position: absolute;
-top: 50%;
+top: 55%;
 left: 2.5%;
 font-size: 75%;
-font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+font-family: arial black;
 font-weight: bold;
 }
 .bal_vis{
     position: absolute;
     left: 25%;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 120%;
+    font-family: arial black;
+    font-size: 100%;
     z-index: 9999;
     top: -30%;
     font-weight: bold;
@@ -335,8 +335,8 @@ left: 43%;
     position: absolute;
     top:-5%;
     left: 5%;
-    font-size: 120%;
-   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 100%;
+   font-family: arial black;
     font-weight: bold;
 
 }
@@ -344,15 +344,15 @@ left: 43%;
     position: absolute;
     top: 85%;
     left: 42%;
-    font-family: Impact, fantasy;
-    font-size: 125%;
+    font-family: arial black;
+    font-size: 100%;
     font-weight: bold;
 }
 .bal_mon{
     position: absolute;
     width: 5%;
     height: 3%;
-    top: 0.7%;
+    top: 1%;
     left: 17%;
 }
 .ton {
@@ -360,7 +360,7 @@ left: 43%;
     width: 30%;
     height: 15%;
     left:40%;
-    top: 9%;
+    top: 10%;
 }
     </style>
   <body>
@@ -369,21 +369,21 @@ left: 43%;
     <button id="wallet" type="button" onclick="log()" class="wallet"><img class="walletimg" src="wallet4.png" alt="WALLET">
     <p class="bal_vis" id="bal1">undefined</p></button>
     <img class="bal_mon" src="tsccoin.png">
-    <button id="btnn" type="button" style="font-family:Impact, fantasy;" onclick="openPopup(false)" class="btnn"><p class="textinvst">INVEST</p></button>
+    <button id="btnn" type="button" style="font-family: arial black;" onclick="openPopup(false)" class="btnn"><p class="textinvst">INVEST</p></button>
     <div class="popup3">
         <img src="infomap.png" alt="tutorial" class="tutorial">
         <p class="inftext"> sum1 = S league debt*; tax = ((sum1 * 10) / 100) * 2; sum2 = sum1 + tax + G league debt; sum3 = any number; sum4 = sum2 + sum3 + tax; sum5 = any number; sum6 = B league debt + tax + sum4 + sum5</p>
-        <button onclick="closePopup2()" class="back_button2" id="back_button2"><img src="delete_13906047-Photoroom.png" alt="back" class="backimg"></button>
+        <button onclick="closePopup2()" class="back_button2" id="back_button2"><img src="close.png" alt="back" class="backimg"></button>
         <p class="inftext2">league debt - each cycle at the end of the G league ends up in the minus, after redistribution by leagues the sum of the debt of all users in one league is the league debt; tax distribution - 50% of the tax goes to the user's income, and the other 50% to the creators</p>
         </div>
     <div class="popup">
         <p class="yourleague" id="your">Loading...</p>
         <p id="status_bar" class="status_bar">Loading...</p>
         <p id="status_bar2" class="status_bar2">Loading...</p>
-        <input type="number" id="number" class="number" style="font-size: 100%; font-family:Impact, fantasy; border: 1px solid #ccc; border-radius: 10px; padding: 8px; width: 100px; box-sizing: border-box;" placeholder="0">
-        <button onclick="start()" class="investleague" id="investleague" style="font-family:Impact, fantasy; position:absolute;;">PAY</button>
+        <input type="number" id="number" class="number" style="font-size: 100%; font-family:arial blacky; border: 1px solid #ccc; border-radius: 10px; padding: 8px; width: 100px; box-sizing: border-box;" placeholder="0">
+        <button onclick="start()" class="investleague" id="investleague" style="font-family:arial black; position:absolute;;">PAY</button>
         <div id="timer" class="timer">Loading...</div>
-        <button onclick="closePopup(false)" class="back_button1" id="back_button1"><img src="delete_13906047-Photoroom.png" alt="back" class="backimg"></button>
+        <button onclick="closePopup(false)" class="back_button1" id="back_button1"><img src="close.png" alt="back" class="backimg"></button>
         <p class="sended" id="sended">Loading...</p>
     </div>
         <div class="popup2" id="popup2">
@@ -394,7 +394,7 @@ left: 43%;
 <button onclick="copyText()" id="copy" class="copybutton"><img src="copy-Photoroom.png" alt="Copy" class="copyimg"></button>
             <button onclick="get(true)" class="getbutton" id="getbutton"><img src="get.png" alt="get" class="getimg"></button>
             <button onclick="send(true)" class="sendbutton" id="sendbutton"><img src="send.png" alt="send" class="sendimg"></button>
-            <button onclick="closePopup(true)" class="back_button" id="back_button"><img src="delete_13906047-Photoroom.png" alt="back" class="backimg"></button>
+            <button onclick="closePopup(true)" class="back_button" id="back_button"><img src="close.png" alt="back" class="backimg"></button>
            <button onclick="openPopup2()" class="inf" id="inf"><img src="inf-Photoroom.png" alt="information" class="infimg"></button>
         </div>
             
@@ -1951,6 +1951,9 @@ main();
   </script>
 
 </html>
+
+
+
 
 
 
