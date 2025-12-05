@@ -28,6 +28,9 @@ const countdownDuration =  60 * 1000;
 let g_league_users = 0
 let s_league_users = 0
 let b_league_users = 0
+app.get('/healthz', async (req, res) => {
+ return res.sendStatus(200);
+});
 app.get('/get_users', (req, res) => {
   massive = [g_league_users, s_league_users, b_league_users]
   res.json({ massive });

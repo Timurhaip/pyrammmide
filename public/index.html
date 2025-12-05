@@ -38,288 +38,614 @@ button {
         #btnn {
             position: absolute;
             top: 90%;
-            left: 36%;
-            width: 30%; 
-            height: 5%; /* Размеры кнопки */
-            background-color: blueviolet; /* Цвет фона */
-            border-radius: 10%; /* Радиус скругления */
-            border: none; /* Убираем рамку вокруг кнопки */ 
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 300px;
+            height: 50px;
+            min-height: 50px;
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            border-radius: 25px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4), 0 0 20px rgba(139, 92, 246, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial Black', Arial, sans-serif;
+            font-weight: bold;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        #btnn:active {
+            transform: translateX(-50%) scale(0.95);
+            box-shadow: 0 2px 8px rgba(139, 92, 246, 0.5), 0 0 15px rgba(139, 92, 246, 0.3);
+        }
+        #btnn:hover {
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5), 0 0 25px rgba(139, 92, 246, 0.3);
+            transform: translateX(-50%) translateY(-2px);
         }
         .popup {
-  position: absolute;
+  position: fixed;
   top: 50%;
-  left: 52%;
+  left: 50%;
   transform: translate(-50%, -50%); 
-  width: 50%;
-  height: 50%;
-  background-color: blueviolet;
+  width: 90%;
+  max-width: 400px;
+  height: 70vh;
+  max-height: 600px;
+  min-height: 500px;
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
   z-index: 9999;
-  border-radius: 17%;
+  border-radius: 25px;
+  box-shadow: 0 20px 60px rgba(139, 92, 246, 0.4);
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .popup2 {
-  position: absolute;
+  position: fixed;
   top: 50%;
-  left: 52%;
+  left: 50%;
   transform: translate(-50%, -50%); 
-  width: 50%;
-  height: 50%;
-  background-color: blueviolet;
+  width: 90%;
+  max-width: 400px;
+  height: 70vh;
+  max-height: 600px;
+  min-height: 500px;
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
   z-index: 9998;
-  border-radius: 17%;
+  border-radius: 25px;
+  box-shadow: 0 20px 60px rgba(139, 92, 246, 0.4);
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .popup3 {
-  position: absolute;
+  position: fixed;
   top: 50%;
-  left: 52%;
+  left: 50%;
   transform: translate(-50%, -50%); 
-  width: 70%;
-  height: 70%;
+  width: 90%;
+  max-width: 500px;
+  height: 80vh;
+  max-height: 700px;
+  min-height: 400px;
   background-color: white;
   z-index: 9999;
-  border-radius: 10%;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  display: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .wallet {
-   width: 35%;
-   height: 5%;
+   width: 90%;
+   max-width: 200px;
+   height: 50px;
+   min-height: 44px;
    position: absolute;
-   left: 0%;
-   top: 0%; 
+   left: 5%;
+   top: 10px; 
    background-color: white;
-   border: 0px;
-   border-radius: 10%;
+   border: 2px solid rgba(139, 92, 246, 0.3);
+   border-radius: 15px;
+   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+   transition: transform 0.2s, box-shadow 0.2s;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   padding-left: 10px;
+}
+.wallet:active {
+   transform: scale(0.98);
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 .walletimg {
-    width: 20%;
-   height: 100%;
-   position: absolute;
-   left: 0%;
-   top: 0%;
+    width: 35px;
+    height: 35px;
+    position: relative;
+    object-fit: contain;
+    margin-right: 8px;
 }
 .bal{
     position: absolute;
-    left: 25%;
-    top: 5%;
-    font-family: Impact, fantasy;
-    font-size: 150%;
+    left: 65%;
+    top: 10%;
+    transform: translate(-50%, -50%);
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: clamp(60px, 15vw, 120px);
     font-weight: bold;
+    color: white;
+    text-align: center;
+    width: auto;
+    white-space: nowrap;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .back_button{
     position: absolute;
-    left:79%;
-    top:0%;
-    width: 11%;
-    height:7%;
-    border: 100%;
-    border-radius: 40%;
-    background-color: transparent;
+    right: 10px;
+    top: 10px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    transition: background-color 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+}
+.back_button:active {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(0.95);
 }
 .backimg{
-    position: absolute;
-    left: 0%;
-    top: 0%;
-    height: 100%;
-    width:100%;
+    position: relative;
+    height: 60%;
+    width: 60%;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 .getbutton{
     position: absolute;
-    top: 30%;
-    left: 5%;
-    height: 10%;
-    width: 17%;
-    border-radius: 100%; /* Радиус скругления */
-     border: none
-
+    top: 45%;
+    left: 10%;
+    height: 60px;
+    width: 60px;
+    min-width: 60px;
+    min-height: 60px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+.getbutton:active {
+    transform: scale(0.9);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 .getimg {
-    height: 60%;
-    width: 60%;
+    height: 70%;
+    width: 70%;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 .copybutton {
     position: absolute;
-    top: 20%;
-    outline: none; /* Для синий ободки */
-  border: 0;
-  background: transparent;
-  width: 50%;
-  height: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    margin-top: 40px;
+}
+.copybutton:active {
+    transform: translate(-50%, -50%) scale(0.95);
+    background: rgba(255, 255, 255, 0.25);
 }
 .copyimg {
-    height: 20px;
-    width: 20px;
+    height: 24px;
+    width: 24px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 .sendbutton{
     position: absolute;
-    top: 30%;
-    left: 80%;
-    height: 10%;
-    width: 17%;
-    border-radius: 100%; /* Радиус скругления */
-     border: none
-
+    top: 65%;
+    right: 10%;
+    height: 60px;
+    width: 60px;
+    min-width: 60px;
+    min-height: 60px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+.sendbutton:active {
+    transform: scale(0.9);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 .sendimg {
-    height: 60%;
-    width: 60%;
+    height: 70%;
+    width: 70%;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 .address {
     position: absolute;
-    top: 25%;
-    border-radius: 10%; /* Радиус скругления */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    max-width: 300px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.9);
+    font-size: clamp(14px, 3.5vw, 16px);
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    margin-top: 30px;
 }
 .adtext {
     position: absolute;
-    top: 17%;
-    font-family: Impact, fantasy;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: clamp(14px, 3.5vw, 18px);
     font-weight: bold;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
 }
 .toggle-button {
-            position: absolute;
-            left: 7.5%;
-            width: 20%;
-            height: 10%;
-            border-radius: 50%;
-            background-color: lightgray;
-            border: none;
-            cursor: pointer;
-            font-size: 100%;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 5%;
+    width: 120px;
+    height: 50px;
+    min-width: 120px;
+    min-height: 50px;
+    border-radius: 25px;
+    background-color: rgba(211, 211, 211, 0.8);
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    font-size: clamp(14px, 3.5vw, 18px);
+    font-weight: bold;
+    color: #333;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.toggle-button:active {
+    transform: translateX(-50%) scale(0.95);
+}
 .toggle-button.active {
-            background-color: green;
-        }
+    background-color: #10b981;
+    color: white;
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+}
 .faucet {
-         position: absolute;
-    top: 25%;
-    left: 40%;
-    height: 10%;
-    width: 20%;
-    border-radius: 100%; /* Радиус скругления */
-    border: none 
-    }
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 80px;
+    width: 80px;
+    min-width: 80px;
+    min-height: 80px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    margin-top: 20px;
+}
+.faucet:active {
+    transform: translate(-50%, -50%) scale(0.9);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+}
 .testtext {
     position: absolute;
     top: -4%;
     left: 31%;
-    font-family: Impact, fantasy;
+    font-family: arial black;
     font-size: 100%;
     font-weight: bold;
 
 }
 .back_button1 {
     position: absolute;
-    top: 0%;
-    left: 81%;
-    width: 11%;
-    height:7%;
-    border: 100%;
-    border-radius: 40%;
-    background-color: transparent;
-
+    right: 10px;
+    top: 10px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: background-color 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+}
+.back_button1:active {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(0.95);
 }
 .number {
     position: absolute;
     top: 50%;
-    left: 0%;
-    width: -100%;
-    height: 0%
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    max-width: 300px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.9);
+    font-size: clamp(14px, 3.5vw, 18px);
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-weight: bold;
+    box-sizing: border-box;
+    margin-top: 20px;
+    color: #333;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+.number:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
 }
 .investleague{
     position: absolute;
     top: 49.5%;
-    left: 40%;
-    background-color: rgb(0, 0, 168);
-    height: 7%;
-    width: 25%;
-    border-radius: 10px;
+    left: 90%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    height: 50px;
+    min-height: 50px;
+    width: 20%;
+    max-width: 250px;
+    border-radius: 25px;
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: clamp(14px, 3.5vw, 18px);
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(139, 92, 246, 0.3);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+.investleague:active {
+    transform: translateX(-50%) scale(0.95);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.25) 100%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 15px rgba(139, 92, 246, 0.4);
+}
+.investleague:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.2) 100%);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25), 0 0 25px rgba(139, 92, 246, 0.4);
 }
 .status_bar{
     position: absolute;
-    top: 16%;
-    left: 5%;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 100%;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: clamp(12px, 3vw, 16px);
     font-weight: bold;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 90%;
+    white-space: normal;
+    line-height: 1.4;
 }
 .timer{
     position: absolute;
     top: 40%;
     left: 42%;
-    font-family: Impact, fantasy;
+    font-family: arial black;
     font-size: 125%;
     font-weight: bold;
 }
 .inf {
-   position: absolute;
-    top: 5%;
-    left: 77%;
-    width: 15%;
-    height: 10%;  
-    background-color: transparent;
-    border-color: transparent;
-    border-radius: 100%;
+    position: absolute;
+    top: 10px;
+    right: 60px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    z-index: 10;
+}
+.inf:active {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(0.95);
 }
 .infimg {
-    position: absolute;
-    top: 5%;
-    left: 0%;
-    width: 100%;
-    height: 100%;  
+    position: relative;
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 .back_button2{
     position: absolute;
-    left:87%;
-    top:0%;
-    width: 11%;
-    height:7%;
-    border: 100%;
-    border-radius: 30%;
-    background-color: transparent;
-
+    right: 10px;
+    top: 10px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: background-color 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+}
+.back_button2:active {
+    background-color: rgba(0, 0, 0, 0.2);
+    transform: scale(0.95);
+}
+.back_button2 .backimg {
+    position: relative;
+    height: 60%;
+    width: 60%;
+    object-fit: contain;
+    filter: brightness(0) invert(0);
 }
 .tutorial{
     position: absolute;
-    left: -15%;
-    top: 6%;
+    left: -25%;
+    top: -40%;
+    object-fit: contain;
+    border-radius: 10px;
+    height: 150%;
     width: 150%;
-    height: 100%;
 }
 .textinvst{
-    position: absolute;
-    top: -40%;
-    left: 24%;
-    font-size: 120%;
+    position: relative;
+    top: 0;
+    left: 0;
+    font-size: clamp(14px, 3.5vw, 18px);
     font-weight: bold;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 100%;
 }
 .status_bar2{
-    font-size: 125%;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: clamp(11px, 2.8vw, 15px);
+    font-family: 'Arial Black', Arial, sans-serif;
     font-weight: bold;
-
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    white-space: normal;
+    width: 90%;
+    line-height: 1.3;
 }
 .inftext{
-    position: absolute;
-    top: 5%;
-   font-size: 75%;
-   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    position: relative;
+    top: 0;
+    margin-top: 220px;
+    margin-bottom: 20px;
+    padding: 15px;
+    font-size: clamp(12px, 3vw, 16px);
+    font-family: 'Arial Black', Arial, sans-serif;
     font-weight: bold;
+    color: #333;
+    line-height: 1.5;
+    background-color: rgba(139, 92, 246, 0.1);
+    border-radius: 10px;
+    border-left: 4px solid #8b5cf6;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 .inftext2{
-position: absolute;
-top: 50%;
-left: 2.5%;
-font-size: 75%;
-font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-font-weight: bold;
+    position: relative;
+    top: 0;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding: 15px;
+    font-size: clamp(12px, 3vw, 16px);
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-weight: bold;
+    color: #333;
+    line-height: 1.5;
+    background-color: rgba(139, 92, 246, 0.1);
+    border-radius: 10px;
+    border-left: 4px solid #8b5cf6;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 .bal_vis{
     position: absolute;
-    left: 25%;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 120%;
+    left: 55%;
+    transform: translateX(-50%);
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: clamp(14px, 3.5vw, 18px);
     z-index: 9999;
-    top: -30%;
+    top: -2%;
     font-weight: bold;
+    color: black;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
 }
 .tes_coin{
 position: absolute;
@@ -333,35 +659,303 @@ left: 43%;
 }
 .yourleague{
     position: absolute;
-    top:-5%;
-    left: 5%;
-    font-size: 120%;
-   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: clamp(14px, 3.5vw, 18px);
+    font-family: 'Arial Black', Arial, sans-serif;
     font-weight: bold;
-
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    white-space: nowrap;
+    width: 90%;
 }
 .sended{
     position: absolute;
-    top: 85%;
-    left: 42%;
-    font-family: Impact, fantasy;
-    font-size: 125%;
+    top: 70%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: clamp(12px, 3vw, 16px);
     font-weight: bold;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    white-space: nowrap;
 }
 .bal_mon{
     position: absolute;
     width: 5%;
     height: 3%;
-    top: 0.7%;
-    left: 17%;
+    top: 3%;
+    left: 23%;
 }
 .ton {
     position: absolute;
-    width: 30%;
-    height: 15%;
-    left:40%;
-    top: 9%;
+    width: 120px;
+    height: 120px;
+    max-width: 40%;
+    max-height: 25%;
+    left: 40%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
+
+/* Медиа-запросы для мобильных устройств */
+@media screen and (max-width: 480px) {
+    .popup {
+        width: 95%;
+        height: 75vh;
+        max-height: 90vh;
+        min-height: 450px;
+        border-radius: 20px;
+        padding: 15px;
+        box-shadow: 0 15px 40px rgba(139, 92, 246, 0.5);
+    }
+    
+    .popup2 {
+        width: 95%;
+        height: 75vh;
+        max-height: 90vh;
+        min-height: 450px;
+        border-radius: 20px;
+        padding: 15px;
+        box-shadow: 0 15px 40px rgba(139, 92, 246, 0.5);
+    }
+    
+    .popup3 {
+        width: 95%;
+        height: 85vh;
+        max-height: 90vh;
+        min-height: 400px;
+        border-radius: 20px;
+        padding: 15px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+    }
+    
+    .tutorial {
+        height: 150%;
+        width: 150%;
+        top: -40%;
+    }
+    
+    .inftext {
+        margin-top: 200px;
+        padding: 12px;
+        font-size: clamp(11px, 2.8vw, 15px);
+    }
+    
+    .inftext2 {
+        padding: 12px;
+        font-size: clamp(11px, 2.8vw, 15px);
+    }
+    
+    .back_button2 {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
+        right: 8px;
+        top: 8px;
+    }
+    
+    .wallet {
+        width: 85%;
+        height: 45px;
+        min-height: 44px;
+    }
+    
+    .bal {
+        font-size: clamp(50px, 12vw, 100px);
+        top: 25%;
+        left: 55%;
+    }
+    
+    .toggle-button {
+        width: 100px;
+        height: 45px;
+        min-width: 100px;
+        min-height: 45px;
+        font-size: clamp(12px, 3vw, 16px);
+        top: 5%;
+    }
+    
+    .getbutton, .sendbutton {
+        height: 55px;
+        width: 55px;
+        min-width: 55px;
+        min-height: 55px;
+        position: absolute;
+        top: 45%;
+    }
+    
+    .faucet {
+        height: 70px;
+        width: 70px;
+        min-width: 70px;
+        min-height: 70px;
+    }
+    
+    .ton {
+        width: 100px;
+        height: 100px;
+        top: 35%;
+        left: 40%;
+    }
+    
+    .back_button, .inf {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
+    }
+    
+    .inf {
+        right: 55px;
+    }
+    
+    /* Стили элементов popup для мобильных */
+    .back_button1 {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
+        right: 8px;
+        top: 8px;
+    }
+    
+    .number {
+        width: 90%;
+        padding: 10px 14px;
+        font-size: clamp(16px, 4vw, 20px);
+        position: absolute;
+        left: 45%;
+    }
+    
+    .investleague {
+        width: 20%;
+        height: 45px;
+        min-height: 45px;
+        font-size: clamp(12px, 3vw, 16px);
+        top: 49.5%;
+        left: 90%;
+    }
+    
+    .status_bar {
+        font-size: clamp(11px, 2.8vw, 14px);
+        top: 12%;
+    }
+    
+    .status_bar2 {
+        font-size: clamp(10px, 2.5vw, 13px);
+        top: 18%;
+    }
+    
+    .timer {
+        font-size: clamp(20px, 5vw, 30px);
+        top: 22%;
+    }
+    
+    .yourleague {
+        font-size: clamp(12px, 3vw, 16px);
+        top: 4%;
+    }
+    
+    .sended {
+        font-size: clamp(11px, 2.8vw, 14px);
+        top: 68%;
+    }
+    
+    /* Стили кнопки btnn для мобильных */
+    #btnn {
+        width: 85%;
+        height: 45px;
+        min-height: 45px;
+        top: 88%;
+        font-size: clamp(12px, 3vw, 16px);
+    }
+    
+    .textinvst {
+        font-size: clamp(12px, 3vw, 16px);
+    }
+}
+
+@media screen and (max-height: 600px) {
+    .popup {
+        height: 85vh;
+        max-height: 90vh;
+        min-height: 400px;
+        padding: 12px;
+    }
+    
+    .popup2 {
+        height: 85vh;
+        max-height: 90vh;
+        min-height: 400px;
+        padding: 12px;
+    }
+    
+    .popup3 {
+        height: 85vh;
+        max-height: 90vh;
+        min-height: 350px;
+        padding: 12px;
+    }
+    
+    .tutorial {
+        top: -40%;
+        height: 150%;
+        width: 150%;
+    }
+    
+    .inftext {
+        margin-top: 170px;
+        padding: 10px;
+        font-size: clamp(10px, 2.5vw, 14px);
+    }
+    
+    .inftext2 {
+        padding: 10px;
+        font-size: clamp(10px, 2.5vw, 14px);
+    }
+    
+    .bal {
+        font-size: clamp(50px, 12vw, 100px);
+        top: 25%;
+        left: 55%;
+    }
+    
+    .toggle-button {
+        top: 5%;
+    }
+    
+    .getbutton, .sendbutton {
+        top: 45%;
+    }
+    .ton {
+        top: 35%;
+        left: 40%
+    }
+    
+    /* Стили элементов popup для низких экранов */
+    .investleague {
+        height: 45px;
+        min-height: 45px;
+        top: 49.5%;
+        left: 90%;
+    }
+    
+    /* Стили кнопки btnn для низких экранов */
+    #btnn {
+        height: 45px;
+        min-height: 45px;
+        top: 88%;
+    }
+}
+
     </style>
   <body>
     <img class="tes" src="Tesseract.gif" alt="Tesseract gif">
@@ -369,32 +963,31 @@ left: 43%;
     <button id="wallet" type="button" onclick="log()" class="wallet"><img class="walletimg" src="wallet4.png" alt="WALLET">
     <p class="bal_vis" id="bal1">undefined</p></button>
     <img class="bal_mon" src="tsccoin.png">
-    <button id="btnn" type="button" style="font-family:Impact, fantasy;" onclick="openPopup(false)" class="btnn"><p class="textinvst">INVEST</p></button>
+    <button id="btnn" type="button" onclick="openPopup(false)" class="btnn"><p class="textinvst">INVEST</p></button>
     <div class="popup3">
         <img src="infomap.png" alt="tutorial" class="tutorial">
         <p class="inftext"> sum1 = S league debt*; tax = ((sum1 * 10) / 100) * 2; sum2 = sum1 + tax + G league debt; sum3 = any number; sum4 = sum2 + sum3 + tax; sum5 = any number; sum6 = B league debt + tax + sum4 + sum5</p>
-        <button onclick="closePopup2()" class="back_button2" id="back_button2"><img src="delete_13906047-Photoroom.png" alt="back" class="backimg"></button>
+        <button onclick="closePopup2()" class="back_button2" id="back_button2"><img src="close.png" alt="back" class="backimg"></button>
         <p class="inftext2">league debt - each cycle at the end of the G league ends up in the minus, after redistribution by leagues the sum of the debt of all users in one league is the league debt; tax distribution - 50% of the tax goes to the user's income, and the other 50% to the creators</p>
         </div>
     <div class="popup">
         <p class="yourleague" id="your">Loading...</p>
         <p id="status_bar" class="status_bar">Loading...</p>
         <p id="status_bar2" class="status_bar2">Loading...</p>
-        <input type="number" id="number" class="number" style="font-size: 100%; font-family:Impact, fantasy; border: 1px solid #ccc; border-radius: 10px; padding: 8px; width: 100px; box-sizing: border-box;" placeholder="0">
-        <button onclick="start()" class="investleague" id="investleague" style="font-family:Impact, fantasy; position:absolute;;">PAY</button>
+        <input type="number" id="number" class="number" placeholder="0">
+        <button onclick="start()" class="investleague" id="investleague">PAY</button>
         <div id="timer" class="timer">Loading...</div>
-        <button onclick="closePopup(false)" class="back_button1" id="back_button1"><img src="delete_13906047-Photoroom.png" alt="back" class="backimg"></button>
+        <button onclick="closePopup(false)" class="back_button1" id="back_button1"><img src="close.png" alt="back" class="backimg"></button>
         <p class="sended" id="sended">Loading...</p>
     </div>
         <div class="popup2" id="popup2">
-            <p class="testtext">:Test Mode</p>
             <button class="toggle-button" id="toggleButton">OFF</button>
-            <p id="bal" class="bal" >NONE</p>
+            <p id="bal" class="bal">NONE</p>
             <img class="ton" id="ton" src="ton-no-bg-preview (carve.photos).png">
 <button onclick="copyText()" id="copy" class="copybutton"><img src="copy-Photoroom.png" alt="Copy" class="copyimg"></button>
             <button onclick="get(true)" class="getbutton" id="getbutton"><img src="get.png" alt="get" class="getimg"></button>
             <button onclick="send(true)" class="sendbutton" id="sendbutton"><img src="send.png" alt="send" class="sendimg"></button>
-            <button onclick="closePopup(true)" class="back_button" id="back_button"><img src="delete_13906047-Photoroom.png" alt="back" class="backimg"></button>
+            <button onclick="closePopup(true)" class="back_button" id="back_button"><img src="close.png" alt="back" class="backimg"></button>
            <button onclick="openPopup2()" class="inf" id="inf"><img src="inf-Photoroom.png" alt="information" class="infimg"></button>
         </div>
             
@@ -538,8 +1131,8 @@ function log() {
                     closePopup(true);
                 };
                 const bal = document.getElementById("bal")
-                bal.style.fontsize = "150%";
-                bal.style.left = "35%"
+                // bal.style.fontsize = "150%";
+                // bal.style.left = "35%"
                 openPopup(true);
                 return
             }
@@ -800,7 +1393,10 @@ gold_dolg = JSON.parse(localStorage.getItem("gold_dolg"))
 async function start() {
      if(league != "G"){
          document.getElementById("status_bar").innerText = `Now G league is investing. Your league - ${league}`
+         document.getElementById("status_bar").style.color = "red"
          await delay(2000)
+         document.getElementById("status_bar").innerText = "Time G league send money to S league"
+        document.getElementById("status_bar").style.color = "white"
          return 0
      } 
     let gold_Giv = JSON.parse(document.getElementById("number").value)
@@ -808,8 +1404,10 @@ async function start() {
     balance -= gold_Giv
     if(balance < 0){
         document.getElementById("status_bar").innerText = "Your TSC balance too little"
+        document.getElementById("status_bar").style.color = "red"
         await delay(2000)
         document.getElementById("status_bar").innerText = "Time G league send money to S league"
+        document.getElementById("status_bar").style.color = "white"
         return 0
     }
     bal_sended += gold_Giv
@@ -817,8 +1415,10 @@ async function start() {
     localStorage.setItem("TESTBAL", JSON.stringify(balance))
     document.getElementById("number").value = 0
     document.getElementById("status_bar").innerText = "Sent successfully"
+             document.getElementById("status_bar").style.color = "green"
     await delay(1500)
     document.getElementById("status_bar").innerText = "Time G league send money to S league"
+    document.getElementById("status_bar").style.color = "white"
     fetch('/get-gold')
                 .then(response => response.json())
                 .then(data => {
@@ -848,22 +1448,17 @@ async function start() {
                     have_already_invest = true
                 localStorage.setItem("invest", JSON.stringify(true))
                 }
-                var box = document.getElementById('box');
-box.style.display = "block";
-setTimeout(() => {
-  box.style.transform = "translateY(-450%)";
-  closePopup(false)
-}, 20);
 document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
 await delay(3000)
-box.style.transform = "translateY(450%)"
-box.style.display = "none" 
 document.getElementById("sended").innerText = `Sended: ${gold_Giv}`
                  }
 async function serSend() {
     if(league != "S"){
          document.getElementById("status_bar").innerText = `Now S league is investing. Your league - ${league}`
+         document.getElementById("status_bar").style.color = "red"
          await delay(2000)
+         document.getElementById("status_bar").innerText = "Time G league send money to S league"
+        document.getElementById("status_bar").style.color = "white"
          return 0
      } 
     let serSend = JSON.parse(document.getElementById("number").value)
@@ -871,8 +1466,10 @@ async function serSend() {
     balance -= serSend
     if(balance < 0){
         document.getElementById("status_bar").innerText = "Your TSC balance too little"
+        document.getElementById("status_bar").style.color = "red"
         await delay(2000)
         document.getElementById("status_bar").innerText = "Time G league send money to S league"
+        document.getElementById("status_bar").style.color = "white"
         return 0
     }
    bal_sended2 += serSend
@@ -886,8 +1483,10 @@ async function serSend() {
     localStorage.setItem("TESTBAL", JSON.stringify(balance))
     document.getElementById("number").value = 0
     document.getElementById("status_bar").innerText = "Sent successfully"
+    document.getElementById("status_bar").style.color = "green"
     await delay(2000)
     document.getElementById("status_bar").innerText = "Time S league send money to B league"
+    document.getElementById("status_bar").style.color = "white"
     fetch('/get-ser_send')
                 .then(response => response.json())
                 .then(data => {
@@ -902,22 +1501,17 @@ async function serSend() {
                     .catch(error => {
                         console.error('Fatal error. We are deleting your PC', error);
                     });
-var box = document.getElementById('box');
-box.style.display = "block";
-setTimeout(() => {
-  box.style.transform = "translateY(-450%)";
-  closePopup(false)
-}, 20);
 document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
 await delay(3000)
-box.style.transform = "translateY(450%)"
-box.style.display = "none" 
 document.getElementById("sended").innerText = `Sended: ${serSend}`
 }
 async function serGive(goldEarnings, nalog) {
     if(league != "S"){
          document.getElementById("status_bar").innerText = `Now S league is investing. Your league - ${league}`
+         document.getElementById("status_bar").style.color = "red"
          await delay(2000)
+         document.getElementById("status_bar").innerText = "Time G league send money to S league"
+    document.getElementById("status_bar").style.color = "white"
          return 0
      } 
     let serGive = JSON.parse(document.getElementById("number").value)
@@ -926,6 +1520,7 @@ async function serGive(goldEarnings, nalog) {
                 .then(response => response.json())
                 .then(data => {
                     if (serGive + data.ser_give > (-goldEarnings + nalog)){
+                        document.getElementById("status_bar").style.color = "yellow"
                         document.getElementById("status_bar").innerText = `You sent too much, the extra coins ${serGive} were returned to your balance`
                         serGive = (-goldEarnings + nalog) - data.ser_give
                         balance -= serGive
@@ -955,8 +1550,10 @@ if(!have_already_invest){
                 }
 if(balance < 0){
     document.getElementById("status_bar").innerText = "Your TSC balance too little"
+    document.getElementById("status_bar").style.color = "red"
     await delay(2000)
     document.getElementById("status_bar").innerText = "Time G league send money to S league"
+    document.getElementById("status_bar").style.color = "white"
     return 0
                 }
 localStorage.setItem("TESTBAL", JSON.stringify(balance))
@@ -964,24 +1561,21 @@ bal_sended2 += serGive
 localStorage.setItem("bal_sended2", JSON.stringify(bal_sended2))
 document.getElementById("number").value = 0
 document.getElementById("status_bar").innerText = "Sent successfully"
+document.getElementById("status_bar").style.color = "green"
 await delay(2000)
 document.getElementById("status_bar").innerText = "Time S league send money to G league"
-var box = document.getElementById('box');
-box.style.display = "block";
-setTimeout(() => {
-  box.style.transform = "translateY(-450%)";
-  closePopup(false)
-}, 20);
+document.getElementById("status_bar").style.color = "white"
 document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
-await delay(3000)
-box.style.transform = "translateY(450%)"
-box.style.display = "none" 
+await delay(3000) 
 document.getElementById("sended").innerText = `Sended: ${serGive}`
 }
 async function bronSend() {
     if(league != "B"){
          document.getElementById("status_bar").innerText = `Now B league is investing. Your league - ${league}`
+    document.getElementById("status_bar").style.color = "red"
          await delay(2000)
+         document.getElementById("status_bar").innerText = "Time B league send money to G league"
+        document.getElementById("status_bar").style.color = "white"
          return 0
      } 
     let bronSend = JSON.parse(document.getElementById("number").value)
@@ -989,8 +1583,10 @@ async function bronSend() {
     balance -= bronSend
     if(balance < 0){
         document.getElementById("status_bar").innerText = "Your TSC balance too little"
+        document.getElementById("status_bar").style.color = "red"
         await delay(2000)
         document.getElementById("status_bar").innerText = "Time B league send money to G league"
+        document.getElementById("status_bar").style.color = "white"
         return 0
     }
     bal_sended += bronSend
@@ -998,8 +1594,10 @@ async function bronSend() {
     localStorage.setItem("TESTBAL", JSON.stringify(balance))
     document.getElementById("number").value = 0
     document.getElementById("status_bar").innerText = "Sent successfully"
+    document.getElementById("status_bar").style.color = "green"
     await delay(2000)
     document.getElementById("status_bar").innerText = "Time B league send money to G league"
+    document.getElementById("status_bar").style.color = "white"
     fetch('/get-bron_send')
                 .then(response => response.json())
                 .then(data => {
@@ -1020,22 +1618,17 @@ if(!have_already_invest){
                 .then(responsedata => {
   
                     }) }
-var box = document.getElementById('box');
-box.style.display = "block";
-setTimeout(() => {
-  box.style.transform = "translateY(-450%)";
-  closePopup(false)
-}, 20);
 document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
 await delay(3000)
-box.style.transform = "translateY(450%)"
-box.style.display = "none" 
 document.getElementById("sended").innerText = `Sended: ${bronSend}`
 }
 async function bronGive(silverEarnings, nalog) {
 if(league != "B"){
     document.getElementById("status_bar").innerText = `Now B league is investing. Your league - ${league}`
-         await delay(2000)
+    document.getElementById("status_bar").style.color = "red"
+    await delay(2000)
+    document.getElementById("status_bar").innerText = "Time B league send money to S league"
+    document.getElementById("status_bar").style.color = "white"
          return 0
      } 
     let bronGive = JSON.parse(document.getElementById("number").value)
@@ -1046,6 +1639,7 @@ if(league != "B"){
                     if (bronGive + data.bron_give > (-silverEarnings + nalog)){
                         bronGive = (-silverEarnings + nalog) - data.bron_give
                         document.getElementById("status_bar").innerText = `You sent too much, the extra coins ${bronGive} were returned to your balance`
+                        document.getElementById("status_bar").style.color = "yellow"
                     }
                     const response =  fetch('/add_bron', {
                             method: 'POST',
@@ -1071,8 +1665,10 @@ if(!have_already_invest){
 balance -= bronGive
 if(balance < 0){
     document.getElementById("status_bar").innerText = "Your TSC balance too little"
+    document.getElementById("status_bar").style.color = "red"
     await delay(2000)
     document.getElementById("status_bar").innerText = "Time B league send money to S league"
+    document.getElementById("status_bar").style.color = "white"
     return 0
                 }
 localStorage.setItem("TESTBAL", JSON.stringify(balance))
@@ -1080,24 +1676,21 @@ bal_sended += bronGive
 localStorage.setItem("bal_sended", JSON.stringify(bal_sended))
 document.getElementById("number").value = 0
 document.getElementById("status_bar").innerText = "Sent successfully"
+document.getElementById("status_bar").style.color = "green"
 await delay(2000)
 document.getElementById("status_bar").innerText = "Time B league send money to S league"
-var box = document.getElementById('box');
-box.style.display = "block";
-setTimeout(() => {
-  box.style.transform = "translateY(-450%)";
-  closePopup(false)
-}, 20);
+document.getElementById("status_bar").style.color = "white"
 document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
 await delay(3000)
-box.style.transform = "translateY(450%)"
-box.style.display = "none" 
 document.getElementById("sended").innerText = `Sended: ${bronGive}`
 }
 async function goldGive(bronEarnings, nalog) {
 if(league != "G"){
          document.getElementById("status_bar").innerText = `Now G league is investing. Your league - ${league}`
+         document.getElementById("status_bar").style.color = "red"
          await delay(2000)
+         document.getElementById("status_bar").innerText = "Time G league send money to B league"
+        document.getElementById("status_bar").style.color = "white"
          return 0
      } 
     let goldGive = JSON.parse(document.getElementById("number").value)
@@ -1107,6 +1700,7 @@ if(league != "G"){
                 .then(data => {
                     if (goldGive + data.gold_give > (-bronEarnings + nalog)){
                         goldGive = (-bronEarnings + nalog) - data.gold_give
+                        document.getElementById("status_bar").style.color = "yellow"
                         document.getElementById("status_bar").innerText = `You sent too much, the extra coins ${goldGive} were returned to your balance`
                     }
                     const response =  fetch('/add_gold', {
@@ -1124,28 +1718,24 @@ await delay(1000)
 balance -= goldGive
 if(balance < 0){
         document.getElementById("status_bar").innerText = "Your TSC balance too little"
+        document.getElementById("status_bar").style.color = "red"
         await delay(2000)
         document.getElementById("status_bar").innerText = "Time G league send money to B league"
+        document.getElementById("status_bar").style.color = "white"
         return
     }
 localStorage.setItem("TESTBAL", JSON.stringify(balance))
 document.getElementById("number").value = 0
 document.getElementById("status_bar").innerText = "Sent successfully"
+document.getElementById("status_bar").style.color = "green"
 gold_dolg += goldGive
 localStorage.setItem("gold_dolg", JSON.stringify(gold_dolg))
 console.log(goldGive)
 await delay(2000)
 document.getElementById("status_bar").innerText = "Time G league send money to B league"
-var box = document.getElementById('box');
-box.style.display = "block";
-setTimeout(() => {
-  box.style.transform = "translateY(-450%)";
-  closePopup(false)
-}, 20);
+document.getElementById("status_bar").style.color = "white"
 document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
 await delay(3000)
-box.style.transform = "translateY(450%)"
-box.style.display = "none" 
 document.getElementById("sended").innerText = `Sended: ${goldGive}`
 }
 async function required_delay(required_num, leagu){
@@ -1951,6 +2541,9 @@ main();
   </script>
 
 </html>
+
+
+
 
 
 
