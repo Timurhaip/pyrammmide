@@ -57,15 +57,23 @@ button {
   border-radius: 17%;
 }
 .popup2 {
-  position: absolute;
+  position: fixed;
   top: 50%;
-  left: 52%;
+  left: 50%;
   transform: translate(-50%, -50%); 
-  width: 50%;
-  height: 50%;
-  background-color: blueviolet;
+  width: 90%;
+  max-width: 400px;
+  height: 70vh;
+  max-height: 600px;
+  min-height: 500px;
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
   z-index: 9998;
-  border-radius: 17%;
+  border-radius: 25px;
+  box-shadow: 0 20px 60px rgba(139, 92, 246, 0.4);
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .popup3 {
   position: absolute;
@@ -79,124 +87,257 @@ button {
   border-radius: 10%;
 }
 .wallet {
-   width: 35%;
-   height: 5%;
+   width: 90%;
+   max-width: 200px;
+   height: 50px;
+   min-height: 44px;
    position: absolute;
-   left: 0%;
-   top: 0%; 
+   left: 5%;
+   top: 10px; 
    background-color: white;
-   border: 0px;
-   border-radius: 10%;
+   border: 2px solid rgba(139, 92, 246, 0.3);
+   border-radius: 15px;
+   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+   transition: transform 0.2s, box-shadow 0.2s;
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   padding-left: 10px;
+}
+.wallet:active {
+   transform: scale(0.98);
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 .walletimg {
-    width: 20%;
-   height: 100%;
-   position: absolute;
-   left: 0%;
-   top: 0%;
+    width: 35px;
+    height: 35px;
+    position: relative;
+    object-fit: contain;
+    margin-right: 8px;
 }
 .bal{
     position: absolute;
-    left: 25%;
-    top: 5%;
-    font-family: arial black;
-    font-size: 125%;
+    left: 65%;
+    top: 10%;
+    transform: translate(-50%, -50%);
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: clamp(60px, 15vw, 120px);
     font-weight: bold;
+    color: white;
+    text-align: center;
+    width: auto;
+    white-space: nowrap;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .back_button{
     position: absolute;
-    left:79%;
-    top:0%;
-    width: 11%;
-    height:7%;
-    border: 100%;
-    border-radius: 40%;
-    background-color: transparent;
+    right: 10px;
+    top: 10px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    border: none;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    transition: background-color 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+}
+.back_button:active {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(0.95);
 }
 .backimg{
-    position: absolute;
-    left: 0%;
-    top: 0%;
-    height: 100%;
-    width:100%;
+    position: relative;
+    height: 60%;
+    width: 60%;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 .getbutton{
     position: absolute;
-    top: 30%;
-    left: 5%;
-    height: 10%;
-    width: 17%;
-    border-radius: 100%; /* Радиус скругления */
-     border: none
-
+    top: 45%;
+    left: 10%;
+    height: 60px;
+    width: 60px;
+    min-width: 60px;
+    min-height: 60px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+.getbutton:active {
+    transform: scale(0.9);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 .getimg {
-    height: 60%;
-    width: 60%;
+    height: 70%;
+    width: 70%;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 .copybutton {
     position: absolute;
-    top: 20%;
-    outline: none; /* Для синий ободки */
-  border: 0;
-  background: transparent;
-  width: 50%;
-  height: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    margin-top: 40px;
+}
+.copybutton:active {
+    transform: translate(-50%, -50%) scale(0.95);
+    background: rgba(255, 255, 255, 0.25);
 }
 .copyimg {
-    height: 20px;
-    width: 20px;
+    height: 24px;
+    width: 24px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 .sendbutton{
     position: absolute;
-    top: 30%;
-    left: 80%;
-    height: 10%;
-    width: 17%;
-    border-radius: 100%; /* Радиус скругления */
-     border: none
-
+    top: 65%;
+    right: 10%;
+    height: 60px;
+    width: 60px;
+    min-width: 60px;
+    min-height: 60px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+.sendbutton:active {
+    transform: scale(0.9);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 .sendimg {
-    height: 60%;
-    width: 60%;
+    height: 70%;
+    width: 70%;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 .address {
     position: absolute;
-    top: 25%;
-    border-radius: 10%; /* Радиус скругления */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    max-width: 300px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.9);
+    font-size: clamp(14px, 3.5vw, 16px);
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    margin-top: 30px;
 }
 .adtext {
     position: absolute;
-    top: 17%;
-    font-family: arial black;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: clamp(14px, 3.5vw, 18px);
     font-weight: bold;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
 }
 .toggle-button {
-            position: absolute;
-            left: 7.5%;
-            width: 20%;
-            height: 10%;
-            border-radius: 50%;
-            background-color: lightgray;
-            border: none;
-            cursor: pointer;
-            font-size: 100%;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 5%;
+    width: 120px;
+    height: 50px;
+    min-width: 120px;
+    min-height: 50px;
+    border-radius: 25px;
+    background-color: rgba(211, 211, 211, 0.8);
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    font-size: clamp(14px, 3.5vw, 18px);
+    font-weight: bold;
+    color: #333;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.toggle-button:active {
+    transform: translateX(-50%) scale(0.95);
+}
 .toggle-button.active {
-            background-color: green;
-        }
+    background-color: #10b981;
+    color: white;
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+}
 .faucet {
-         position: absolute;
-    top: 25%;
-    left: 40%;
-    height: 10%;
-    width: 20%;
-    border-radius: 100%; /* Радиус скругления */
-    border: none 
-    }
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 80px;
+    width: 80px;
+    min-width: 80px;
+    min-height: 80px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    margin-top: 20px;
+}
+.faucet:active {
+    transform: translate(-50%, -50%) scale(0.9);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+}
 .testtext {
     position: absolute;
     top: -4%;
@@ -250,21 +391,34 @@ button {
     font-weight: bold;
 }
 .inf {
-   position: absolute;
-    top: 5%;
-    left: 77%;
-    width: 15%;
-    height: 10%;  
-    background-color: transparent;
-    border-color: transparent;
-    border-radius: 100%;
+    position: absolute;
+    top: 10px;
+    right: 60px;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    background-color: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    z-index: 10;
+}
+.inf:active {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(0.95);
 }
 .infimg {
-    position: absolute;
-    top: 5%;
-    left: 0%;
-    width: 100%;
-    height: 100%;  
+    position: relative;
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 .back_button2{
     position: absolute;
@@ -314,12 +468,16 @@ font-weight: bold;
 }
 .bal_vis{
     position: absolute;
-    left: 25%;
-    font-family: arial black;
-    font-size: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: clamp(14px, 3.5vw, 18px);
     z-index: 9999;
-    top: -30%;
+    top: -20%;
     font-weight: bold;
+    color: black;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
 }
 .tes_coin{
 position: absolute;
@@ -352,15 +510,111 @@ left: 43%;
     position: absolute;
     width: 5%;
     height: 3%;
-    top: 1%;
-    left: 17%;
+    top: 2.5%;
+    left: 23%;
 }
 .ton {
     position: absolute;
-    width: 30%;
-    height: 15%;
-    left:40%;
-    top: 10%;
+    width: 120px;
+    height: 120px;
+    max-width: 40%;
+    max-height: 25%;
+    left: 40%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* Медиа-запросы для мобильных устройств */
+@media screen and (max-width: 480px) {
+    .popup2 {
+        width: 95%;
+        height: 75vh;
+        min-height: 450px;
+        border-radius: 20px;
+        padding: 15px;
+    }
+    
+    .wallet {
+        width: 85%;
+        height: 45px;
+        min-height: 44px;
+    }
+    
+    .bal {
+        font-size: clamp(50px, 12vw, 100px);
+        top: 25%;
+        left: 55%;
+    }
+    
+    .toggle-button {
+        width: 100px;
+        height: 45px;
+        min-width: 100px;
+        min-height: 45px;
+        font-size: clamp(12px, 3vw, 16px);
+        top: 5%;
+    }
+    
+    .getbutton, .sendbutton {
+        height: 55px;
+        width: 55px;
+        min-width: 55px;
+        min-height: 55px;
+        position: absolute;
+        top: 45%;
+    }
+    
+    .faucet {
+        height: 70px;
+        width: 70px;
+        min-width: 70px;
+        min-height: 70px;
+    }
+    
+    .ton {
+        width: 100px;
+        height: 100px;
+        top: 35%;
+        left: 40%;
+    }
+    
+    .back_button, .inf {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
+    }
+    
+    .inf {
+        right: 55px;
+    }
+}
+
+@media screen and (max-height: 600px) {
+    .popup2 {
+        height: 85vh;
+        min-height: 400px;
+    }
+    
+    .bal {
+        font-size: clamp(50px, 12vw, 100px);
+        top: 25%;
+        left: 55%;
+    }
+    
+    .toggle-button {
+        top: 5%;
+    }
+    
+    .getbutton, .sendbutton {
+        top: 45%;
+    }
+    .ton {
+        top: 35%;
+        left: 40%
+    }
 }
     </style>
   <body>
@@ -387,9 +641,8 @@ left: 43%;
         <p class="sended" id="sended">Loading...</p>
     </div>
         <div class="popup2" id="popup2">
-            <!-- <p class="testtext">:Test Mode</p> -->
             <button class="toggle-button" id="toggleButton">OFF</button>
-            <p id="bal" class="bal" >NONE</p>
+            <p id="bal" class="bal">NONE</p>
             <img class="ton" id="ton" src="ton-no-bg-preview (carve.photos).png">
 <button onclick="copyText()" id="copy" class="copybutton"><img src="copy-Photoroom.png" alt="Copy" class="copyimg"></button>
             <button onclick="get(true)" class="getbutton" id="getbutton"><img src="get.png" alt="get" class="getimg"></button>
@@ -538,8 +791,8 @@ function log() {
                     closePopup(true);
                 };
                 const bal = document.getElementById("bal")
-                bal.style.fontsize = "150%";
-                bal.style.left = "35%"
+                // bal.style.fontsize = "150%";
+                // bal.style.left = "35%"
                 openPopup(true);
                 return
             }
