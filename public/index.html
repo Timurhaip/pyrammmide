@@ -1393,7 +1393,10 @@ gold_dolg = JSON.parse(localStorage.getItem("gold_dolg"))
 async function start() {
      if(league != "G"){
          document.getElementById("status_bar").innerText = `Now G league is investing. Your league - ${league}`
+         document.getElementById("status_bar").style.color = "red"
          await delay(2000)
+         document.getElementById("status_bar").innerText = "Time G league send money to S league"
+        document.getElementById("status_bar").style.color = "white"
          return 0
      } 
     let gold_Giv = JSON.parse(document.getElementById("number").value)
@@ -1401,8 +1404,10 @@ async function start() {
     balance -= gold_Giv
     if(balance < 0){
         document.getElementById("status_bar").innerText = "Your TSC balance too little"
+        document.getElementById("status_bar").style.color = "red"
         await delay(2000)
         document.getElementById("status_bar").innerText = "Time G league send money to S league"
+        document.getElementById("status_bar").style.color = "white"
         return 0
     }
     bal_sended += gold_Giv
@@ -1410,8 +1415,10 @@ async function start() {
     localStorage.setItem("TESTBAL", JSON.stringify(balance))
     document.getElementById("number").value = 0
     document.getElementById("status_bar").innerText = "Sent successfully"
+             document.getElementById("status_bar").style.color = "green"
     await delay(1500)
     document.getElementById("status_bar").innerText = "Time G league send money to S league"
+    document.getElementById("status_bar").style.color = "white"
     fetch('/get-gold')
                 .then(response => response.json())
                 .then(data => {
@@ -1441,22 +1448,17 @@ async function start() {
                     have_already_invest = true
                 localStorage.setItem("invest", JSON.stringify(true))
                 }
-                var box = document.getElementById('box');
-box.style.display = "block";
-setTimeout(() => {
-  box.style.transform = "translateY(-450%)";
-  closePopup(false)
-}, 20);
 document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
 await delay(3000)
-box.style.transform = "translateY(450%)"
-box.style.display = "none" 
 document.getElementById("sended").innerText = `Sended: ${gold_Giv}`
                  }
 async function serSend() {
     if(league != "S"){
          document.getElementById("status_bar").innerText = `Now S league is investing. Your league - ${league}`
+         document.getElementById("status_bar").style.color = "red"
          await delay(2000)
+         document.getElementById("status_bar").innerText = "Time G league send money to S league"
+        document.getElementById("status_bar").style.color = "white"
          return 0
      } 
     let serSend = JSON.parse(document.getElementById("number").value)
@@ -1464,8 +1466,10 @@ async function serSend() {
     balance -= serSend
     if(balance < 0){
         document.getElementById("status_bar").innerText = "Your TSC balance too little"
+        document.getElementById("status_bar").style.color = "red"
         await delay(2000)
         document.getElementById("status_bar").innerText = "Time G league send money to S league"
+        document.getElementById("status_bar").style.color = "white"
         return 0
     }
    bal_sended2 += serSend
@@ -1479,8 +1483,10 @@ async function serSend() {
     localStorage.setItem("TESTBAL", JSON.stringify(balance))
     document.getElementById("number").value = 0
     document.getElementById("status_bar").innerText = "Sent successfully"
+    document.getElementById("status_bar").style.color = "green"
     await delay(2000)
     document.getElementById("status_bar").innerText = "Time S league send money to B league"
+    document.getElementById("status_bar").style.color = "white"
     fetch('/get-ser_send')
                 .then(response => response.json())
                 .then(data => {
@@ -1495,22 +1501,17 @@ async function serSend() {
                     .catch(error => {
                         console.error('Fatal error. We are deleting your PC', error);
                     });
-var box = document.getElementById('box');
-box.style.display = "block";
-setTimeout(() => {
-  box.style.transform = "translateY(-450%)";
-  closePopup(false)
-}, 20);
 document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
 await delay(3000)
-box.style.transform = "translateY(450%)"
-box.style.display = "none" 
 document.getElementById("sended").innerText = `Sended: ${serSend}`
 }
 async function serGive(goldEarnings, nalog) {
     if(league != "S"){
          document.getElementById("status_bar").innerText = `Now S league is investing. Your league - ${league}`
+         document.getElementById("status_bar").style.color = "red"
          await delay(2000)
+         document.getElementById("status_bar").innerText = "Time G league send money to S league"
+    document.getElementById("status_bar").style.color = "white"
          return 0
      } 
     let serGive = JSON.parse(document.getElementById("number").value)
@@ -1519,6 +1520,7 @@ async function serGive(goldEarnings, nalog) {
                 .then(response => response.json())
                 .then(data => {
                     if (serGive + data.ser_give > (-goldEarnings + nalog)){
+                        document.getElementById("status_bar").style.color = "yellow"
                         document.getElementById("status_bar").innerText = `You sent too much, the extra coins ${serGive} were returned to your balance`
                         serGive = (-goldEarnings + nalog) - data.ser_give
                         balance -= serGive
@@ -1548,8 +1550,10 @@ if(!have_already_invest){
                 }
 if(balance < 0){
     document.getElementById("status_bar").innerText = "Your TSC balance too little"
+    document.getElementById("status_bar").style.color = "red"
     await delay(2000)
     document.getElementById("status_bar").innerText = "Time G league send money to S league"
+    document.getElementById("status_bar").style.color = "white"
     return 0
                 }
 localStorage.setItem("TESTBAL", JSON.stringify(balance))
@@ -1557,24 +1561,21 @@ bal_sended2 += serGive
 localStorage.setItem("bal_sended2", JSON.stringify(bal_sended2))
 document.getElementById("number").value = 0
 document.getElementById("status_bar").innerText = "Sent successfully"
+document.getElementById("status_bar").style.color = "green"
 await delay(2000)
 document.getElementById("status_bar").innerText = "Time S league send money to G league"
-var box = document.getElementById('box');
-box.style.display = "block";
-setTimeout(() => {
-  box.style.transform = "translateY(-450%)";
-  closePopup(false)
-}, 20);
+document.getElementById("status_bar").style.color = "white"
 document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
-await delay(3000)
-box.style.transform = "translateY(450%)"
-box.style.display = "none" 
+await delay(3000) 
 document.getElementById("sended").innerText = `Sended: ${serGive}`
 }
 async function bronSend() {
     if(league != "B"){
          document.getElementById("status_bar").innerText = `Now B league is investing. Your league - ${league}`
+    document.getElementById("status_bar").style.color = "red"
          await delay(2000)
+         document.getElementById("status_bar").innerText = "Time B league send money to G league"
+        document.getElementById("status_bar").style.color = "white"
          return 0
      } 
     let bronSend = JSON.parse(document.getElementById("number").value)
@@ -1582,8 +1583,10 @@ async function bronSend() {
     balance -= bronSend
     if(balance < 0){
         document.getElementById("status_bar").innerText = "Your TSC balance too little"
+        document.getElementById("status_bar").style.color = "red"
         await delay(2000)
         document.getElementById("status_bar").innerText = "Time B league send money to G league"
+        document.getElementById("status_bar").style.color = "white"
         return 0
     }
     bal_sended += bronSend
@@ -1591,8 +1594,10 @@ async function bronSend() {
     localStorage.setItem("TESTBAL", JSON.stringify(balance))
     document.getElementById("number").value = 0
     document.getElementById("status_bar").innerText = "Sent successfully"
+    document.getElementById("status_bar").style.color = "green"
     await delay(2000)
     document.getElementById("status_bar").innerText = "Time B league send money to G league"
+    document.getElementById("status_bar").style.color = "white"
     fetch('/get-bron_send')
                 .then(response => response.json())
                 .then(data => {
@@ -1613,22 +1618,17 @@ if(!have_already_invest){
                 .then(responsedata => {
   
                     }) }
-var box = document.getElementById('box');
-box.style.display = "block";
-setTimeout(() => {
-  box.style.transform = "translateY(-450%)";
-  closePopup(false)
-}, 20);
 document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
 await delay(3000)
-box.style.transform = "translateY(450%)"
-box.style.display = "none" 
 document.getElementById("sended").innerText = `Sended: ${bronSend}`
 }
 async function bronGive(silverEarnings, nalog) {
 if(league != "B"){
     document.getElementById("status_bar").innerText = `Now B league is investing. Your league - ${league}`
-         await delay(2000)
+    document.getElementById("status_bar").style.color = "red"
+    await delay(2000)
+    document.getElementById("status_bar").innerText = "Time B league send money to S league"
+    document.getElementById("status_bar").style.color = "white"
          return 0
      } 
     let bronGive = JSON.parse(document.getElementById("number").value)
@@ -1639,6 +1639,7 @@ if(league != "B"){
                     if (bronGive + data.bron_give > (-silverEarnings + nalog)){
                         bronGive = (-silverEarnings + nalog) - data.bron_give
                         document.getElementById("status_bar").innerText = `You sent too much, the extra coins ${bronGive} were returned to your balance`
+                        document.getElementById("status_bar").style.color = "yellow"
                     }
                     const response =  fetch('/add_bron', {
                             method: 'POST',
@@ -1664,8 +1665,10 @@ if(!have_already_invest){
 balance -= bronGive
 if(balance < 0){
     document.getElementById("status_bar").innerText = "Your TSC balance too little"
+    document.getElementById("status_bar").style.color = "red"
     await delay(2000)
     document.getElementById("status_bar").innerText = "Time B league send money to S league"
+    document.getElementById("status_bar").style.color = "white"
     return 0
                 }
 localStorage.setItem("TESTBAL", JSON.stringify(balance))
@@ -1673,24 +1676,21 @@ bal_sended += bronGive
 localStorage.setItem("bal_sended", JSON.stringify(bal_sended))
 document.getElementById("number").value = 0
 document.getElementById("status_bar").innerText = "Sent successfully"
+document.getElementById("status_bar").style.color = "green"
 await delay(2000)
 document.getElementById("status_bar").innerText = "Time B league send money to S league"
-var box = document.getElementById('box');
-box.style.display = "block";
-setTimeout(() => {
-  box.style.transform = "translateY(-450%)";
-  closePopup(false)
-}, 20);
+document.getElementById("status_bar").style.color = "white"
 document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
 await delay(3000)
-box.style.transform = "translateY(450%)"
-box.style.display = "none" 
 document.getElementById("sended").innerText = `Sended: ${bronGive}`
 }
 async function goldGive(bronEarnings, nalog) {
 if(league != "G"){
          document.getElementById("status_bar").innerText = `Now G league is investing. Your league - ${league}`
+         document.getElementById("status_bar").style.color = "red"
          await delay(2000)
+         document.getElementById("status_bar").innerText = "Time G league send money to B league"
+        document.getElementById("status_bar").style.color = "white"
          return 0
      } 
     let goldGive = JSON.parse(document.getElementById("number").value)
@@ -1700,6 +1700,7 @@ if(league != "G"){
                 .then(data => {
                     if (goldGive + data.gold_give > (-bronEarnings + nalog)){
                         goldGive = (-bronEarnings + nalog) - data.gold_give
+                        document.getElementById("status_bar").style.color = "yellow"
                         document.getElementById("status_bar").innerText = `You sent too much, the extra coins ${goldGive} were returned to your balance`
                     }
                     const response =  fetch('/add_gold', {
@@ -1717,28 +1718,24 @@ await delay(1000)
 balance -= goldGive
 if(balance < 0){
         document.getElementById("status_bar").innerText = "Your TSC balance too little"
+        document.getElementById("status_bar").style.color = "red"
         await delay(2000)
         document.getElementById("status_bar").innerText = "Time G league send money to B league"
+        document.getElementById("status_bar").style.color = "white"
         return
     }
 localStorage.setItem("TESTBAL", JSON.stringify(balance))
 document.getElementById("number").value = 0
 document.getElementById("status_bar").innerText = "Sent successfully"
+document.getElementById("status_bar").style.color = "green"
 gold_dolg += goldGive
 localStorage.setItem("gold_dolg", JSON.stringify(gold_dolg))
 console.log(goldGive)
 await delay(2000)
 document.getElementById("status_bar").innerText = "Time G league send money to B league"
-var box = document.getElementById('box');
-box.style.display = "block";
-setTimeout(() => {
-  box.style.transform = "translateY(-450%)";
-  closePopup(false)
-}, 20);
+document.getElementById("status_bar").style.color = "white"
 document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
 await delay(3000)
-box.style.transform = "translateY(450%)"
-box.style.display = "none" 
 document.getElementById("sended").innerText = `Sended: ${goldGive}`
 }
 async function required_delay(required_num, leagu){
