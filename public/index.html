@@ -2,52 +2,76 @@
 <html>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <style>
-body {
-  background-color: black;
-overflow: hidden;
+
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
+
+body {
+    background-color: black;
+    overflow: hidden;
+    position: relative;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
 button {
     cursor: pointer;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    touch-action: manipulation;
 }
-        .but {
+
+.but {
     position: absolute;
     top: 20%;
     left: 50%;
+    transform: translateX(-50%);
     height: 50px;
     width: 50px;
-    border-radius: 100%; /* Радиус скругления */
-     border: none
-        }
-        #main{
-            margin-left:500px;
-            color:blueviolet;
-            font-family: Impact, fantasy;
-            font-weight: bold;
-            position:absolute;
-            left:-100%;
-            top:0%;
-        }
-        .tes {
-            position: absolute;
-            left:36%;
-            top: 30%;
-            height: 30%;
-            width: 30%;
-        }
+    min-height: 44px;
+    min-width: 44px;
+    border-radius: 100%;
+    border: none;
+}
+
+#main {
+    margin-left: 0;
+    color: blueviolet;
+    font-family: Impact, fantasy;
+    font-weight: bold;
+    position: absolute;
+    left: -100%;
+    top: 0%;
+}
+
+.tes {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: auto;
+    width: auto;
+    max-height: 50vh;
+    max-width: 80vw;
+    object-fit: contain;
+}
         #btnn {
-            position: absolute;
-            top: 90%;
+            position: fixed;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80%;
+            width: 85%;
             max-width: 300px;
             height: 50px;
             min-height: 50px;
             background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
             border-radius: 25px;
             border: 2px solid rgba(255, 255, 255, 0.3);
-            /* box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4), 0 0 20px rgba(139, 92, 246, 0.2); */
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
@@ -59,13 +83,13 @@ button {
             text-transform: uppercase;
             letter-spacing: 1px;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            z-index: 100
         }
         #btnn:active {
             transform: translateX(-50%) scale(0.95);
-            /* box-shadow: 0 2px 8px rgba(139, 92, 246, 0.5), 0 0 15px rgba(139, 92, 246, 0.3); */
+           
         }
         #btnn:hover {
-           /* box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5), 0 0 25px rgba(139, 92, 246, 0.3); */
             transform: translateX(-50%) translateY(-2px);
         }
         .popup {
@@ -131,14 +155,15 @@ button {
   display: none;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
-.wallet {
+        .wallet {
    width: 90%;
    max-width: 200px;
    height: 50px;
    min-height: 44px;
    position: absolute;
-   left: 5%;
-   top: 10px; 
+   left: 50%;
+   top: 10px;
+   transform: translateX(-50%);
    background-color: white;
    border: 2px solid rgba(139, 92, 246, 0.3);
    border-radius: 15px;
@@ -148,17 +173,21 @@ button {
    align-items: center;
    justify-content: flex-start;
    padding-left: 10px;
+   z-index: 100;
 }
 .wallet:active {
-   transform: scale(0.98);
+   transform: translateX(-50%) scale(0.98);
    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 .walletimg {
     width: 35px;
     height: 35px;
+    min-width: 30px;
+    min-height: 30px;
     position: relative;
     object-fit: contain;
     margin-right: 8px;
+    flex-shrink: 0;
 }
 .bal{
     position: absolute;
@@ -634,18 +663,20 @@ button {
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
-.bal_vis{
+.bal_vis {
     position: absolute;
-    left: 55%;
+    left: 50%;
     transform: translateX(-50%);
     font-family: 'Arial Black', Arial, sans-serif;
-    font-size: clamp(14px, 3.5vw, 18px);
-    z-index: 9999;
-    top: -2%;
+    font-size: 130%;
+    z-index: 101;
+    top: 0%;
+    transform: translate(-50%, -50%);
     font-weight: bold;
     color: black;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     white-space: nowrap;
+    pointer-events: none;
 }
 .tes_coin{
 position: absolute;
@@ -684,12 +715,18 @@ left: 43%;
     text-align: center;
     white-space: nowrap;
 }
-.bal_mon{
+.bal_mon {
     position: absolute;
     width: 5%;
-    height: 3%;
-    top: 3%;
-    left: 23%;
+    height: 5%;
+    min-width: 24px;
+    min-height: 24px;
+    z-index: 999;
+    top: 1%;
+    left: 42.5%;
+    transform: translateX(-50%);
+    object-fit: contain;
+    z-index: 99;
 }
 .ton {
     position: absolute;
@@ -705,6 +742,58 @@ left: 43%;
 }
 
 /* Медиа-запросы для мобильных устройств */
+@media screen and (max-width: 768px) {
+    .tes {
+        max-height: 40vh;
+        max-width: 85vw;
+        top: 45%;
+    }
+    
+    .wallet {
+        width: 85%;
+        max-width: 180px;
+        height: 45px;
+        min-height: 44px;
+        top: 8px;
+        padding-left: 8px;
+    }
+    
+    .walletimg {
+        width: 30px;
+        height: 30px;
+        min-width: 28px;
+        min-height: 28px;
+        margin-right: 6px;
+    }
+    
+    .bal_mon {
+        width: 5%;
+        height: 5%;
+        top: 1%;
+    }
+    
+    .bal_vis {
+        font-size: 130%;
+        top: -2.5%;
+    }
+    
+    #btnn {
+        width: 90%;
+        height: 48px;
+        min-height: 48px;
+        bottom: 15px;
+        font-size: clamp(12px, 3vw, 16px);
+    }
+    
+    .tes_coin {
+        width: 70px;
+        height: 70px;
+        min-width: 50px;
+        min-height: 50px;
+        top: 75%;
+    }
+}
+
 @media screen and (max-width: 480px) {
     .popup {
         width: 95%;
@@ -762,10 +851,55 @@ left: 43%;
         top: 8px;
     }
     
+    .tes {
+        max-height: 35vh;
+        max-width: 90vw;
+        top: 40%;
+    }
+    
     .wallet {
-        width: 85%;
-        height: 45px;
+        width: 90%;
+        height: 44px;
         min-height: 44px;
+        top: 5px;
+        padding-left: 6px;
+    }
+    
+    .walletimg {
+        width: 28px;
+        height: 28px;
+        min-width: 24px;
+        min-height: 24px;
+        margin-right: 5px;
+    }
+    
+    .bal_mon {
+        width: 5%;
+        height: 5%;
+        top: 1%;
+        z-index: 999;
+    }
+    
+    .bal_vis {
+        font-size: 130%;
+        top: -2.5%;
+    }
+    
+    #btnn {
+        width: 92%;
+        height: 45px;
+        min-height: 45px;
+        bottom: 12px;
+        font-size: clamp(11px, 2.8vw, 15px);
+        padding: 0 10px;
+    }
+    
+    .tes_coin {
+        width: 60px;
+        height: 60px;
+        min-width: 45px;
+        min-height: 45px;
+        top: 70%;
     }
     
     .bal {
@@ -869,14 +1003,7 @@ left: 43%;
         top: 68%;
     }
     
-    /* Стили кнопки btnn для мобильных */
-    #btnn {
-        width: 85%;
-        height: 45px;
-        min-height: 45px;
-        top: 88%;
-        font-size: clamp(12px, 3vw, 16px);
-    }
+    /* Стили кнопки btnn для мобильных - уже обновлены выше */
     
     .textinvst {
         font-size: clamp(12px, 3vw, 16px);
@@ -884,6 +1011,32 @@ left: 43%;
 }
 
 @media screen and (max-height: 600px) {
+    .tes {
+        max-height: 30vh;
+        max-width: 85vw;
+        top: 35%;
+    }
+    
+    .wallet {
+        height: 42px;
+        min-height: 42px;
+        top: 4px;
+    }
+    
+    #btnn {
+        height: 44px;
+        min-height: 44px;
+        bottom: 10px;
+    }
+    
+    .tes_coin {
+        width: 55px;
+        height: 55px;
+        min-width: 40px;
+        min-height: 40px;
+        top: 65%;
+    }
+    
     .popup {
         height: 85vh;
         max-height: 90vh;
@@ -946,13 +1099,6 @@ left: 43%;
         min-height: 45px;
         top: 49.5%;
         left: 90%;
-    }
-    
-    /* Стили кнопки btnn для низких экранов */
-    #btnn {
-        height: 45px;
-        min-height: 45px;
-        top: 88%;
     }
 }
 
@@ -1448,7 +1594,7 @@ async function start() {
                     have_already_invest = true
                 localStorage.setItem("invest", JSON.stringify(true))
                 }
-document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
+document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))}`
 await delay(3000)
 document.getElementById("sended").innerText = `Sended: ${gold_Giv}`
                  }
@@ -1501,7 +1647,7 @@ async function serSend() {
                     .catch(error => {
                         console.error('Fatal error. We are deleting your PC', error);
                     });
-document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
+document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))}`
 await delay(3000)
 document.getElementById("sended").innerText = `Sended: ${serSend}`
 }
@@ -1565,7 +1711,7 @@ document.getElementById("status_bar").style.color = "green"
 await delay(2000)
 document.getElementById("status_bar").innerText = "Time S league send money to G league"
 document.getElementById("status_bar").style.color = "white"
-document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
+document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))}`
 await delay(3000) 
 document.getElementById("sended").innerText = `Sended: ${serGive}`
 }
@@ -1618,7 +1764,7 @@ if(!have_already_invest){
                 .then(responsedata => {
   
                     }) }
-document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
+document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))}`
 await delay(3000)
 document.getElementById("sended").innerText = `Sended: ${bronSend}`
 }
@@ -1680,7 +1826,7 @@ document.getElementById("status_bar").style.color = "green"
 await delay(2000)
 document.getElementById("status_bar").innerText = "Time B league send money to S league"
 document.getElementById("status_bar").style.color = "white"
-document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
+document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))}`
 await delay(3000)
 document.getElementById("sended").innerText = `Sended: ${bronGive}`
 }
@@ -1734,7 +1880,7 @@ console.log(goldGive)
 await delay(2000)
 document.getElementById("status_bar").innerText = "Time G league send money to B league"
 document.getElementById("status_bar").style.color = "white"
-document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))} TSC`
+document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))}`
 await delay(3000)
 document.getElementById("sended").innerText = `Sended: ${goldGive}`
 }
