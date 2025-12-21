@@ -1139,9 +1139,41 @@ left: 43%;
             
   </body>
 <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+<script src="https://unpkg.com/tonweb@latest/dist/tonweb.js"></script>
+<script>
+const tonweb = new TonWeb(new TonWeb.HttpProvider('https://toncenter.com/api/v2/jsonRPC'));
+async function getWalletBalance(address) {
+        // Получаем баланс в наноTON
+        const addressString = address.toString(true, true, true);
+        const balanceNano = await tonweb.provider.getBalance(addressString);
+        
+        // Конвертируем в TON (1 TON = 1e9 наноTON)
+        const balanceTON = TonWeb.utils.fromNano(balanceNano);
+        
+        console.log(`Баланс кошелька ${address}: ${balanceTON} TON`);
+        
+        return balanceTON
+ }
+async function createWallet() {
+    const WalletClass = tonweb.wallet.all['v4r2']; // Рекомендуемая версия
+    const keyPair = TonWeb.utils.nacl.sign.keyPair();; // Генерация ключей
+    
+    const wallet = tonweb.wallet.create({
+                    publicKey: keyPair.publicKey,
+                    wc: 0
+                });
+    
+    const address = (await wallet.getAddress()).toString(true, true, true); // bounceable
+    
+    console.log('Address:', address);
+    console.log('Private key (hex):', keyPair.secretKey.toString('hex'));
+    console.log('Public key (hex):', keyPair.publicKey.toString('hex'));
+    
+    return { address, keyPair };
+}
+</script>
 <script>
 let isActive = false;
-const web3 = new Web3('https://mainnet.infura.io/v3/6f6b79491b0b4cdd990d2368c20d7d52');
 document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))}`
 function formatTime(seconds) {
     const m = Math.floor(seconds / 60);
@@ -1166,7 +1198,7 @@ async function updateTimer() {
   });
 }
   // Запускаем обновление таймера при загрузке страницы
-function closePopup(wallet) {
+async function closePopup(wallet) {
         if (!wallet){
       var popup1 = document.querySelector('.popup');;
       popup1.style.display = 'none';
@@ -1178,17 +1210,15 @@ function closePopup(wallet) {
       document.getElementById("ton").style.display = "block"
       let faucet = document.querySelector(".faucet")
       faucet.style.display = "none"
-      let account = JSON.parse(localStorage.getItem("WALLET"))
-      web3.eth.getBalance(account[0].address)
-      .then(balance => {
-        document.getElementById("bal").innerHTML = `${balance}`
+      let account = localStorage.getItem("WALLET")
+        document.getElementById("bal").innerHTML = `${await getWalletBalance(account)}`
         const button = document.getElementById('toggleButton');
         button.display = "block"
-      })}
+      }
     }
     
     }
-function openPopup(wallet) {
+async function openPopup(wallet) {
         if (!wallet){
       var popup = document.querySelector('.popup');
       popup.style.display = 'block';
@@ -1208,14 +1238,11 @@ document.addEventListener('click', function (e) {
         else {
         var popup = document.querySelector('.popup2');
       popup.style.display = 'block';
-      let account = JSON.parse(localStorage.getItem("WALLET"))
+      let account = localStorage.getItem("WALLET")
       console.log(account)
-      web3.eth.getBalance(account[0].address)
-      .then(balance => {
-        document.getElementById("bal").innerHTML = `${balance}`
+        document.getElementById("bal").innerHTML = `${await getWalletBalance(account)}`
         const button = document.getElementById('toggleButton');
         button.display = "block"
-      });
     let elem =  document.getElementById("copy")
     elem.style.display = "none"
     let getb =  document.getElementById("getbutton")
@@ -1263,12 +1290,12 @@ closePopup(true)
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
-function log() {
+async function log() {
             let login = JSON.parse(localStorage.getItem("LOGIN"))
             if (!login){
-                let account = web3.eth.accounts.wallet.create(1);
-                console.log(account)
-                localStorage.setItem("WALLET", JSON.stringify(account))
+                const walletData = await createWallet();
+                const address = walletData.address;
+                localStorage.setItem("WALLET", address.toString())
                 localStorage.setItem("LOGIN", JSON.stringify(true))
                 openPopup(true);
                 return
@@ -1283,7 +1310,7 @@ function log() {
                 return
             }
         }
-function get(bool) {
+async function get(bool) {
     return
             if (bool){
                 document.getElementById('toggleButton').display = "none"
@@ -1292,8 +1319,8 @@ function get(bool) {
                 };
                 let sendb =  document.getElementById("sendbutton")
                 sendb.style.display = "none"
-                let account = JSON.parse(localStorage.getItem("WALLET"))
-                document.getElementById("bal").innerHTML = `${account[0].address}`
+                let account = localStorage.getItem("WALLET")
+                document.getElementById("bal").innerHTML = `${await getWalletBalance(account)}`
                 const bal = document.getElementById("bal")
                 bal.style.fontsize = "2%";
                 bal.style.left = "0%"
@@ -1309,7 +1336,7 @@ function get(bool) {
                 getb.style.display = "block"
                 let sendb =  document.getElementById("sendbutton")
                 sendb.style.display = "block"
-                let account = JSON.parse(localStorage.getItem("WALLET"))
+                let account = localStorage.getItem("WALLET")
                 const bal = document.getElementById("bal")
                 bal.style.fontsize = "150%";
                 bal.style.left = "35%"
@@ -1375,6 +1402,11 @@ function send(bool){
     }
 const button = document.getElementById('toggleButton');
 let id = -1    
+async function change() {
+    let account = localStorage.getItem("WALLET")
+    document.getElementById("bal").innerHTML = `${await getWalletBalance(account)}`
+    
+}
 button.addEventListener('click', () => {
             isActive = !isActive; // Меняем состояние
             button.classList.toggle('active', isActive); // Изменяем класс для стиля
@@ -1413,13 +1445,11 @@ button.addEventListener('click', () => {
      document.getElementById("ton").style.display = "block"
       let faucet = document.querySelector(".faucet")
       faucet.style.display = "none"
-      let account = JSON.parse(localStorage.getItem("WALLET"))
-      web3.eth.getBalance(account[0].address)
-      .then(balance => {
-        document.getElementById("bal").innerHTML = `${balance}`
+      /*web3.eth.getBalance(account[0].address)
+      .then(balance => { */
+        change()
         const button = document.getElementById('toggleButton');
         button.display = "block"
-      });
       let getb =  document.getElementById("getbutton")
                 getb.style.display = "block"
                 let sendb =  document.getElementById("sendbutton")
