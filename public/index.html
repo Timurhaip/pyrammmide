@@ -571,6 +571,7 @@ button {
     min-height: 44px;
     border: none;
     border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
     background-color: rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -849,6 +850,7 @@ left: 43%;
         min-height: 40px;
         right: 8px;
         top: 8px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
     }
     
     .tes {
@@ -1311,7 +1313,6 @@ async function log() {
             }
         }
 async function get(bool) {
-    return
             if (bool){
                 document.getElementById('toggleButton').display = "none"
                 document.getElementById('back_button').onclick = function() {
@@ -1319,10 +1320,13 @@ async function get(bool) {
                 };
                 let sendb =  document.getElementById("sendbutton")
                 sendb.style.display = "none"
+                let ton =  document.getElementById("ton")
+                ton.style.display = "none"
                 let account = localStorage.getItem("WALLET")
-                document.getElementById("bal").innerHTML = `${await getWalletBalance(account)}`
+                document.getElementById("bal").innerHTML = `${account}`
                 const bal = document.getElementById("bal")
-                bal.style.fontsize = "2%";
+                bal.style.fontsize = "1%";
+                bal.style.fontWeight = "1%";
                 bal.style.left = "0%"
                 let elem =  document.getElementById("copy")
                 elem.style.display = "block"
@@ -1330,6 +1334,8 @@ async function get(bool) {
                 getb.style.display = "none"
     
             }else{
+                let ton =  document.getElementById("ton")
+                ton.style.display = "block"
                 const button = document.getElementById('toggleButton');
                 button.display = "block"
                 let getb =  document.getElementById("getbutton")
@@ -1339,14 +1345,12 @@ async function get(bool) {
                 let account = localStorage.getItem("WALLET")
                 const bal = document.getElementById("bal")
                 bal.style.fontsize = "150%";
-                bal.style.left = "35%"
+                bal.style.left = "65%"
                 document.getElementById('back_button').onclick = function() {
                     closePopup(true);
                 };
-        web3.eth.getBalance(account[0].address)
-        .then(balance => {
-            document.getElementById("bal").innerHTML = `${balance}`
-      })
+                document.getElementById("bal").innerHTML = `${await getWalletBalance(account)}`
+        
       let elem =  document.getElementById("copy")
      elem.style.display = "none"
             }
