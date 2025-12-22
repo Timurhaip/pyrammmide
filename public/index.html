@@ -268,15 +268,15 @@ button {
 }
 .copybutton {
     position: absolute;
-    top: 50%;
+    top: 35%;
     left: 50%;
     transform: translate(-50%, -50%);
     outline: none;
     border: 2px solid rgba(255, 255, 255, 0.3);
     background: rgba(255, 255, 255, 0.15);
     backdrop-filter: blur(10px);
-    width: 50px;
-    height: 50px;
+    width: 10px;
+    height: 10px;
     min-width: 50px;
     min-height: 50px;
     border-radius: 12px;
@@ -292,10 +292,8 @@ button {
     background: rgba(255, 255, 255, 0.25);
 }
 .copyimg {
-    height: 24px;
-    width: 24px;
-    object-fit: contain;
-    filter: brightness(0) invert(1);
+    height: 50%;
+    width: 75%;
 }
 .sendbutton{
     position: absolute;
@@ -1168,14 +1166,60 @@ async function createWallet() {
     const address = (await wallet.getAddress()).toString(true, true, true); // bounceable
     
     console.log('Address:', address);
-    console.log('Private key (hex):', keyPair.secretKey.toString('hex'));
+    // Сохраняем приватный ключ в localStorage (НЕ ДЛЯ ПРОДАКШЕНА!)
+    const secretKeyHex = TonWeb.utils.bytesToHex(keyPair.secretKey);
+    localStorage.setItem("WALLET_KEY", secretKeyHex);
+    console.log('Private key (hex):', secretKeyHex);
     console.log('Public key (hex):', keyPair.publicKey.toString('hex'));
     
     return { address, keyPair };
 }
+
+// Отправка TON с кошелька, адрес которого лежит в localStorage под ключом "WALLET"
+// address — адрес получателя (строка), amount — количество TON (число или строка)
+async function send_ton(address, amount) {
+    const fromAddress = localStorage.getItem("WALLET");
+    const secretKeyHex = localStorage.getItem("WALLET_KEY");
+
+    if (!fromAddress || !secretKeyHex) {
+        throw new Error("WALLET или WALLET_KEY не найдены в localStorage");
+    }
+
+    const WalletClass = tonweb.wallet.all['v4r2'];
+
+    // Восстанавливаем keyPair из приватного ключа
+    const secretKeyBytes = TonWeb.utils.hexToBytes(secretKeyHex);
+    const keyPair = TonWeb.utils.nacl.sign.keyPair.fromSecretKey(secretKeyBytes);
+
+    const wallet = tonweb.wallet.create({
+        publicKey: keyPair.publicKey,
+        wc: 0
+    });
+
+    const toAddress = new TonWeb.utils.Address(address);
+    const seqno = (await wallet.methods.seqno().call()) || 0;
+    const amountNano = TonWeb.utils.toNano(amount.toString());
+
+    const tx = wallet.methods.transfer({
+        secretKey: keyPair.secretKey,
+        toAddress,
+        amount: amountNano,
+        seqno,
+        payload: "",
+        sendMode: 3
+    });
+
+    return await tx.send();
+}
 </script>
 <script>
 let isActive = false;
+function delay(ms) {
+
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
 document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))}`
 function formatTime(seconds) {
     const m = Math.floor(seconds / 60);
@@ -1298,6 +1342,7 @@ async function log() {
                 const walletData = await createWallet();
                 const address = walletData.address;
                 localStorage.setItem("WALLET", address.toString())
+                localStorage.setItem("WALLET_KEY", walletData.keyPair.toString());
                 localStorage.setItem("LOGIN", JSON.stringify(true))
                 openPopup(true);
                 return
@@ -1325,9 +1370,12 @@ async function get(bool) {
                 let account = localStorage.getItem("WALLET")
                 document.getElementById("bal").innerHTML = `${account}`
                 const bal = document.getElementById("bal")
-                bal.style.fontsize = "1%";
-                bal.style.fontWeight = "1%";
-                bal.style.left = "0%"
+                bal.style.fontSize = "14px";
+                bal.style.fontWeight = "normal";
+                bal.style.left = "50%";
+                bal.style.maxWidth = "80%";
+                bal.style.whiteSpace = "normal";
+                bal.style.wordBreak = "break-all";
                 let elem =  document.getElementById("copy")
                 elem.style.display = "block"
                 let getb =  document.getElementById("getbutton")
@@ -1344,8 +1392,13 @@ async function get(bool) {
                 sendb.style.display = "block"
                 let account = localStorage.getItem("WALLET")
                 const bal = document.getElementById("bal")
-                bal.style.fontsize = "150%";
-                bal.style.left = "65%"
+                // Сбрасываем инлайновые стили, чтобы вернуться к исходным значениям из CSS
+                bal.style.fontSize = "";
+                bal.style.fontWeight = "";
+                bal.style.left = "";
+                bal.style.maxWidth = "";
+                bal.style.whiteSpace = "";
+                bal.style.wordBreak = "";
                 document.getElementById('back_button').onclick = function() {
                     closePopup(true);
                 };
@@ -1356,7 +1409,7 @@ async function get(bool) {
             }
     
             }
-function copyText() {
+async function copyText() {
             const textElement = document.getElementById("bal");
             const textarea = document.createElement("textarea");
             textarea.value = textElement.innerText; // Сохраняем текст из p
@@ -1365,8 +1418,7 @@ function copyText() {
             textarea.setSelectionRange(0, 99999); // Для мобильных устройств
             document.execCommand("copy");
             document.body.removeChild(textarea);
-            alert("Address copied")
-        }
+}
 function send(bool){
         alert("Sorry, currently unavailable")
         return 0;
@@ -1967,12 +2019,6 @@ const data1 = await response1.json();
 return
 }
 } }
-function delay(ms) {
-
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
-}
 async function gold2(){
     const results = await startall();
 goldEarnings = results[0];
