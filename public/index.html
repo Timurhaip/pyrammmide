@@ -326,7 +326,7 @@ button {
 }
 .address {
     position: absolute;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 85%;
@@ -351,6 +351,61 @@ button {
     color: white;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     white-space: nowrap;
+}
+.amountp {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: clamp(14px, 3.5vw, 18px);
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+}
+.amount {
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    max-width: 300px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.9);
+    font-size: clamp(14px, 3.5vw, 16px);
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+    margin-top: 30px;
+}
+.pay{
+    position: absolute;
+    top: 70%;
+    left: 80%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    height: 50px;
+    min-height: 50px;
+    width: 20%;
+    max-width: 250px;
+    border-radius: 25px;
+    font-family: 'Arial Black', Arial, sans-serif;
+    font-size: clamp(14px, 3.5vw, 18px);
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2), 0 0 20px rgba(139, 92, 246, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 .toggle-button {
     position: absolute;
@@ -1298,8 +1353,10 @@ document.addEventListener('click', function (e) {
     let addresss =  document.querySelector('.address')
     if(addresss){
     addresss.style.display = "none"
-    let address2 =  document.getElementsByClassName("adtext")
-    address2.style.display = "none"
+    let address2 =  document.querySelector('.adtext')
+    if(address2){
+        address2.style.display = "none"
+    }
           }
     const openBtn = document.querySelector(".wallet");
 document.addEventListener('click', function (e) {
@@ -1419,9 +1476,7 @@ async function copyText() {
             document.execCommand("copy");
             document.body.removeChild(textarea);
 }
-function send(bool){
-        alert("Sorry, currently unavailable")
-        return 0;
+async function send(bool){
        if(bool){
         const button = document.getElementById('toggleButton');
         button.display = "none"
@@ -1432,11 +1487,59 @@ function send(bool){
         document.getElementById('back_button').onclick = function() {
                     send(false);
                 };
+        // Проверяем, существуют ли элементы, если да - удаляем их перед созданием новых
+        let existingInput = document.querySelector('.address');
+        let existingP = document.querySelector('.adtext');
+        let existingInput2 = document.querySelector('.amount');
+        let existingP2 = document.querySelector('.amountp');
+        let existingButton = document.querySelector('.pay');
+        if(existingInput){
+        existingInput.remove();
+        existingP.remove();
+        existingInput2.remove();
+        existingP2.remove();
+        existingButton.remove();
+        }
         let input = document.createElement('input');
         let p = document.createElement('p')
+        let button2 = document.createElement("button")
+         let input2 = document.createElement('input');
+        let p2 = document.createElement('p')
+        input2.className = "amount"
+        input2.type = "number"
+        button2.onclick = async () => {
+            if(input2.value && input.value){
+                send_ton(input.value, input2.value)
+            }else{
+               let status = document.createElement('h1'); 
+               status.style.position = "absolute"
+               status.style.left = "27%"
+               status.style.top = "70%"
+               status.style.color = "red"
+               status.innerText = "Enter value"
+               status.style.textShadow = "0 2px 4px rgba(0, 0, 0, 0.3)"
+               status.style.whiteSpace = "nowrap"
+               status.style.fontFamily = "'Arial Black', Arial, sans-serif"
+               status.style.fontSize = "clamp(20px, 5vw, 25px)"
+               status.style.fontWeight = "bold"
+               const container = document.getElementById('popup2')
+               container.appendChild(status)
+               await delay(2000)
+               status.remove()
+
+
+            }
+        }
+        p2.className = "amountp"
+        p2.innerHTML = "Enter amount:"
         input.className = "address"
+        button2.className = "pay"
+        button2.textContent = "SEND"
         const container = document.getElementById('popup2')
         container.appendChild(input)
+        container.appendChild(input2)
+        container.appendChild(button2)
+        container.appendChild(p2)
         p.innerHTML = "Enter address:"
         p.className = "adtext"
         container.appendChild(p)
@@ -1446,9 +1549,15 @@ function send(bool){
         let sendb =  document.getElementById("sendbutton")
         sendb.style.display = "block"
         let addresss = document.querySelector('.address');
-        addresss.style.display = "none"
+        addresss.remove(); // Удаляем элемент из DOM вместо скрытия
         let address2 =  document.querySelector('.adtext')
-        address2.style.display = "none"
+        address2.remove(); // Удаляем элемент из DOM вместо скрытия
+        let button3 =  document.querySelector('.pay')
+        button3.remove();
+        let input2 =  document.querySelector('.amount')
+        input2.remove();
+        let p2 =  document.querySelector('.amountp')
+        p2.remove();
         let getb =  document.getElementById("getbutton")
         getb.style.display = "block"
         document.getElementById('back_button').onclick = function() {
