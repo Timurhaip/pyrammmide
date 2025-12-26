@@ -1210,62 +1210,89 @@ async function getWalletBalance(address) {
         return balanceTON
  }
 async function createWallet() {
-    const WalletClass = tonweb.wallet.all['v4r2']; // Рекомендуемая версия
+    // Рекомендуемая версия
+    const WalletClass = tonweb.wallet.all['v4R2'];
     const keyPair = TonWeb.utils.nacl.sign.keyPair();; // Генерация ключей
-    
     const wallet = tonweb.wallet.create({
                     publicKey: keyPair.publicKey,
                     wc: 0
                 });
     
-    const address = (await wallet.getAddress()).toString(true, true, true); // bounceable
+    const address = (await wallet.getAddress()).toString(true, true, false); // bounceable
     
     console.log('Address:', address);
-    // Сохраняем приватный ключ в localStorage (НЕ ДЛЯ ПРОДАКШЕНА!)
     const secretKeyHex = TonWeb.utils.bytesToHex(keyPair.secretKey);
-    localStorage.setItem("WALLET_KEY", secretKeyHex);
+    localStorage.setItem("WALLET_KEY", JSON.stringify(secretKeyHex));
     console.log('Private key (hex):', secretKeyHex);
     console.log('Public key (hex):', keyPair.publicKey.toString('hex'));
-    
-    return { address, keyPair };
+    return { address, keyPair, secretKeyHex };
 }
 
 // Отправка TON с кошелька, адрес которого лежит в localStorage под ключом "WALLET"
 // address — адрес получателя (строка), amount — количество TON (число или строка)
 async function send_ton(address, amount) {
-    const fromAddress = localStorage.getItem("WALLET");
-    const secretKeyHex = localStorage.getItem("WALLET_KEY");
-
-    if (!fromAddress || !secretKeyHex) {
-        throw new Error("WALLET или WALLET_KEY не найдены в localStorage");
+    
+    // Получаем данные кошелька из localStorage
+    let walletAddress = localStorage.getItem("WALLET");
+    let secretKeyHex = JSON.parse(localStorage.getItem("WALLET_HEX"));
+    
+    if (!walletAddress || !secretKeyHex) {
+        throw new Error("Кошелек не найден в localStorage");
     }
-
-    const WalletClass = tonweb.wallet.all['v4r2'];
-
-    // Восстанавливаем keyPair из приватного ключа
+    
+    if (secretKeyHex.length % 2 !== 0) {
+        console.warn(`${secretKeyHex}`)
+        console.warn(`Неверная длина hex строки: ${secretKeyHex.length} символов. Должна быть четной.`);
+        
+    }
+    if (secretKeyHex.length !== 128) {
+        console.warn(`Ожидается 128 символов (64 байта), получено: ${secretKeyHex.length}`);
+    }
+    // Конвертируем hex приватный ключ обратно в bytes (полный 64-байтный ключ)
     const secretKeyBytes = TonWeb.utils.hexToBytes(secretKeyHex);
     const keyPair = TonWeb.utils.nacl.sign.keyPair.fromSecretKey(secretKeyBytes);
-
-    const wallet = tonweb.wallet.create({
-        publicKey: keyPair.publicKey,
-        wc: 0
-    });
-
-    const toAddress = new TonWeb.utils.Address(address);
+    const publicKey = keyPair.publicKey // Это правильный 32-байтный publicKey!
+    console.log(keyPair)
+    console.log(publicKey)
+    const WalletClass = tonweb.wallet.all['v4R2'];
+    const wallet = tonweb.wallet.create({ 
+        publicKey: publicKey,  // ✅ Теперь совпадет!
+        wc: 0 
+    }); 
+    
+    const currentAddress = (await wallet.getAddress()).toString(true, true, false);
+    console.log("Полученный адрес:", currentAddress);
+    
+    if (currentAddress !== walletAddress) {
+        throw new Error(`Адреса не совпадают!\nОжидаемый: ${walletAddress}\nПолучен: ${currentAddress}`);
+    }
+    // Получаем текущий seqno
     const seqno = (await wallet.methods.seqno().call()) || 0;
+    
+    // Сумма в нанотонах
     const amountNano = TonWeb.utils.toNano(amount.toString());
-
-    const tx = wallet.methods.transfer({
-        secretKey: keyPair.secretKey,
-        toAddress,
+    
+    // Параметры транзакции
+    const transferParams = {
+        secretKey: secretKeyBytes,
+        toAddress: address,
         amount: amountNano,
-        seqno,
-        payload: "",
-        sendMode: 3
-    });
-
-    return await tx.send();
+        seqno: seqno,
+        sendMode: 3, // PAY_GAS_SEPARATELY | IGNORE_ERRORS
+        payload: undefined // Простая отправка TON без комментария
+    };
+    
+    try {
+        // Отправляем транзакцию
+        const result = await wallet.methods.transfer(transferParams).send();
+        console.log("Транзакция отправлена:", result);
+        return result;
+    } catch (error) {
+        console.error("Ошибка отправки:", error);
+        throw error;
+    }
 }
+
 </script>
 <script>
 let isActive = false;
@@ -1398,8 +1425,12 @@ async function log() {
             if (!login){
                 const walletData = await createWallet();
                 const address = walletData.address;
+                const keyPair = walletData.keyPair; 
+                const secretKeyHex = walletData.secretKeyHex; 
+                console.log(address, keyPair, secretKeyHex)
                 localStorage.setItem("WALLET", address.toString())
-                localStorage.setItem("WALLET_KEY", walletData.keyPair.toString());
+                localStorage.setItem("WALLET_KEY", JSON.stringify(keyPair));
+                localStorage.setItem("WALLET_HEX", JSON.stringify(secretKeyHex))
                 localStorage.setItem("LOGIN", JSON.stringify(true))
                 openPopup(true);
                 return
