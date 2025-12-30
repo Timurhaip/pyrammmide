@@ -960,7 +960,7 @@ left: 43%;
     .bal {
         font-size: clamp(50px, 12vw, 100px);
         top: 25%;
-        left: 55%;
+        left: 65%;
     }
     
     .toggle-button {
@@ -1133,7 +1133,7 @@ left: 43%;
     .bal {
         font-size: clamp(50px, 12vw, 100px);
         top: 25%;
-        left: 55%;
+        left: 65%;
     }
     
     .toggle-button {
@@ -1339,7 +1339,7 @@ async function closePopup(wallet) {
       let faucet = document.querySelector(".faucet")
       faucet.style.display = "none"
       let account = localStorage.getItem("WALLET")
-        document.getElementById("bal").innerHTML = `${await getWalletBalance(account)}`
+        document.getElementById("bal").innerHTML = `${Math.round(await getWalletBalance(account) * 100) / 100}`
         const button = document.getElementById('toggleButton');
         button.display = "block"
       }
@@ -1368,7 +1368,7 @@ document.addEventListener('click', function (e) {
       popup.style.display = 'block';
       let account = localStorage.getItem("WALLET")
       console.log(account)
-        document.getElementById("bal").innerHTML = `${await getWalletBalance(account)}`
+        document.getElementById("bal").innerHTML = `${Math.round(await getWalletBalance(account) * 100) / 100}`
         const button = document.getElementById('toggleButton');
         button.display = "block"
     let elem =  document.getElementById("copy")
@@ -1439,8 +1439,6 @@ async function log() {
                     closePopup(true);
                 };
                 const bal = document.getElementById("bal")
-                // bal.style.fontsize = "150%";
-                // bal.style.left = "35%"
                 openPopup(true);
                 return
             }
@@ -1483,14 +1481,14 @@ async function get(bool) {
                 // Сбрасываем инлайновые стили, чтобы вернуться к исходным значениям из CSS
                 bal.style.fontSize = "";
                 bal.style.fontWeight = "";
-                bal.style.left = "";
+                bal.style.left = "65%";
                 bal.style.maxWidth = "";
                 bal.style.whiteSpace = "";
                 bal.style.wordBreak = "";
                 document.getElementById('back_button').onclick = function() {
                     closePopup(true);
                 };
-                document.getElementById("bal").innerHTML = `${await getWalletBalance(account)}`
+                document.getElementById("bal").innerHTML = `${Math.round(await getWalletBalance(account) * 100) / 100}`
         
       let elem =  document.getElementById("copy")
      elem.style.display = "none"
@@ -1600,7 +1598,7 @@ const button = document.getElementById('toggleButton');
 let id = -1    
 async function change() {
     let account = localStorage.getItem("WALLET")
-    document.getElementById("bal").innerHTML = `${await getWalletBalance(account)}`
+    document.getElementById("bal").innerHTML = `${Math.round(await getWalletBalance(account) * 100) / 100}`
     
 }
 button.addEventListener('click', () => {
