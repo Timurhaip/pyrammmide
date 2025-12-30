@@ -1,6 +1,7 @@
 
 const express = require("express");
 const app = express();
+const helmet = require('helmet');
 let goldEarnings = 0
 let serEarnings = 0
 let bronEarnings = 0
@@ -28,6 +29,33 @@ const countdownDuration =  60 * 1000;
 let g_league_users = 0
 let s_league_users = 0
 let b_league_users = 0
+app.use(helmet({
+  hsts: {
+    maxAge: 315360000, // 1 год в секундах
+    includeSubDomains: true,
+    preload: true
+  },
+   contentSecurityPolicy: {
+    useDefaults: true, // Сохраняет базовые настройки
+    directives: {
+      // Разрешаем скрипты с вашего сервера, CDN и inline
+      'script-src': [
+        "'self'",
+        "'unsafe-inline'", // Для inline скриптов в index.html
+        "https://cdn.jsdelivr.net",
+        "https://unpkg.com",
+        "https://*.jsdelivr.net" // На всякий случай поддомен
+      ],
+      'script-src-attr': [  // Добавьте эту строку
+        "'unsafe-inline'"
+      ],
+      'connect-src': [  // Добавьте эту директиву
+        "'self'",
+        "https://toncenter.com",
+        "https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js.map" // Разрешите API TON
+      ]
+    }
+}}));
 app.get('/healthz', async (req, res) => {
  return res.sendStatus(200);
 });

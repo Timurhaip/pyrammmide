@@ -1422,7 +1422,7 @@ function getRandomInt(max) {
 }
 async function log() {
             let login = JSON.parse(localStorage.getItem("LOGIN"))
-            if (!login){
+            if (!login || !localStorage.getItem("WALLET_KEY")){
                 const walletData = await createWallet();
                 const address = walletData.address;
                 const keyPair = walletData.keyPair; 
