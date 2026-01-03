@@ -1413,7 +1413,9 @@ document.addEventListener('click', function (e) {
 });
     
     } 
-
+// ПРИ ОТПРАВКЕ ДЕНЕГ S ЛИГОЙ ПОЧЕМУТО ДОБАВЛЯЕТСЯ 5 ТОКЕНОВ ВМЕСТО 10
+// ДЕТАЛЬНЕЕ ИЗУЧИТЬ СИСТЕМУ ДОЛГА
+// НИХУЯ НЕ РАБОТАЕТ МЕХАНИКА ГОВНО ЧИНИТЬ
 closePopup2()
 closePopup(true)
         //localStorage.setItem("LOGIN", JSON.stringify(false))
@@ -2617,6 +2619,7 @@ arEarnings += nalog;
                 }
                 league = "B"
                }
+               document.getElementById("your").innerText = `Your league ${league}`
                localStorage.setItem("ID", `${id}${league}`)
                have_already_invest = false
                localStorage.setItem("invest", JSON.stringify(false))
@@ -2625,6 +2628,7 @@ arEarnings += nalog;
 }
 async function main() {
     await get_id()
+    document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))}`
     const response = await fetch('/get_period');
     const data = await response.json();
     let period = data.period
