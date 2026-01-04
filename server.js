@@ -324,6 +324,7 @@ gold_give = 0
 userss = 0
 usersg = 0
 usersb = 0
+g_league_users, s_league_users, b_league_users = 0
 res.json({ ser_give });
 })
 app.get('/reset_dolg', (req, res) => {
