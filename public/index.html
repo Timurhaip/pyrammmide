@@ -1413,9 +1413,6 @@ document.addEventListener('click', function (e) {
 });
     
     } 
-// ПРИ ОТПРАВКЕ ДЕНЕГ S ЛИГОЙ ПОЧЕМУТО ДОБАВЛЯЕТСЯ 5 ТОКЕНОВ ВМЕСТО 10
-// ДЕТАЛЬНЕЕ ИЗУЧИТЬ СИСТЕМУ ДОЛГА
-// НИХУЯ НЕ РАБОТАЕТ МЕХАНИКА ГОВНО ЧИНИТЬ
 closePopup2()
 closePopup(true)
         //localStorage.setItem("LOGIN", JSON.stringify(false))
@@ -2179,7 +2176,7 @@ await fetch('/get-gold')
                  goldSend = data.gold_send
                 }
                 )
-        if(goldSend != dolgs && dolgs != 0){
+        if(goldSend < dolgs && dolgs != 0){
                 document.getElementById("status_bar").innerText = "You need to send more, launching additional time"
                 await required_delay(dolgs, "GS")
         }
@@ -2198,11 +2195,22 @@ await fetch('/get-gold')
     if(league == "S" && gold_dolg != 0){
                 balance = JSON.parse(localStorage.getItem("TESTBAL"))
                 balance += dolgs / counters
-                goldSend -= dolgs / counters
+                goldSend -= dolgs
+                const response =  await fetch('/add', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: -dolgs})
+                            })
+                
+                    await fetch('/reset_dolgs');
                 localStorage.setItem("TESTBAL", JSON.stringify(balance))
                 gold_dolg = 0
                 localStorage.setItem("gold_dolg", JSON.stringify(gold_dolg))
-            }
+                        }else{
+                            goldSend -= dolgs
+                        }
         if(league == "S"){
            await fetch('/get_users')
                 .then(response => response.json())
@@ -2230,12 +2238,12 @@ const response =  await fetch('/change_nalog', {
                             headers: {
                             'Content-Type': 'application/json'
                                      },
-                            body: JSON.stringify({ value: ((goldSend * 10) / 100)})
+                            body: JSON.stringify({ value: ((goldSend * 10) / 100) * 2})
                             })
 const response1 = await fetch('/get_nalog');
 const data = await response1.json();
 nalog = data.nalog
-            goldEarnings -= goldSend
+            goldEarnings -= (goldSend + dolgs)
             const response2 = await fetch('/change_goldEarnings', {
                             method: 'POST',
                             headers: {
@@ -2286,12 +2294,15 @@ await fetch('/get_dolg')
             if(league == "G" && gold_dolg != 0){
                 balance = JSON.parse(localStorage.getItem("TESTBAL"))
                 balance += dolgg / counters
-
+                serGive1 -= dolgg
+                await fetch('/reset_dolgg');
                 localStorage.setItem("TESTBAL", JSON.stringify(balance))
                 gold_dolg = 0
                 localStorage.setItem("gold_dolg", JSON.stringify(gold_dolg))
+            }else{
+                serGive1 -= dolgg
             }
-             serEarnings -= serGive1;
+             serEarnings -= (serGive1 + dolgg);
              goldEarnings += serGive1;
              const response2 = await fetch('/change_goldEarnings', {
                             method: 'POST',
@@ -2300,7 +2311,7 @@ await fetch('/get_dolg')
                                      },
                             body: JSON.stringify({ value: goldEarnings })
                             })
-            if(league == "G"){
+            if(league == "G" && bal_sended > 0){
              document.getElementById("status_bar").innerText = "Sending you money"
              balance = JSON.parse(localStorage.getItem("TESTBAL"))
              console.log(balance, localStorage.getItem("TESTBAL"))
@@ -2309,16 +2320,16 @@ await fetch('/get_dolg')
                  .then(response => response.json())
                  .then(data => {
                     count_invested = data.counter })
-            goldEarnings -= nalog
-            arEarnings += nalog
+            goldEarnings -= nalog / 2
+            arEarnings += nalog / 2
              balance += goldEarnings / count_invested
              console.log(balance, count_invested, goldEarnings)
              localStorage.setItem("TESTBAL", JSON.stringify(balance))
                  
              document.getElementById("status_bar").innerText = `Succesfully sent ${goldEarnings / count_invested + bal_sended} to your balance`
                  }else{
-            goldEarnings -= nalog
-            arEarnings += nalog
+            goldEarnings -= nalog / 2
+            arEarnings += nalog / 2
                  }
                  bal_sended = 0
                  localStorage.setItem("bal_sended", bal_sended)
@@ -2402,16 +2413,16 @@ nalog = results[3];
                  .then(response => response.json())
                  .then(data => {
                     count_invested = data.counter2 })
-            serEarnings -= nalog
-            arEarnings += nalog
+            serEarnings -= nalog / 2
+            arEarnings += nalog / 2
              balance += serEarnings / count_invested
              console.log(balance, serEarnings, count_invested)
              localStorage.setItem("TESTBAL", JSON.stringify(balance))
              localStorage.setItem("bal_sended2", JSON.stringify(bal_sended2))
              document.getElementById("status_bar").innerText = `Succesfully sent ${serEarnings / count_invested + bal_sended2} to your balance`
                  }else{
-                    serEarnings -= nalog
-            arEarnings += nalog
+                    serEarnings -= nalog / 2
+            arEarnings += nalog / 2
                  }
              await delay(1000)
              bal_sended2 = 0
@@ -2493,11 +2504,15 @@ nalog = results[3];
             if(league == "B" && gold_dolg != 0 && counterb != 0){
                 balance = JSON.parse(localStorage.getItem("TESTBAL"))
                 balance += dolgb / counterb
+                goldGive1 -= dolgb
+                await fetch('/reset_dolgb');
                 localStorage.setItem("TESTBAL", JSON.stringify(balance))
                 gold_dolg = 0
                 localStorage.setItem("gold_dolg", JSON.stringify(gold_dolg))
+            }else{
+                goldGive1 -= dolgb
             }
-            goldEarnings -= goldGive1;
+            goldEarnings -= (goldGive1 + dolgb);
             bronEarnings += goldGive1;
             const response2 = await fetch('/change_goldEarnings', {
                             method: 'POST',
@@ -2513,23 +2528,23 @@ nalog = results[3];
                                      },
                             body: JSON.stringify({ value: bronEarnings })
                             })
-            if(league == "B"){
+            if(league == "B" && bal_sended > 0){
             balance = JSON.parse(localStorage.getItem("TESTBAL"))
              balance += bal_sended
              await fetch('/get_counter')
                  .then(response => response.json())
                  .then(data => {
                     count_invested = data.counter })
-            bronEarnings -= nalog
-            arEarnings += nalog
+            bronEarnings -= nalog / 2
+            arEarnings += nalog / 2
              balance += bronEarnings / count_invested
                     console.log(balance, count_invested, goldEarnings)
              localStorage.setItem("TESTBAL", JSON.stringify(balance))
              localStorage.setItem("bal_sended", JSON.stringify(bal_sended))
             document.getElementById("status_bar").innerText = `Succesfully sent ${bronEarnings / count_invested + bal_sended} to your balance`
                  }else{
-                    bronEarnings -= nalog 
-            arEarnings += nalog
+                    bronEarnings -= nalog / 2
+            arEarnings += nalog / 2
                  }
             await delay(2000)
             bal_sended = 0
@@ -2537,7 +2552,7 @@ nalog = results[3];
                 return
 }
 async function end(){
-arEarnings += nalog;
+arEarnings += nalog / 2;
             serearn += serEarnings;
             goldearn += goldEarnings;
             bronearn += bronEarnings;
@@ -2558,10 +2573,6 @@ arEarnings += nalog;
                 .then(response => response.json())
                 .then(data => {
                     console.log(data.ser_give)
-                })
-            await fetch('/reset_dolg')
-                .then(response => response.json())
-                .then(data => {
                 })
                 localStorage.setItem("CALC", false)
                let new_league =  getRandomInt(3)
@@ -2907,7 +2918,7 @@ await fetch('/change_semi_period', {
 main();
 // ПРОВЕСТИ МАТЕМАТИЧЕСКУЮ ТРОЙНУЮ ПРОВЕРКУ
 // ПРОБЛЕМЫ:
-// 3. РАЗОБРАТЬСЯ С GOLD DOLG УЗНАТЬ ПОЧЕМУ ОН УДВАИВАЕТСЯ И ДАЁТСЯ ТОМУ КОМУ НЕ НАДО 
+// 1. ПЕРЕПРОВЕРИТЬ СЧЁТЧИК USERSG USERSB USERSS 
   </script>
 
 </html>

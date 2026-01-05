@@ -336,4 +336,19 @@ count_us_g_b = 0
 count_us_g_s = 0
 res.json({ ser_give });
 })
+app.get('/reset_dolgg', (req, res) => {
+dolgg = 0
+count_us_g = 0
+res.json({ dolgg });
+})
+app.get('/reset_dolgs', (req, res) => {
+dolgs = 0
+count_us_g_s = 0
+res.json({ dolgs });
+})
+app.get('/reset_dolgb', (req, res) => {
+dolgb = 0
+count_us_g_b = 0
+res.json({ dolgb });
+})
 app.listen(3000);
