@@ -1594,7 +1594,8 @@ async function send(bool){
     //ПОТОМ ДОДЕЛАТЬ ФУНКЦИЮ send() И РЕАЛИЗОВАТЬ ВЫВОД ЭФИРОВ
     }
 const button = document.getElementById('toggleButton');
-let id = -1    
+let id = -1 
+league = false  
 async function change() {
     let account = localStorage.getItem("WALLET")
     document.getElementById("bal").innerHTML = `${Math.round(await getWalletBalance(account) * 100) / 100}`
@@ -1649,7 +1650,6 @@ button.addEventListener('click', () => {
                 sendb.style.display = "block"
             }
         });
-localStorage.setItem("CALC", true)
         async function get_id(){
         if (!localStorage.getItem("ID")){
        await fetch('/get')
@@ -1659,10 +1659,13 @@ localStorage.setItem("CALC", true)
                         id = data.now_id
                         let number_of_league =  getRandomInt(3)
                         if(number_of_league == 0){
+                            league = "G"
                             localStorage.setItem('ID', `${data.now_id}G`);
                         }else if(number_of_league == 1){
+                            league = "S"
                             localStorage.setItem('ID', `${data.now_id}S`);
                         } else{
+                            league = "B"
                             localStorage.setItem('ID', `${data.now_id}B`);
                         }
                         // Инкрементируем now_id на сервере
@@ -2406,7 +2409,7 @@ nalog = results[3];
                                      },
                             body: JSON.stringify({ value: serEarnings })
                             })
-            if(league == "S"){
+            if(league == "S" && bal_sended2 > 0){
              balance = JSON.parse(localStorage.getItem("TESTBAL"))
              balance += bal_sended2
              await fetch('/get_counter2')
@@ -2569,12 +2572,14 @@ arEarnings += nalog / 2;
             goldEarnings = 0
             bronEarnings = 0
             serEarnings = 0
+            userss = 0
+            usersb = 0
+            usersg = 0
             await fetch('/reset')
                 .then(response => response.json())
                 .then(data => {
                     console.log(data.ser_give)
                 })
-                localStorage.setItem("CALC", false)
                let new_league =  getRandomInt(3)
                console.log(new_league, league, gold_dolg, "result statisticks")
                if(new_league == 0){
@@ -2636,11 +2641,11 @@ arEarnings += nalog / 2;
                localStorage.setItem("ID", `${id}${league}`)
                have_already_invest = false
                localStorage.setItem("invest", JSON.stringify(false))
-               await get_id()
+            //    localStorage.setItem("CALC", true)
+            //    await get_id()
                 return
 }
 async function main() {
-    await get_id()
     document.getElementById("bal1").innerHTML = `${JSON.parse(localStorage.getItem("TESTBAL"))}`
     const response = await fetch('/get_period');
     const data = await response.json();
@@ -2649,6 +2654,10 @@ async function main() {
     const data1 = await response1.json();
     let semi_period = data1.semi_period
     document.getElementById("sended").innerText = `Sended: ${0}`
+    if (((period == "g2" || period == "none") && !league) || !localStorage.getItem("ID")){
+        localStorage.setItem("CALC", true) 
+        await get_id()
+    }
 if(period == "g2" || period == "none"){
    await fetch('/change_period', {
                             method: 'POST',
@@ -2916,9 +2925,10 @@ await fetch('/change_semi_period', {
    return 
 }
 main();
-// ПРОВЕСТИ МАТЕМАТИЧЕСКУЮ ТРОЙНУЮ ПРОВЕРКУ
-// ПРОБЛЕМЫ:
-// 1. ПЕРЕПРОВЕРИТЬ СЧЁТЧИК USERSG USERSB USERSS 
+// ПРОВЕСТИ МАТЕМАТИЧЕСКУЮ ТРОЙНУЮ ПРОВЕРКУ ПРОЙДЕНО!!!!!!!!!
+// ЖЕЛАТЕЛЬНО:
+//1. ДОБАВИТЬ ПРОВЕРКУ ПОЛЬЗОВАТЕЛЕЙ ЧТОБЫ ЛИГА НЕ ОСТАВАЛАСЬ ПУСТОЙ
+//2. ПРОВЕСТИ ПРОВЕРКУ С ЗАКРЫТИЕМ И ОТКРЫТИЕМ СТРАНИЦЫ
   </script>
 
 </html>
