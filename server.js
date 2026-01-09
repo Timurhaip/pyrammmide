@@ -2,6 +2,7 @@
 const express = require("express");
 const app = express();
 const helmet = require('helmet');
+let users_data = {}
 let goldEarnings = 0
 let serEarnings = 0
 let bronEarnings = 0
@@ -143,6 +144,9 @@ app.get('/reset_counter', (req, res) => {
   counter = 0
   res.json({ counter });
 })
+app.get('/get_users_data', (req, res) => {
+  res.json({ users_data });
+})
 app.use(express.json());
 app.use("/", express.static("public"));
 app.post('/change_goldEarnings', (req, res) => {
@@ -162,6 +166,43 @@ app.post('/change_semi_period', (req, res) => {
       semi_period = false
     }
     res.json({ semi_period });
+});
+app.post('/save-data', (req, res) => {
+    let keys = Object.keys(req.body);
+    if (keys.length > 0) {
+        const id = keys[0];            // Это ваш ID из localStorage
+        const balance = req.body[id];  // Это значение баланса
+        
+        // Сохраняем в наш основной словарь
+        users_data[id] = balance;
+    console.log(users_data)
+    res.json({ users_data });
+} })
+app.post('/calculate', (req, res) => {
+  const { value } = req.body;
+  if(value[3]){
+    for(var [key, value1] of Object.entries(users_data)){
+      console.log(key.slice(0, -1))
+      if (key.slice(-1) == value[0]){
+        let balance = Number(users_data[key])
+        balance += Number(value[1]) / Number(value[2])
+        users_data[key] = balance
+      }
+    }
+    }
+    console.log(value, users_data)
+    res.json({ users_data });
+});
+app.post('/get_balance', (req, res) => {
+  const { value } = req.body;
+   let result = users_data[value]; 
+    console.log(result, value)
+    res.json({ result });
+});
+app.post('/change_balance', (req, res) => {
+  const { value } = req.body;
+        users_data[value[0]] = value[1]
+    res.json({ users_data });
 });
 app.post('/change_bronEarnings', (req, res) => {
   const { value } = req.body;
