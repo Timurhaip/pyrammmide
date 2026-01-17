@@ -1,8 +1,11 @@
-
 const express = require("express");
 const app = express();
 const helmet = require('helmet');
 let users_data = {}
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
+let calculated = true
 let goldEarnings = 0
 let serEarnings = 0
 let bronEarnings = 0
@@ -71,6 +74,13 @@ app.get('/add_usersg', (req, res) => {
 app.get('/add_userss', (req, res) => {
     s_league_users += 1
     res.json({ s_league_users });
+});
+app.get('/get_calc', (req, res) => {
+    res.json({ calculated });
+});
+app.get('/change_calc', (req, res) => {
+    calculated = true
+    res.json({ calculated });
 });
 app.get('/add_usersb', (req, res) => {
     b_league_users += 1
@@ -174,19 +184,35 @@ app.post('/save-data', (req, res) => {
         const balance = req.body[id];  // Это значение баланса
         
         // Сохраняем в наш основной словарь
-        users_data[id] = balance;
+        const parsedData = typeof balance === 'string' ? JSON.parse(balance) : balance;
+            
+            // Сохраняем чистые данные (массив), а не строку
+            users_data[id] = parsedData;
     console.log(users_data)
     res.json({ users_data });
 } })
 app.post('/calculate', (req, res) => {
   const { value } = req.body;
-  if(value[3]){
+  if(value[3] & calculated){
+    calculated = false
     for(var [key, value1] of Object.entries(users_data)){
-      console.log(key.slice(0, -1))
+      console.log(key.slice(-1))
       if (key.slice(-1) == value[0]){
-        let balance = Number(users_data[key])
+        let balance = Number(users_data[key][1])
+        balance += Number(users_data[key][0])
         balance += Number(value[1]) / Number(value[2])
-        users_data[key] = balance
+        users_data[key][0] = balance
+        users_data[key][1] = 0
+      console.log(users_data[key])
+      }}
+      }else if(calculated){
+        for(var [key, value1] of Object.entries(users_data)){
+      console.log(key.slice(-1))
+      if (key.slice(-1) == value[0] && Number(users_data[key][2]) > 0){
+        let balance = Number(users_data[key][0])
+        balance += Number(value[1]) / Number(value[2])
+        users_data[key][0] = balance
+        users_data[key][2] = 0
       }
     }
     }
@@ -195,13 +221,35 @@ app.post('/calculate', (req, res) => {
 });
 app.post('/get_balance', (req, res) => {
   const { value } = req.body;
-   let result = users_data[value]; 
-    console.log(result, value)
+   let result = users_data[value][0]; 
+    console.log(result, value, )
     res.json({ result });
+});
+app.post('/get_act', (req, res) => {
+  const { value } = req.body;
+  result = true
+   if (users_data[value]){
+    result = false
+   }
+   res.json({ result });
+});
+app.post('/change_gold_dolg', (req, res) => {
+  const { value } = req.body;
+  for(var [key, value1] of Object.entries(users_data)){
+        if(value[0] == key){
+        users_data[value[0]][2] = value[1]
+        }
+}
+res.json({ users_data });
 });
 app.post('/change_balance', (req, res) => {
   const { value } = req.body;
-        users_data[value[0]] = value[1]
+        users_data[value[0]][0] = value[1]
+    res.json({ users_data });
+});
+app.post('/change_bal_sended', (req, res) => {
+  const { value } = req.body;
+        users_data[value[0]][1] = value[1]
     res.json({ users_data });
 });
 app.post('/change_bronEarnings', (req, res) => {
@@ -392,4 +440,46 @@ dolgb = 0
 count_us_g_b = 0
 res.json({ dolgb });
 })
+app.post('/annulate', (req, res) => {
+const { value } = req.body;
+if(calculated){
+  calculated = false
+ for(var [key, value1] of Object.entries(users_data)){
+let new_league =  getRandomInt(3)
+var league;
+               if(new_league == 0){
+                if(key.slice(-1) == "G" && Number(value1[2]) > 0){
+                    count_us_g += 1
+                    dolgg += Number(value1[2])
+                  } 
+                league = "G"
+               }else if(new_league == 1){
+                if(key.slice(-1) == "G" && Number(value1[2]) > 0){
+                   count_us_g_s += 1 
+                  dolgs += Number(value1[2])
+                }
+                league = "S"
+               }else{
+                if(key.slice(-1) == "G" && Number(value1[2]) > 0){
+                    count_us_g_b += 1
+                    dolgb += Number(value1[2])
+                }
+                league = "B"
+               }
+              users_data[`${key.slice(0)}${league}`] = users_data[key]
+              if(value == key){
+              res.json({ league })
+              }
+              delete users_data[key]
+              }
+            }else{
+              for(var [key, value1] of Object.entries(users_data)){
+                if (key.slice(0) == value){
+                  let league = key.slice(-1)
+                  res.json({league})
+                }
+              }
+            }
+})
+
 app.listen(3000);

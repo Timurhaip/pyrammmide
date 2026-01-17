@@ -1,0 +1,78 @@
+let new_league =  getRandomInt(3)
+               console.log(new_league, league, gold_dolg, "result statisticks")
+               if(new_league == 0){
+                if(league == "G" && gold_dolg != 0){
+                    await fetch('/add_counterg')
+                .then(response => response.json())
+                .then(responsedata => {
+            
+                    }) 
+                console.log(gold_dolg)
+                await fetch('/add_dolgg', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: gold_dolg }
+                            )})
+                await fetch('/change_gold_dolg', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: [localStorage.getItem("ID"), gold_dolg] }
+                            )})
+                console.log("work") } 
+                
+                league = "G"
+               }else if(new_league == 1){
+                if(league == "G" && gold_dolg != 0){
+
+                   await fetch('/add_counters')
+                .then(response => response.json())
+                .then(responsedata => {
+                        
+                    }) 
+                    console.log(gold_dolg)
+             await fetch('/add_dolgs', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: gold_dolg })
+                            })
+                await fetch('/change_gold_dolg', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: [localStorage.getItem("ID"), gold_dolg] }
+                            )})
+                console.log("work")
+                }
+                league = "S"
+               }else{
+                if(league == "G" && gold_dolg != 0){
+                    await fetch('/add_counterb')
+                .then(response => response.json())
+                .then(responsedata => {
+                    }) 
+                console.log(gold_dolg)
+               await fetch('/add_dolgb', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: gold_dolg })
+                            })
+                await fetch('/change_gold_dolg', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: [localStorage.getItem("ID"), gold_dolg] }
+                            )})
+                
+                }
+                league = "B"
+               }

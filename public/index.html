@@ -1680,6 +1680,7 @@ button.addEventListener('click', () => {
             }
     id = localStorage.getItem('ID').slice(-1)
     console.log(id)
+    league = id
     if(localStorage.getItem("CALC") == "false"){
         return
     }
@@ -1706,16 +1707,30 @@ button.addEventListener('click', () => {
         document.getElementById("your").innerText = `Your league ${league}`
       }  
       localStorage.setItem("CALC", false)
+await fetch('/get_act', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ value: localStorage.getItem("ID")})
+}).then(response => response.json())
+                .then(data => {
+  let bool = data.result                 
+                            
+       
+if(bool){  
 let id2 = localStorage.getItem('ID')
-let balance = localStorage.getItem("TESTBAL")      
-let data = { [id2]: balance}
+let balance = localStorage.getItem("TESTBAL")  
+if(localStorage.getItem("bal_sended")){
+    var data2 = { [id2]: [balance, localStorage.getItem("bal_sended"), localStorage.getItem(gold_dolg)]}
+}else{
+var data2 = { [id2]: [balance, localStorage.getItem("bal_sended2"), localStorage.getItem("gold_dolg")]}
+}
       fetch('/save-data', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(data)
+  body: JSON.stringify(data2)
 });
-console.log(id2, balance, data)
-    }
+console.log(id2, balance, data2)
+    }})}
          </script>
   <script>
     let userss = 0
@@ -1805,6 +1820,13 @@ async function start() {
         return 0
     }
     bal_sended += gold_Giv
+    await fetch('/change_bal_sended', {
+                            method: 'POST',
+                         headers: {
+                             'Content-Type': 'application/json'
+                                      },
+                            body: JSON.stringify({ value: [localStorage.getItem("ID"), bal_sended] })
+                            })
     localStorage.setItem("bal_sended", JSON.stringify(bal_sended))
     const response2 = await fetch('/change_goldEarnings', {
                             method: 'POST',
@@ -1870,6 +1892,17 @@ async function serSend() {
          return 0
      } 
     let serSend = JSON.parse(document.getElementById("number").value)
+    await fetch('/get_balance', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: localStorage.getItem("ID")})
+                            })
+                            .then(response => response.json())
+                .then(data => {
+                 localStorage.setItem("TESTBAL", data.result)
+                })
     let balance = JSON.parse(localStorage.getItem('TESTBAL'))
     balance -= serSend
     if(balance < 0){
@@ -1881,6 +1914,13 @@ async function serSend() {
         return 0
     }
    bal_sended2 += serSend
+   await fetch('/change_bal_sended', {
+                            method: 'POST',
+                         headers: {
+                             'Content-Type': 'application/json'
+                                      },
+                            body: JSON.stringify({ value: [localStorage.getItem("ID"), bal_sended2] })
+                            })
    const response2 = await fetch('/change_serEarnings', {
                             method: 'POST',
                             headers: {
@@ -1895,6 +1935,13 @@ async function serSend() {
                 .then(responsedata => {
   
                     }) }
+    await fetch('/change_balance', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: [localStorage.getItem("ID"), balance]})
+                            })
     localStorage.setItem("TESTBAL", JSON.stringify(balance))
     document.getElementById("number").value = 0
     document.getElementById("status_bar").innerText = "Sent successfully"
@@ -1930,6 +1977,17 @@ async function serGive(goldEarnings, nalog) {
          return 0
      } 
     let serGive = JSON.parse(document.getElementById("number").value)
+    await fetch('/get_balance', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: localStorage.getItem("ID")})
+                            })
+                            .then(response => response.json())
+                .then(data => {
+                 localStorage.setItem("TESTBAL", data.result)
+                })
     let balance = JSON.parse(localStorage.getItem('TESTBAL'))
     await fetch('/get-ser')
                 .then(response => response.json())
@@ -1971,8 +2029,22 @@ if(balance < 0){
     document.getElementById("status_bar").style.color = "white"
     return 0
                 }
+                await fetch('/change_balance', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: [localStorage.getItem("ID"), balance]})
+                            })
 localStorage.setItem("TESTBAL", JSON.stringify(balance))
 bal_sended2 += serGive
+await fetch('/change_bal_sended', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: [localStorage.getItem("ID"), bal_sended2]})
+                            })
 localStorage.setItem("bal_sended2", JSON.stringify(bal_sended2))
 const response2 = await fetch('/change_serEarnings', {
                             method: 'POST',
@@ -2001,6 +2073,17 @@ async function bronSend() {
          return 0
      } 
     let bronSend = JSON.parse(document.getElementById("number").value)
+    await fetch('/get_balance', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: localStorage.getItem("ID")})
+                            })
+                            .then(response => response.json())
+                .then(data => {
+                 localStorage.setItem("TESTBAL", data.result)
+                })
     let balance = JSON.parse(localStorage.getItem('TESTBAL'))
     balance -= bronSend
     if(balance < 0){
@@ -2018,6 +2101,20 @@ async function bronSend() {
                             'Content-Type': 'application/json'
                                      },
                             body: JSON.stringify({ value: -bronSend })
+                            })
+    await fetch('/change_bal_sended', {
+                            method: 'POST',
+                         headers: {
+                             'Content-Type': 'application/json'
+                                      },
+                            body: JSON.stringify({ value: [localStorage.getItem("ID"), bal_sended] })
+                            })
+    await fetch('/change_balance', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: [localStorage.getItem("ID"), balance]})
                             })
     localStorage.setItem("bal_sended", JSON.stringify(bal_sended))
     localStorage.setItem("TESTBAL", JSON.stringify(balance))
@@ -2061,6 +2158,17 @@ if(league != "B"){
          return 0
      } 
     let bronGive = JSON.parse(document.getElementById("number").value)
+    await fetch('/get_balance', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: localStorage.getItem("ID")})
+                            })
+                            .then(response => response.json())
+                .then(data => {
+                 localStorage.setItem("TESTBAL", data.result)
+                })
     let balance = JSON.parse(localStorage.getItem('TESTBAL'))
     fetch('/get-bron')
                 .then(response => response.json())
@@ -2100,6 +2208,13 @@ if(balance < 0){
     document.getElementById("status_bar").style.color = "white"
     return 0
                 }
+await fetch('/change_balance', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: [localStorage.getItem("ID"), balance]})
+                            })
 localStorage.setItem("TESTBAL", JSON.stringify(balance))
 bal_sended += bronGive
  const response3 = await fetch('/change_bronEarnings', {
@@ -2108,6 +2223,13 @@ bal_sended += bronGive
                             'Content-Type': 'application/json'
                                      },
                             body: JSON.stringify({ value: -bal_sended })
+                            })
+await fetch('/change_bal_sended', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: [localStorage.getItem("ID"), bal_sended]})
                             })
 localStorage.setItem("bal_sended", JSON.stringify(bal_sended))
 document.getElementById("number").value = 0
@@ -2130,6 +2252,17 @@ if(league != "G"){
          return 0
      } 
     let goldGive = JSON.parse(document.getElementById("number").value)
+    await fetch('/get_balance', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: localStorage.getItem("ID")})
+                            })
+                            .then(response => response.json())
+                .then(data => {
+                 localStorage.setItem("TESTBAL", data.result)
+                })
     let balance = JSON.parse(localStorage.getItem('TESTBAL'))
     await fetch('/get-gold1')
                 .then(response => response.json())
@@ -2160,11 +2293,25 @@ if(balance < 0){
         document.getElementById("status_bar").style.color = "white"
         return
     }
+await fetch('/change_balance', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: [localStorage.getItem("ID"), balance]})
+                            })
 localStorage.setItem("TESTBAL", JSON.stringify(balance))
 document.getElementById("number").value = 0
 document.getElementById("status_bar").innerText = "Sent successfully"
 document.getElementById("status_bar").style.color = "green"
 gold_dolg += goldGive
+await fetch('/change_gold_dolg', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: [localStorage.getItem("ID"), gold_dolg] }
+                            )})
 localStorage.setItem("gold_dolg", JSON.stringify(gold_dolg))
 console.log(goldGive)
 await delay(2000)
@@ -2265,7 +2412,7 @@ await fetch('/get-gold')
                             headers: {
                             'Content-Type': 'application/json'
                                      },
-                            body: JSON.stringify({ value: ["S", dolgs, counters, gold_dolg]})
+                            body: JSON.stringify({ value: ["S", dolgs, counters, false]})
                             })}
     await fetch('/get_balance', {
                             method: 'POST',
@@ -2320,6 +2467,7 @@ await fetch('/get-gold')
                 .then(data => {
                  localStorage.setItem("TESTBAL", data.result)
                 })
+                console.log(localStorage.getItem("TESTBAL"))
             // balance = JSON.parse(localStorage.getItem("TESTBAL"))
             // balance += goldSend / userss
             // localStorage.setItem("TESTBAL", balance)
@@ -2400,7 +2548,7 @@ await fetch('/get_dolg')
                             headers: {
                             'Content-Type': 'application/json'
                                      },
-                            body: JSON.stringify({ value: ["G", dolgg, counters, gold_dolg]})
+                            body: JSON.stringify({ value: ["G", dolgg, counters, false]})
                             })
     await fetch('/get_balance', {
                             method: 'POST',
@@ -2415,9 +2563,8 @@ await fetch('/get_dolg')
                 })
                 // balance = JSON.parse(localStorage.getItem("TESTBAL"))
                 // balance += dolgg / counters
-                // serGive1 -= dolgg
+                serGive1 -= dolgg
                 await fetch('/reset_dolgg');
-                localStorage.setItem("TESTBAL", JSON.stringify(balance))
                 gold_dolg = 0
                 localStorage.setItem("gold_dolg", JSON.stringify(gold_dolg))
             }
@@ -2430,34 +2577,40 @@ await fetch('/get_dolg')
                                      },
                             body: JSON.stringify({ value: goldEarnings })
                             })
-            if(league == "G" && bal_sended > 0){
              document.getElementById("status_bar").innerText = "Sending you money"
-             await fetch('/calculate', {
-                            method: 'POST',
-                            headers: {
-                            'Content-Type': 'application/json'
-                                     },
-                            body: JSON.stringify({ value: ["G", , counters, gold_dolg]})
-                            })
-            // ПРОБЛЕМА НЕОБХОДИМО МЕНЯТЬ САМ TESSERACT
-             balance = JSON.parse(localStorage.getItem("TESTBAL"))
-             console.log(balance, localStorage.getItem("TESTBAL"))
-             balance += bal_sended
+            //  balance = JSON.parse(localStorage.getItem("TESTBAL"))
+            //  console.log(balance, localStorage.getItem("TESTBAL"))
+            //  balance += bal_sended
              await fetch('/get_counter')
                  .then(response => response.json())
                  .then(data => {
                     count_invested = data.counter })
             goldEarnings -= nalog / 2
             arEarnings += nalog / 2
-             balance += goldEarnings / count_invested
-             console.log(balance, count_invested, goldEarnings)
-             localStorage.setItem("TESTBAL", JSON.stringify(balance))
+            await fetch('/calculate', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: ["G", goldEarnings, count_invested, true]})
+                            })
+            localStorage.setItem("bal_sended", 0)
+            //  balance += goldEarnings / count_invested
+            //  console.log(balance, count_invested, goldEarnings)
+            await fetch('/get_balance', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: localStorage.getItem("ID")})
+                            })
+                            .then(response => response.json())
+                .then(data => {
+                 localStorage.setItem("TESTBAL", data.result)
+                })
+             //localStorage.setItem("TESTBAL", JSON.stringify(balance))
                  
              document.getElementById("status_bar").innerText = `Succesfully sent ${goldEarnings / count_invested + bal_sended} to your balance`
-                 }else{
-            goldEarnings -= nalog / 2
-            arEarnings += nalog / 2
-                 }
                  bal_sended = 0
                  localStorage.setItem("bal_sended", bal_sended)
              await delay(1000)
@@ -2479,16 +2632,34 @@ document.getElementById("investleague").onclick = function() { serSend() }
                  .then(data => {
                      sersendtobron = data.ser_send}
                     )
-            if(league == "B"){
            await fetch('/get_users')
                 .then(response => response.json())
                 .then(data => {
                     usersb = data.massive[2]
                             })
-            balance = JSON.parse(localStorage.getItem("TESTBAL"))
-            balance += sersendtobron / usersb
-            localStorage.setItem("TESTBAL", balance)
-        }
+            await fetch('/calculate', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: ["B", sersendtobron, usersb, true]})
+                            })
+    console.log(localStorage.getItem("TESTBAL"))
+    await fetch('/get_balance', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: localStorage.getItem("ID")})
+                            })
+                            .then(response => response.json())
+                .then(data => {
+                 localStorage.setItem("TESTBAL", data.result)
+                })
+            // balance = JSON.parse(localStorage.getItem("TESTBAL"))
+            // balance += sersendtobron / usersb
+            // localStorage.setItem("TESTBAL", balance)
+        
             serEarnings -= sersendtobron
 }
 async function bronze1(){
@@ -2526,24 +2697,35 @@ nalog = results[3];
                                      },
                             body: JSON.stringify({ value: serEarnings })
                             })
-            if(league == "S" && bal_sended2 > 0){
-             balance = JSON.parse(localStorage.getItem("TESTBAL"))
-             balance += bal_sended2
              await fetch('/get_counter2')
                  .then(response => response.json())
                  .then(data => {
                     count_invested = data.counter2 })
             serEarnings -= nalog / 2
             arEarnings += nalog / 2
-             balance += serEarnings / count_invested
-             console.log(balance, serEarnings, count_invested)
-             localStorage.setItem("TESTBAL", JSON.stringify(balance))
-             localStorage.setItem("bal_sended2", JSON.stringify(bal_sended2))
+            await fetch('/calculate', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: ["S", serEarnings, count_invested, true]})
+                            })
+            await fetch('/get_balance', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: localStorage.getItem("ID")})
+                            })
+                            .then(response => response.json())
+                .then(data => {
+                 localStorage.setItem("TESTBAL", data.result)
+                })
+            //  balance += serEarnings / count_invested
+            //  console.log(balance, serEarnings, count_invested)
+            //  localStorage.setItem("TESTBAL", JSON.stringify(balance))
+            localStorage.setItem("bal_sended2", 0)
              document.getElementById("status_bar").innerText = `Succesfully sent ${serEarnings / count_invested + bal_sended2} to your balance`
-                 }else{
-                    serEarnings -= nalog / 2
-            arEarnings += nalog / 2
-                 }
              await delay(1000)
              bal_sended2 = 0
              localStorage.setItem("bal_sended2", bal_sended2)
@@ -2567,16 +2749,34 @@ nalog = results[3];
                     bronsendtogold = data.bron_send
                 console.log(data.bron_send)
             })
-            if(league == "G"){
            await fetch('/get_users')
                 .then(response => response.json())
                 .then(data => {
                     usersg = data.massive[0]
                             })
-            balance = JSON.parse(localStorage.getItem("TESTBAL"))
-            balance += bronsendtogold / usersg
-            localStorage.setItem("TESTBAL", balance)
-        }
+            await fetch('/calculate', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: ["G", bronsendtogold, usersg, true]})
+                            })
+    console.log(localStorage.getItem("TESTBAL"))
+    await fetch('/get_balance', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: localStorage.getItem("ID")})
+                            })
+                            .then(response => response.json())
+                .then(data => {
+                 localStorage.setItem("TESTBAL", data.result)
+                })
+            // balance = JSON.parse(localStorage.getItem("TESTBAL"))
+            // balance += bronsendtogold / usersg
+            // localStorage.setItem("TESTBAL", balance)
+
             bronEarnings -= bronsendtogold;
             console.log(bronsendtogold, bronEarnings)
                 return
@@ -2614,17 +2814,27 @@ nalog = results[3];
                 .then(data => {
                     counterb = data.massive[2]            })
                 console.log(gold_dolg)
-            if(league == "B" && gold_dolg && counterb != 0){
-                balance = JSON.parse(localStorage.getItem("TESTBAL"))
-                balance += dolgb / counterb
+            if(counterb){
+    await fetch('/calculate', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: ["B", dolgb, counterb, false]})
+                            })
+    await fetch('/get_balance', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: localStorage.getItem("ID")})
+                            })
+                            .then(response => response.json())
+                .then(data => {
+                 localStorage.setItem("TESTBAL", data.result)
+                })}
                 goldGive1 -= dolgb
-                await fetch('/reset_dolgb');
-                localStorage.setItem("TESTBAL", JSON.stringify(balance))
-                gold_dolg = 0
-                localStorage.setItem("gold_dolg", JSON.stringify(gold_dolg))
-            }else{
-                goldGive1 -= dolgb
-            }
+            
             goldEarnings -= (goldGive1 + dolgb);
             bronEarnings += goldGive1;
             const response2 = await fetch('/change_goldEarnings', {
@@ -2641,27 +2851,38 @@ nalog = results[3];
                                      },
                             body: JSON.stringify({ value: bronEarnings })
                             })
-            if(league == "B" && bal_sended > 0){
-            balance = JSON.parse(localStorage.getItem("TESTBAL"))
-             balance += bal_sended
+            // balance = JSON.parse(localStorage.getItem("TESTBAL"))
+            //  balance += bal_sended
              await fetch('/get_counter')
                  .then(response => response.json())
                  .then(data => {
                     count_invested = data.counter })
             bronEarnings -= nalog / 2
             arEarnings += nalog / 2
-             balance += bronEarnings / count_invested
-            console.log(balance, count_invested, goldEarnings)
-             localStorage.setItem("TESTBAL", JSON.stringify(balance))
-             localStorage.setItem("bal_sended", JSON.stringify(bal_sended))
+            await fetch('/calculate', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: ["B", bronEarnings, count_invested, true]})
+                            })
+            await fetch('/get_balance', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: localStorage.getItem("ID")})
+                            })
+                            .then(response => response.json())
+                .then(data => {
+                 localStorage.setItem("TESTBAL", data.result)
+                })
+            //  balance += bronEarnings / count_invested
+            // console.log(balance, count_invested, goldEarnings)
+            //  localStorage.setItem("TESTBAL", JSON.stringify(balance))
+            localStorage.setItem("bal_sended", 0)
             document.getElementById("status_bar").innerText = `Succesfully sent ${bronEarnings / count_invested + bal_sended} to your balance`
-                 }else{
-                    bronEarnings -= nalog / 2
-            arEarnings += nalog / 2
-                 }
             await delay(2000)
-            bal_sended = 0
-            localStorage.setItem("bal_sended", bal_sended)
                 return
 }
 async function end(){
@@ -2690,65 +2911,19 @@ arEarnings += nalog / 2;
                 .then(data => {
                     console.log(data.ser_give)
                 })
-               let new_league =  getRandomInt(3)
-               console.log(new_league, league, gold_dolg, "result statisticks")
-               if(new_league == 0){
-                if(league == "G" && gold_dolg != 0){
-                    await fetch('/add_counterg')
-                .then(response => response.json())
-                .then(responsedata => {
-            
-                    }) 
-                console.log(gold_dolg)
-                await fetch('/add_dolgg', {
+            await fetch('/annulate', {
                             method: 'POST',
                             headers: {
                             'Content-Type': 'application/json'
                                      },
-                            body: JSON.stringify({ value: gold_dolg }
-                            )})
-                console.log("work") } 
-                
-                league = "G"
-               }else if(new_league == 1){
-                if(league == "G" && gold_dolg != 0){
-
-                   await fetch('/add_counters')
-                .then(response => response.json())
-                .then(responsedata => {
-                        
-                    }) 
-                    console.log(gold_dolg)
-             await fetch('/add_dolgs', {
-                            method: 'POST',
-                            headers: {
-                            'Content-Type': 'application/json'
-                                     },
-                            body: JSON.stringify({ value: gold_dolg })
+                            body: JSON.stringify({ value: localStorage.getItem("ID")})
                             })
-                console.log("work")
-                }
-                league = "S"
-               }else{
-                if(league == "G" && gold_dolg != 0){
-                    await fetch('/add_counterb')
-                .then(response => response.json())
-                .then(responsedata => {
-                    }) 
-                console.log(gold_dolg)
-               await fetch('/add_dolgb', {
-                            method: 'POST',
-                            headers: {
-                            'Content-Type': 'application/json'
-                                     },
-                            body: JSON.stringify({ value: gold_dolg })
-                            })
-                
-                }
-                league = "B"
-               }
+                            .then(response => response.json())
+                .then(data => {
+                 league = data.league
+                })
                document.getElementById("your").innerText = `Your league ${league}`
-               localStorage.setItem("ID", `${id}${league}`)
+               localStorage.setItem("ID", `${localStorage.getItem("ID").slice(0)}${league}`)
                have_already_invest = false
                localStorage.setItem("invest", JSON.stringify(false))
             //    localStorage.setItem("CALC", true)
@@ -2764,10 +2939,21 @@ async function main() {
     const data1 = await response1.json();
     let semi_period = data1.semi_period
     document.getElementById("sended").innerText = `Sended: ${0}`
-    if (((period == "g2" || period == "none") && !league) || !localStorage.getItem("ID")){
+    if ((period == "g2" || period == "none") || !localStorage.getItem("ID")){
         localStorage.setItem("CALC", true) 
-        await get_id()
     }
+    await get_id()
+await fetch('/get_balance', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json'
+                                     },
+                            body: JSON.stringify({ value: localStorage.getItem("ID")})
+                            })
+                            .then(response => response.json())
+                .then(data => {
+                 localStorage.setItem("TESTBAL", data.result)
+                })
 if(period == "g2" || period == "none"){
    await fetch('/change_period', {
                             method: 'POST',
@@ -2796,6 +2982,11 @@ if(period == "g2" || period == "none"){
     await updateTimer()
     const response1 = await fetch('/update_time');
     const data1 = await response1.json();
+    await fetch('/change_calc')
+                .then(response => response.json())
+                .then(data => {
+                    calc = data.calculated})
+                    console.log(calc)
     await fetch('/change_semi_period', {
                             method: 'POST',
                             headers: {
@@ -2832,6 +3023,10 @@ await fetch('/change_semi_period', {
       await updateTimer()
       const response1 = await fetch('/update_time');
     const data1 = await response1.json();
+    await fetch('/change_calc')
+                .then(response => response.json())
+                .then(data => {
+                    calc = data.calculated})
       await fetch('/change_semi_period', {
                             method: 'POST',
                             headers: {
@@ -2870,6 +3065,10 @@ document.getElementById("status_bar2").innerText = "Break time"
 await updateTimer()
 const response1 = await fetch('/update_time');
     const data1 = await response1.json();
+await fetch('/change_calc')
+                .then(response => response.json())
+                .then(data => {
+                    calc = data.calculated})
 await fetch('/change_semi_period', {
                             method: 'POST',
                             headers: {
@@ -2905,6 +3104,10 @@ document.getElementById("status_bar2").innerText = "Break time"
 await updateTimer()
 const response1 = await fetch('/update_time');
     const data1 = await response1.json();
+await fetch('/change_calc')
+                .then(response => response.json())
+                .then(data => {
+                    calc = data.calculated})
 await fetch('/change_semi_period', {
                             method: 'POST',
                             headers: {
@@ -2944,6 +3147,10 @@ document.getElementById("status_bar2").innerText = "Break time"
 await updateTimer()
 const response1 = await fetch('/update_time');
     const data1 = await response1.json();
+await fetch('/change_calc')
+                .then(response => response.json())
+                .then(data => {
+                    calc = data.calculated})
 await fetch('/change_semi_period', {
                             method: 'POST',
                             headers: {
@@ -2978,6 +3185,10 @@ document.getElementById("status_bar2").innerText = "Break time"
 
     }
 await updateTimer()
+await fetch('/change_calc')
+                .then(response => response.json())
+                .then(data => {
+                    calc = data.calculated})
 await fetch('/change_semi_period', {
                             method: 'POST',
                             headers: {
@@ -2993,7 +3204,7 @@ await fetch('/change_period', {
                             })
     await  fetch('/reset_counter')
                 .then(response => response.json())
-                .then(data => {
+                .then(data => { 
                            console.log(data.counter)    })} 
 if(period == "end"){
 if(semi_period == false){
@@ -3007,6 +3218,10 @@ await fetch('/change_semi_period', {
                                      },
                             body: JSON.stringify({ value: 1 }) })
 }
+await fetch('/change_calc')
+                .then(response => response.json())
+                .then(data => {
+                    calc = data.calculated})
     document.getElementById("status_bar2").innerText = "Break time"
     document.getElementById("status_bar").innerText = "Break time"
     document.getElementById("investleague").onclick = async function() { document.getElementById("status_bar").innerText = "Don't send your coins" 
@@ -3017,6 +3232,10 @@ await fetch('/change_semi_period', {
     await updateTimer()
     const response = await fetch('/update_time');
     const data = await response.json();
+    await fetch('/change_calc')
+                .then(response => response.json())
+                .then(data => {
+                    calc = data.calculated})
     await fetch('/change_semi_period', {
                             method: 'POST',
                             headers: {
@@ -3039,10 +3258,7 @@ main();
 // ЖЕЛАТЕЛЬНО:
 //1. ДОБАВИТЬ ПРОВЕРКУ ПОЛЬЗОВАТЕЛЕЙ ЧТОБЫ ЛИГА НЕ ОСТАВАЛАСЬ ПУСТОЙ
 //2. ПРОВЕСТИ ПРОВЕРКУ С ЗАКРЫТИЕМ И ОТКРЫТИЕМ СТРАНИЦЫ
-// 2. ПРОБЛЕМЫ
-//2.1  НЕОБХОДИМО ПРОВЕРИТЬ РАБОТАЕТ ЛИ S ОТПРАВКА ПОСЛЕ МОЕГО ИСПРАВЛЕНИЯ
-// 2.2 ДОБАВИТЬ ЛОГИКУ GOLD2 ВСЕМ ДРУГИМ ОТПРАВКАМ, УЗНАТЬ ПОЧЕМУ В LOCALSTORAGE НЕ СОХРАНЯЕТСЯ БАЛАНС
-//2.3 ПРОВЕРИТЬ GOLD_DOLG ПРИ ЗАКРЫТИИ СТРАНИЦЫ
+//2.1 ПЕРЕПРОВЕРИТЬ ПЕРЕХОД НА ДРУГУЮ ЛИГУ И РАСЧЁТ GOLD_DOLG
   </script>
 
 </html>
