@@ -133,15 +133,16 @@ app.get('/reset_counter2', (req, res) => {
   counter2 = 0
   res.json({ counter2 });
 })
+// Backend
+let endTime = Date.now() + countdownDuration;
+
 app.get('/time', (req, res) => {
-  const now = Date.now();
-  const elapsed = now - startTime;
-  const remaining = Math.max(countdownDuration - elapsed, 0);
-  res.json({ remaining });
+  res.json({ endTime }); // Отдаем время завершения
 });
+
 app.get('/update_time', (req, res) => {
-  startTime = Date.now();
-  res.json({ startTime });
+  endTime = Date.now() + countdownDuration;
+  res.json({ endTime });
 });
 app.get('/get_counter', (req, res) => {
   res.json({ counter });
@@ -162,7 +163,7 @@ app.use("/", express.static("public"));
 app.post('/change_goldEarnings', (req, res) => {
   const { value } = req.body;
   if (typeof value === 'number') {
-    goldEarnings += value;
+    goldEarnings += Number(value);
     res.json({ goldEarnings });
   } else {
     res.status(400).json({ error: 'Invalid value' });

@@ -1310,22 +1310,27 @@ function formatTime(seconds) {
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   }
 async function updateTimer() {
-      const response2 = await fetch('/time');
-      const data2 = await response2.json();
-      let remainingSeconds = Math.ceil(data2.remaining / 1000);
-      return new Promise((resolve) => {
+  const response = await fetch('/time');
+  const data = await response.json();
+  const endTime = data.endTime; // Абсолютное время завершения
+
+  return new Promise((resolve) => {
     const intervalId = setInterval(() => {
-      if (remainingSeconds <= 0) {
-        document.getElementById('timer').textContent = "0:00";
+      const now = Date.now();
+      const diff = endTime - now; // Считаем остаток на основе реального времени
+
+      if (diff <= 0) {
+        document.getElementById('timer').textContent = "00:00";
         clearInterval(intervalId);
-        resolve(); // Таймер завершился, разрешаем промис
+        resolve();
       } else {
+        const remainingSeconds = Math.floor(diff / 1000);
         document.getElementById('timer').textContent = formatTime(remainingSeconds);
-        remainingSeconds--;
       }
     }, 1000);
   });
 }
+
   // Запускаем обновление таймера при загрузке страницы
 async function closePopup(wallet) {
         if (!wallet){
@@ -1681,6 +1686,30 @@ button.addEventListener('click', () => {
     id = localStorage.getItem('ID').slice(-1)
     console.log(id)
     league = id
+    await fetch('/get_act', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ value: localStorage.getItem("ID")})
+}).then(response => response.json())
+                .then(data => {
+  let bool = data.result                 
+                            
+       
+if(bool){  
+let id2 = localStorage.getItem('ID')
+let balance = localStorage.getItem("TESTBAL")  
+if(localStorage.getItem("bal_sended")){
+    var data2 = { [id2]: [balance, localStorage.getItem("bal_sended"), localStorage.getItem(gold_dolg)]}
+}else{
+var data2 = { [id2]: [balance, localStorage.getItem("bal_sended2"), localStorage.getItem("gold_dolg")]}
+}
+      fetch('/save-data', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(data2)
+});
+console.log(id2, balance, data2)
+    }})
     if(localStorage.getItem("CALC") == "false"){
         return
     }
@@ -1707,30 +1736,7 @@ button.addEventListener('click', () => {
         document.getElementById("your").innerText = `Your league ${league}`
       }  
       localStorage.setItem("CALC", false)
-await fetch('/get_act', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ value: localStorage.getItem("ID")})
-}).then(response => response.json())
-                .then(data => {
-  let bool = data.result                 
-                            
-       
-if(bool){  
-let id2 = localStorage.getItem('ID')
-let balance = localStorage.getItem("TESTBAL")  
-if(localStorage.getItem("bal_sended")){
-    var data2 = { [id2]: [balance, localStorage.getItem("bal_sended"), localStorage.getItem(gold_dolg)]}
-}else{
-var data2 = { [id2]: [balance, localStorage.getItem("bal_sended2"), localStorage.getItem("gold_dolg")]}
 }
-      fetch('/save-data', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(data2)
-});
-console.log(id2, balance, data2)
-    }})}
          </script>
   <script>
     let userss = 0
@@ -2170,11 +2176,12 @@ if(league != "B"){
                  localStorage.setItem("TESTBAL", data.result)
                 })
     let balance = JSON.parse(localStorage.getItem('TESTBAL'))
-    fetch('/get-bron')
+   await fetch('/get-bron')
                 .then(response => response.json())
                 .then(data => {
                     if (bronGive + data.bron_give > (-silverEarnings + nalog)){
                         bronGive = (-silverEarnings + nalog) - data.bron_give
+                        console.log(data.bron_give, bronGive)
                         document.getElementById("status_bar").innerText = `You sent too much, the extra coins ${bronGive} were returned to your balance`
                         document.getElementById("status_bar").style.color = "yellow"
                     }
@@ -2939,7 +2946,7 @@ async function main() {
     const data1 = await response1.json();
     let semi_period = data1.semi_period
     document.getElementById("sended").innerText = `Sended: ${0}`
-    if ((period == "g2" || period == "none") || !localStorage.getItem("ID")){
+    if (!localStorage.getItem("ID") || (period == "end" && semi_period) || ((period == "g2" || period == "none") && !semi_period)){
         localStorage.setItem("CALC", true) 
     }
     await get_id()
@@ -3259,6 +3266,11 @@ main();
 //1. ДОБАВИТЬ ПРОВЕРКУ ПОЛЬЗОВАТЕЛЕЙ ЧТОБЫ ЛИГА НЕ ОСТАВАЛАСЬ ПУСТОЙ
 //2. ПРОВЕСТИ ПРОВЕРКУ С ЗАКРЫТИЕМ И ОТКРЫТИЕМ СТРАНИЦЫ
 //2.1 ПЕРЕПРОВЕРИТЬ ПЕРЕХОД НА ДРУГУЮ ЛИГУ И РАСЧЁТ GOLD_DOLG
+// 1Ошибка Extracoins: ПО КАКОЙТО ПРИЧИНЕ КОГДА BRON ОТПРАВИЛИ СВОИ СРЕДСТВА СРАБОТАЛ IF ЧТО ЭТО СЛИШКОМ МНОГО ХОТЯ БЫЛО ОТПРАВЛЕНО ВСЁ РОВНО ДЕНЬГИ ВЕРНУЛИСЬ НА БАЛАНС S ЛИГЕ ЗАЧЛИ ЭТИ ДЕНЬГИ НО ОНИ НЕ СПИСАЛИСЬ С БАЛАНСА B
+// 1Ошибка: требует во время отправки G к B отправить 276 хотя с учётом nalog должно быть 36
+// 2Ошибка: почему после возращения B клиента на сайт он как будто довыполняет запрос calc с теми же аргументами вновь и получает ещё 10 а затем пропускает свою отправку и переключается сразу на breaktime так как semiperiod лежит на сервере это происходит со всеми клиентами тоже
+// ПОНЯТЬ ПОЧЕМУ ОН ПРИ РАЗДЕЛЬНОМ SEND ОН ТРЕБУЕТ НА 1 БОЛЬШЕ ЧЕМ НУЖНО
+// ДВЕ НЕРЕШЁННЫЕ ПРОБЛЕМЫ НАХОДЯТСЯ В BRON НАЙТИ ИСПОЛЬЗУЯ БРАУЗЕР СОХРАНЕНЕНИ BRON_GIVE И SEND КОРРЕКТНОЕ
   </script>
 
 </html>
