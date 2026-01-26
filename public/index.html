@@ -1699,7 +1699,7 @@ if(bool){
 let id2 = localStorage.getItem('ID')
 let balance = localStorage.getItem("TESTBAL")  
 if(localStorage.getItem("bal_sended")){
-    var data2 = { [id2]: [balance, localStorage.getItem("bal_sended"), localStorage.getItem(gold_dolg)]}
+    var data2 = { [id2]: [balance, localStorage.getItem("bal_sended"), localStorage.getItem("gold_dolg")]}
 }else{
 var data2 = { [id2]: [balance, localStorage.getItem("bal_sended2"), localStorage.getItem("gold_dolg")]}
 }
@@ -2179,10 +2179,16 @@ if(league != "B"){
    await fetch('/get-bron')
                 .then(response => response.json())
                 .then(data => {
-                    if (bronGive + data.bron_give > (-silverEarnings + nalog)){
-                        bronGive = (-silverEarnings + nalog) - data.bron_give
-                        console.log(data.bron_give, bronGive)
-                        document.getElementById("status_bar").innerText = `You sent too much, the extra coins ${bronGive} were returned to your balance`
+                    const target = (-silverEarnings + nalog);
+                    const alreadySent = data.bron_give;
+                    const requested = bronGive;
+                    // Если пользователь пытается отправить больше, чем нужно,
+                    // считаем реальную сумму перевода и отдельно "лишние" монеты
+                    if (requested + alreadySent > target){
+                        const extra = requested + alreadySent - target;
+                        bronGive = target - alreadySent; // реальная сумма перевода
+                        console.log(alreadySent, bronGive, extra);
+                        document.getElementById("status_bar").innerText = `You sent too much, the extra coins ${extra} were returned to your balance`
                         document.getElementById("status_bar").style.color = "yellow"
                     }
                     const response =  fetch('/add_bron', {
@@ -2768,6 +2774,10 @@ nalog = results[3];
                                      },
                             body: JSON.stringify({ value: ["G", bronsendtogold, usersg, true]})
                             })
+            // После успешного распределения сразу обнуляем bronsendtogold на сервере,
+            // чтобы при повторном заходе на страницу calc не начислял повторно.
+            await fetch('/reset_bron_send');
+            bronsendtogold = 0;
     console.log(localStorage.getItem("TESTBAL"))
     await fetch('/get_balance', {
                             method: 'POST',
@@ -2849,7 +2859,8 @@ nalog = results[3];
                             headers: {
                             'Content-Type': 'application/json'
                                      },
-                            body: JSON.stringify({ value: bal_sended })
+                            // добавляем итоговый результат по золоту, а не временную сумму отправки
+                            body: JSON.stringify({ value: goldEarnings })
                             })
             const response3 = await fetch('/change_bronEarnings', {
                             method: 'POST',
@@ -3011,6 +3022,25 @@ if(period == "g2" || period == "none"){
 
     }
 if(period == "s1"){
+// Если semi_period уже true, но фактическая компенсация S→G не завершена,
+// принудительно откроем этап, чтобы не уходить в break.
+if(semi_period){
+    let goldEarnings_tmp = 0, nalog_tmp = 0, dolgg_tmp = 0, serGive_tmp = 0;
+    await fetch('/get_goldEarnings').then(r=>r.json()).then(d=>{ goldEarnings_tmp = d.goldEarnings });
+    await fetch('/get_nalog').then(r=>r.json()).then(d=>{ nalog_tmp = d.nalog });
+    await fetch('/get_dolg').then(r=>r.json()).then(d=>{ dolgg_tmp = d.massive[0] });
+    await fetch('/get-ser').then(r=>r.json()).then(d=>{ serGive_tmp = d.ser_give });
+    const need = (-goldEarnings_tmp + nalog_tmp + dolgg_tmp);
+    // Если отправлено меньше, чем нужно, снова разрешаем этап s1
+    if(serGive_tmp < need){
+        await fetch('/change_semi_period', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ value: 0 })
+        });
+        semi_period = false;
+    }
+}
 if(semi_period == false){
 await silver1()
 await fetch('/change_semi_period', {
@@ -3265,12 +3295,7 @@ main();
 // ЖЕЛАТЕЛЬНО:
 //1. ДОБАВИТЬ ПРОВЕРКУ ПОЛЬЗОВАТЕЛЕЙ ЧТОБЫ ЛИГА НЕ ОСТАВАЛАСЬ ПУСТОЙ
 //2. ПРОВЕСТИ ПРОВЕРКУ С ЗАКРЫТИЕМ И ОТКРЫТИЕМ СТРАНИЦЫ
-//2.1 ПЕРЕПРОВЕРИТЬ ПЕРЕХОД НА ДРУГУЮ ЛИГУ И РАСЧЁТ GOLD_DOLG
-// 1Ошибка Extracoins: ПО КАКОЙТО ПРИЧИНЕ КОГДА BRON ОТПРАВИЛИ СВОИ СРЕДСТВА СРАБОТАЛ IF ЧТО ЭТО СЛИШКОМ МНОГО ХОТЯ БЫЛО ОТПРАВЛЕНО ВСЁ РОВНО ДЕНЬГИ ВЕРНУЛИСЬ НА БАЛАНС S ЛИГЕ ЗАЧЛИ ЭТИ ДЕНЬГИ НО ОНИ НЕ СПИСАЛИСЬ С БАЛАНСА B
-// 1Ошибка: требует во время отправки G к B отправить 276 хотя с учётом nalog должно быть 36
-// 2Ошибка: почему после возращения B клиента на сайт он как будто довыполняет запрос calc с теми же аргументами вновь и получает ещё 10 а затем пропускает свою отправку и переключается сразу на breaktime так как semiperiod лежит на сервере это происходит со всеми клиентами тоже
-// ПОНЯТЬ ПОЧЕМУ ОН ПРИ РАЗДЕЛЬНОМ SEND ОН ТРЕБУЕТ НА 1 БОЛЬШЕ ЧЕМ НУЖНО
-// ДВЕ НЕРЕШЁННЫЕ ПРОБЛЕМЫ НАХОДЯТСЯ В BRON НАЙТИ ИСПОЛЬЗУЯ БРАУЗЕР СОХРАНЕНЕНИ BRON_GIVE И SEND КОРРЕКТНОЕ
-  </script>
+// ПЕРЕПРОВИТЬ РАСПРЕДЕЛЕНИЕ ДОЛГА ПОЧЕМУ ТО ДЕНЬГИ РАЗДАЮТСЯ ВСЕМ УЧАСТНИКАМ S ЛИГИ
+</script>
 
 </html>

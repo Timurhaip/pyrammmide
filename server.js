@@ -223,7 +223,7 @@ app.post('/calculate', (req, res) => {
 app.post('/get_balance', (req, res) => {
   const { value } = req.body;
    let result = users_data[value][0]; 
-    console.log(result, value, )
+    console.log(result, value)
     res.json({ result });
 });
 app.post('/get_act', (req, res) => {
@@ -388,6 +388,11 @@ app.post('/add_bron_send', (req, res) => {
     res.status(400).json({ error: 'Invalid value' });
   }
 });
+// Сброс отправки бронзы (нужно, чтобы при повторном заходе не начислять повторно)
+app.get('/reset_bron_send', (req, res) => {
+  bron_send = 0;
+  res.json({ bron_send });
+});
 app.get('/get-gold1', (req, res) => {
   res.json({ gold_give });
 });
@@ -411,10 +416,10 @@ ser_send = 0
 bron_give = 0
 bron_send = 0
 gold_give = 0
-userss = 0
-usersg = 0
-usersb = 0
-g_league_users, s_league_users, b_league_users = 0
+// Сбрасываем счётчики пользователей лиг корректно, по отдельности
+g_league_users = 0
+s_league_users = 0
+b_league_users = 0
 res.json({ ser_give });
 })
 app.get('/reset_dolg', (req, res) => {
@@ -449,33 +454,29 @@ if(calculated){
 let new_league =  getRandomInt(3)
 var league;
                if(new_league == 0){
-                if(key.slice(-1) == "G" && Number(value1[2]) > 0){
-                    count_us_g += 1
-                    dolgg += Number(value1[2])
-                  } 
                 league = "G"
                }else if(new_league == 1){
-                if(key.slice(-1) == "G" && Number(value1[2]) > 0){
-                   count_us_g_s += 1 
-                  dolgs += Number(value1[2])
-                }
                 league = "S"
                }else{
-                if(key.slice(-1) == "G" && Number(value1[2]) > 0){
-                    count_us_g_b += 1
-                    dolgb += Number(value1[2])
-                }
                 league = "B"
                }
-              users_data[`${key.slice(0)}${league}`] = users_data[key]
-              if(value == key){
+              // Удаляем старую лигу из ключа (последний символ) и добавляем новую
+              let base_key = key.slice(0, -1)
+              let new_key = `${base_key}${league}`
+              users_data[new_key] = users_data[key]
+              delete users_data[key]
+              // Сравниваем базовую часть ID без лиги
+              let value_base = value.length > 0 && (value.slice(-1) == "G" || value.slice(-1) == "S" || value.slice(-1) == "B") ? value.slice(0, -1) : value
+              if(value_base == base_key){
               res.json({ league })
               }
-              delete users_data[key]
               }
             }else{
               for(var [key, value1] of Object.entries(users_data)){
-                if (key.slice(0) == value){
+                // Сравниваем базовую часть ключа без лиги
+                let key_base = key.slice(0, -1)
+                let value_base = value.length > 0 && (value.slice(-1) == "G" || value.slice(-1) == "S" || value.slice(-1) == "B") ? value.slice(0, -1) : value
+                if (key_base == value_base){
                   let league = key.slice(-1)
                   res.json({league})
                 }
