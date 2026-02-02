@@ -64,7 +64,15 @@ app.get('/healthz', async (req, res) => {
  return res.sendStatus(200);
 });
 app.get('/get_users', (req, res) => {
-  massive = [g_league_users, s_league_users, b_league_users]
+  // Подсчитываем реальное количество участников каждой лиги из users_data
+  let g_count = 0, s_count = 0, b_count = 0;
+  for(var [key, value1] of Object.entries(users_data)){
+    const league = key.slice(-1);
+    if(league == "G") g_count++;
+    else if(league == "S") s_count++;
+    else if(league == "B") b_count++;
+  }
+  massive = [g_count, s_count, b_count]
   res.json({ massive });
 });
 app.get('/add_usersg', (req, res) => {
@@ -194,24 +202,28 @@ app.post('/save-data', (req, res) => {
 } })
 app.post('/calculate', (req, res) => {
   const { value } = req.body;
-  if(value[3] & calculated){
-    calculated = false
+  if(value[3]){
     for(var [key, value1] of Object.entries(users_data)){
       console.log(key.slice(-1))
       if (key.slice(-1) == value[0]){
         let balance = Number(users_data[key][1])
         balance += Number(users_data[key][0])
-        balance += Number(value[1]) / Number(value[2])
+        if(Number(value[2]) > 0){
+          balance += Number(value[1]) / Number(value[2])
+        }
         users_data[key][0] = balance
+        console.log(users_data[key], key)
         users_data[key][1] = 0
-      console.log(users_data[key])
+        console.log(users_data[key])
       }}
-      }else if(calculated){
+      }else{
         for(var [key, value1] of Object.entries(users_data)){
       console.log(key.slice(-1))
       if (key.slice(-1) == value[0] && Number(users_data[key][2]) > 0){
         let balance = Number(users_data[key][0])
-        balance += Number(value[1]) / Number(value[2])
+        if(Number(value[2]) > 0){
+          balance += Number(value[1]) / Number(value[2])
+        }
         users_data[key][0] = balance
         users_data[key][2] = 0
       }
@@ -222,6 +234,10 @@ app.post('/calculate', (req, res) => {
 });
 app.post('/get_balance', (req, res) => {
   const { value } = req.body;
+  if (!users_data[value]) {
+    res.status(404).json({ error: 'User not found' });
+    return;
+  }
    let result = users_data[value][0]; 
     console.log(result, value)
     res.json({ result });
@@ -229,10 +245,16 @@ app.post('/get_balance', (req, res) => {
 app.post('/get_act', (req, res) => {
   const { value } = req.body;
   result = true
-   if (users_data[value]){
-    result = false
+  id = false
+   for(var [key, value1] of Object.entries(users_data)){
+    console.log(key.slice(0, -1), value.slice(0, -1))
+    if (key.slice(0, -1) == value.slice(0, -1)){
+      id = key
+      result = ""
+    }
    }
-   res.json({ result });
+   a = [result, id]
+   res.json({ a });
 });
 app.post('/change_gold_dolg', (req, res) => {
   const { value } = req.body;
@@ -253,6 +275,17 @@ app.post('/change_bal_sended', (req, res) => {
         users_data[value[0]][1] = value[1]
     res.json({ users_data });
 });
+app.post('/get_bal_sended', (req, res) => {
+  const { value } = req.body;
+  if (!users_data[value]) {
+    res.status(404).json({ error: 'User not found' });
+    return;
+  }
+   let result = users_data[value][1]; 
+    console.log(result, value)
+    res.json({ result });
+});
+
 app.post('/change_bronEarnings', (req, res) => {
   const { value } = req.body;
   if (typeof value === 'number') {
@@ -454,10 +487,22 @@ if(calculated){
 let new_league =  getRandomInt(3)
 var league;
                if(new_league == 0){
+                if(Number(users_data[key][2]) != 0){
+                  dolgg += Number(value1[2])
+                  count_us_g += 1
+                }
                 league = "G"
                }else if(new_league == 1){
+                if(Number(value1[2]) != 0){
+                  dolgs += Number(value1[2])
+                  count_us_g_s += 1
+                }
                 league = "S"
                }else{
+                if(Number(value1[2]) != 0){
+                  dolgb += Number(value1[2])
+                  count_us_g_b += 1
+                }
                 league = "B"
                }
               // Удаляем старую лигу из ключа (последний символ) и добавляем новую
