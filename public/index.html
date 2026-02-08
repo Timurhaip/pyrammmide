@@ -1842,14 +1842,14 @@ async function start() {
                                       },
                             body: JSON.stringify({ value: [localStorage.getItem("ID"), bal_sended] })
                             })
-    localStorage.setItem("bal_sended", JSON.stringify(0))
-    const response2 = await fetch('/change_goldEarnings', {
+    await fetch('/change_goldEarnings', {
                             method: 'POST',
                          headers: {
                              'Content-Type': 'application/json'
                                       },
                             body: JSON.stringify({ value: -bal_sended })
                             })
+    localStorage.setItem("bal_sended", JSON.stringify(0))
     await fetch('/change_balance', {
                             method: 'POST',
                             headers: {
@@ -2362,7 +2362,6 @@ await fetch('/change_gold_dolg', {
                             body: JSON.stringify({ value: [localStorage.getItem("ID"), gold_dolg] }
                             )})
 localStorage.setItem("gold_dolg", JSON.stringify(gold_dolg))
-console.log(goldGive)
 await delay(2000)
 document.getElementById("status_bar").innerText = "Time G league send money to B league"
 document.getElementById("status_bar").style.color = "white"
@@ -2964,9 +2963,9 @@ arEarnings += nalog / 2;
                 .then(data => {
                     console.log(data.ser_give)
                 })
-            await fetch('/reset_dolgs')
-            await fetch('/reset_dolgg')
-            await fetch('/reset_dolgb')
+            // await fetch('/reset_dolgs')
+            // await fetch('/reset_dolgg')
+            await fetch('/reset_dolg')
             await fetch('/annulate', {
                             method: 'POST',
                             headers: {
@@ -3337,6 +3336,10 @@ main();
 //1. ДОБАВИТЬ ПРОВЕРКУ ПОЛЬЗОВАТЕЛЕЙ ЧТОБЫ ЛИГА НЕ ОСТАВАЛАСЬ ПУСТОЙ
 //2. ПРОВЕСТИ ПРОВЕРКУ С ЗАКРЫТИЕМ И ОТКРЫТИЕМ СТРАНИЦЫ ПРОЙДЕНО!!!!
 // 3. Раздельный плаёж и получение проверить
+// 3.1 Проверить раздельный gold_dolg
+// 3.2 Сделать таймер синхронным
+// 3.3 Почему то gold_dolg сначала зачёлся в S лигу а на деле лиги у всех были другие вероятнее всего он зашёл в annulate не один раз вызвав перераспределение
+// 3.5 налог равен нулю
+// 3.6 Неверная работа таймера раунды пропускаются не понятно почему
   </script>
-
 </html>

@@ -202,7 +202,8 @@ app.post('/save-data', (req, res) => {
 } })
 app.post('/calculate', (req, res) => {
   const { value } = req.body;
-  if(value[3]){
+  if(value[3] && calculated){
+    calculated = false
     for(var [key, value1] of Object.entries(users_data)){
       console.log(key.slice(-1))
       if (key.slice(-1) == value[0]){
@@ -215,15 +216,14 @@ app.post('/calculate', (req, res) => {
         console.log(users_data[key], key)
         users_data[key][1] = 0
         console.log(users_data[key])
+        
       }}
-      }else{
+      }else if(calculated){
         for(var [key, value1] of Object.entries(users_data)){
       console.log(key.slice(-1))
-      if (key.slice(-1) == value[0] && Number(users_data[key][2]) > 0){
+      if (key.slice(-1) == value[0] & Number(users_data[key][2]) > 0){
         let balance = Number(users_data[key][0])
-        if(Number(value[2]) > 0){
-          balance += Number(value[1]) / Number(value[2])
-        }
+        balance += Number(users_data[key][2]) 
         users_data[key][0] = balance
         users_data[key][2] = 0
       }
@@ -456,12 +456,14 @@ b_league_users = 0
 res.json({ ser_give });
 })
 app.get('/reset_dolg', (req, res) => {
+if(calculated){
 dolgg = 0
 dolgs = 0
 dolgb = 0
 count_us_g = 0
 count_us_g_b = 0
 count_us_g_s = 0
+}
 res.json({ ser_give });
 })
 app.get('/reset_dolgg', (req, res) => {
@@ -490,18 +492,21 @@ var league;
                 if(Number(users_data[key][2]) != 0){
                   dolgg += Number(value1[2])
                   count_us_g += 1
+                  console.log(dolgg, count_us_g)
                 }
                 league = "G"
                }else if(new_league == 1){
                 if(Number(value1[2]) != 0){
                   dolgs += Number(value1[2])
                   count_us_g_s += 1
+                  console.log(dolgs, count_us_g_s)
                 }
                 league = "S"
                }else{
                 if(Number(value1[2]) != 0){
                   dolgb += Number(value1[2])
                   count_us_g_b += 1
+                  console.log(dolgb, count_us_g_b)
                 }
                 league = "B"
                }
