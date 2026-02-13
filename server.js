@@ -484,12 +484,18 @@ res.json({ dolgb });
 app.post('/annulate', (req, res) => {
 const { value } = req.body;
 if(calculated){
-  calculated = false
+calculated = false
+dolgg = 0
+dolgs = 0
+dolgb = 0
+count_us_g = 0
+count_us_g_b = 0
+count_us_g_s = 0
  for(var [key, value1] of Object.entries(users_data)){
 let new_league =  getRandomInt(3)
 var league;
                if(new_league == 0){
-                if(Number(users_data[key][2]) != 0){
+                if(Number(users_data[key][2]) > 0){
                   dolgg += Number(value1[2])
                   count_us_g += 1
                   console.log(dolgg, count_us_g)

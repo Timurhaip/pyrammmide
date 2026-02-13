@@ -2404,6 +2404,7 @@ if(required_num > variable){
 }else{
     const response1 = await fetch('/update_time');
     const data1 = await response1.json();
+    goldSend = variable
     return
 }
 }else{
@@ -2441,6 +2442,12 @@ await fetch('/get-gold')
         if(goldSend < dolgs && dolgs != 0){
                 document.getElementById("status_bar").innerText = "You need to send more, launching additional time"
                 await required_delay(dolgs, "GS")
+                await fetch('/get-gold')
+                .then(response => response.json())
+                .then(data => {
+                 goldSend = data.gold_send
+                }
+                )
         }
         if(goldSend == 0){
                 document.getElementById("status_bar").innerText = "You must send more than 0, launching additional time"
@@ -2881,12 +2888,14 @@ nalog = results[3];
                             .then(response => response.json())
                 .then(data => {
                  localStorage.setItem("TESTBAL", data.result)
-                })}
+                })
+            await fetch('/reset_dolgb')
+        }
                 // dolgb уже распределен между участниками B лиги через /calculate
                 // goldGive1 содержит общую сумму отправки, включая dolgb
                 // dolgb уже был добавлен к балансам участников B лиги, поэтому не вычитаем его из bronEarnings
-            
-            goldEarnings -= goldGive1;
+            goldGive1 -= dolgb
+            goldEarnings -= (goldGive1 + dolgb);
             bronEarnings += goldGive1;
             const response2 = await fetch('/change_goldEarnings', {
                             method: 'POST',
@@ -2965,7 +2974,6 @@ arEarnings += nalog / 2;
                 })
             // await fetch('/reset_dolgs')
             // await fetch('/reset_dolgg')
-            await fetch('/reset_dolg')
             await fetch('/annulate', {
                             method: 'POST',
                             headers: {
@@ -3000,7 +3008,7 @@ async function main() {
     if (!localStorage.getItem("ID") || (period == "end" && semi_period) || ((period == "g2" || period == "none") && !semi_period)){
         localStorage.setItem("CALC", true) 
     }
-    await get_id()
+await get_id()
 await fetch('/get_balance', {
                             method: 'POST',
                             headers: {
@@ -3021,6 +3029,10 @@ if(period == "g2" || period == "none"){
                             body: JSON.stringify({ value: "g2" })
                             })
     if(semi_period == false){
+    await fetch('/change_calc')
+            .then(response => response.json())
+            .then(data => {
+                calc = data.calculated})
     await gold2()
     await fetch('/change_semi_period', {
                             method: 'POST',
@@ -3036,7 +3048,6 @@ if(period == "g2" || period == "none"){
         document.getElementById("status_bar").innerText = "Break time"
 
     }
-
     await updateTimer()
     const response1 = await fetch('/update_time');
     const data1 = await response1.json();
@@ -3295,10 +3306,6 @@ await fetch('/change_semi_period', {
                                      },
                             body: JSON.stringify({ value: 1 }) })
 }
-await fetch('/change_calc')
-                .then(response => response.json())
-                .then(data => {
-                    calc = data.calculated})
     document.getElementById("status_bar2").innerText = "Break time"
     document.getElementById("status_bar").innerText = "Break time"
     document.getElementById("investleague").onclick = async function() { document.getElementById("status_bar").innerText = "Don't send your coins" 
@@ -3309,10 +3316,6 @@ await fetch('/change_calc')
     await updateTimer()
     const response = await fetch('/update_time');
     const data = await response.json();
-    await fetch('/change_calc')
-                .then(response => response.json())
-                .then(data => {
-                    calc = data.calculated})
     await fetch('/change_semi_period', {
                             method: 'POST',
                             headers: {
@@ -3334,12 +3337,5 @@ main();
 // ПРОВЕСТИ МАТЕМАТИЧЕСКУЮ ТРОЙНУЮ ПРОВЕРКУ ПРОЙДЕНО!!!!!!!!!
 // ЖЕЛАТЕЛЬНО:
 //1. ДОБАВИТЬ ПРОВЕРКУ ПОЛЬЗОВАТЕЛЕЙ ЧТОБЫ ЛИГА НЕ ОСТАВАЛАСЬ ПУСТОЙ
-//2. ПРОВЕСТИ ПРОВЕРКУ С ЗАКРЫТИЕМ И ОТКРЫТИЕМ СТРАНИЦЫ ПРОЙДЕНО!!!!
-// 3. Раздельный плаёж и получение проверить
-// 3.1 Проверить раздельный gold_dolg
-// 3.2 Сделать таймер синхронным
-// 3.3 Почему то gold_dolg сначала зачёлся в S лигу а на деле лиги у всех были другие вероятнее всего он зашёл в annulate не один раз вызвав перераспределение
-// 3.5 налог равен нулю
-// 3.6 Неверная работа таймера раунды пропускаются не понятно почему
   </script>
 </html>
